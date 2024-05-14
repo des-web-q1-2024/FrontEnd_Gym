@@ -1,0 +1,99 @@
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 250px;
+  background: #11101D;
+  padding-top: 60px; /* Ajuste para dejar espacio para el logo */
+  z-index: 99;
+  transition: all 0.5s ease;
+}
+
+.sidebar .logo-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  width: 250px;
+}
+
+.sidebar .logo-details .icon {
+  color: #fff;
+  font-size: 30px;
+}
+
+.sidebar .logo-details .logo_name {
+  color: #fff;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.sidebar .nav-list {
+  padding: 0;
+  margin-top: 20px;
+  list-style: none;
+}
+
+.sidebar .nav-list li {
+  margin-bottom: 15px;
+}
+
+.sidebar .nav-list li:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar .nav-list li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.sidebar .nav-list li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .nav-list li a .links_name {
+  margin-left: 15px;
+}
+
+.sidebar .profile {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+}
+
+.sidebar .profile-details {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.sidebar .profile-details img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.sidebar .profile-details .name-job {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .profile-details .name-job .name {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.sidebar .profile-details .name-job .job {
+  color: #aaa;
+  font-size: 14px;
+}
