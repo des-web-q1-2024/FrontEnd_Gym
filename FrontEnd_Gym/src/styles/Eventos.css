@@ -24,7 +24,7 @@ body {
   border-color: #222133;
 }
 
-input.form-control {
+input.form-control.events {
   color: white;
   background: #1a192a;
   border-color: #232235;
