@@ -21,7 +21,7 @@ export const Desktop = () => {
                 <h5 className="card-header text-white ff-inter fw-medium">Crear eventos</h5>
                 <hr />
                 <div className="card-body crear-event">
-                  <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <button type="button" className="btn btn-orange" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <BsPlusCircleFill className='icon' /> Nuevo Evento
                   </button>
                 </div>
@@ -29,7 +29,25 @@ export const Desktop = () => {
             </div>
             <div className="col-11 mt-5">
               <div className="card card-evento " style={{ height: '220px' }}>
-                <h5 className="card-header text-white ff-inter fw-medium">Mis Eventos</h5>
+               
+                <div class="row align-items-center">
+                  <div class="col">
+                    <h5 className="card-header text-white ff-inter fw-medium">Mis Eventos</h5>
+                  </div>
+                  <div class="col d-flex justify-content-end">
+                    <div class="dropdown">
+                      <button class="btn btn-orange dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorias
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              
                 <hr />
                 <div className="card-body crear-event">
                   <span className='text-white '>No hay eventos creados.</span>
@@ -39,8 +57,8 @@ export const Desktop = () => {
           </div>
 
           {/* MODAL */}
-          <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
+          <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
                 <div className="modal-body">
                   <div className="card card-evento">
@@ -69,7 +87,11 @@ export const Desktop = () => {
                           <div className="row">
                             <div className="col-8">
                               <label className="form-label text-white ff-inter fw-medium fs-7">Nombre del Evento</label>
-                              <input type="text" className="form-control events" id="exampleInputPassword1" />
+                              <input type="text" className="form-control events" id="nameEvento" />
+                            </div>
+                            <div className="col">
+                              <label className="form-label text-white ff-inter fw-medium fs-7">Categoria*</label>
+                              <input type="text" className="form-control events" id="categoria" />
                             </div>
                           </div>
                         </div>

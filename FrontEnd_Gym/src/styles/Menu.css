@@ -1,13 +1,13 @@
 .sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 250px;
-  background: #11101D;
-  padding-top: 60px; /* Ajuste para dejar espacio para el logo */
-  z-index: 99;
-  transition: all 0.5s ease;
+    position: fixed;
+    padding: 1rem;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 295px;
+    background: #11101D;
+    z-index: 99;
+    transition: all 0.5s ease;
 }
 
 .sidebar .logo-details {
@@ -15,7 +15,6 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
-  position: fixed;
   top: 0;
   width: 250px;
 }

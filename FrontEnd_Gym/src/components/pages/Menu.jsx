@@ -6,6 +6,7 @@ import {
   BsPersonFill,
   BsGearFill,
   BsBoxArrowRight,
+  BsCalendar2DateFill
 } from "react-icons/bs";
 
 const Menu = () => {
@@ -21,19 +22,25 @@ const Menu = () => {
         </div>
         <ul className="nav-list">
           <li>
-            <a href="#">
+            <a href="/perfiles">
               <BsHouseDoorFill className="icon" />
               <span className="links_name">Perfiles</span>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/usuarios">
               <BsPersonFill className="icon" />
               <span className="links_name">Usuarios</span>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/eventos">
+              <BsCalendar2DateFill className="icon" />
+              <span className="links_name">Eventos</span>
+            </a>
+          </li>
+          <li>
+            <a href="/muro">
               <BsGearFill className="icon" />
               <span className="links_name">Muro</span>
             </a>
