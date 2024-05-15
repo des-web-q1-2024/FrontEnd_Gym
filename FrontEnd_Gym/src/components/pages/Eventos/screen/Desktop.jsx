@@ -34,7 +34,18 @@ export const Desktop = () => {
                   <div class="col">
                     <h5 className="card-header text-white ff-inter fw-medium">Mis Eventos</h5>
                   </div>
-                  <div class="col d-flex justify-content-end">
+                  <div class="col-10 d-flex justify-content-end gap-2">
+                    <form class="row">
+                      <div class="col-auto d-flex align-items-center">
+                        <label for="staticEmail2" className='text-white ff-inter' >Filtrar por fecha: </label>                
+                      </div>
+                      <div class="col-auto">                  
+                        <input type="date" className="form-control events" placeholder="Last name" aria-label="Last name" />
+                      </div>
+                      <div class="col-auto">
+                        <button type="button" class="btn btn-primary">Filtrar</button>
+                      </div>
+                    </form>
                     <div class="dropdown">
                       <button class="btn btn-orange dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Categorias
@@ -66,7 +77,6 @@ export const Desktop = () => {
                       <h5 className="card-header text-white ff-inter fw-medium">Crear Evento</h5>
                       <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-
                     <div className="card-body">
                       <form>
                         <div className="mb-3">
