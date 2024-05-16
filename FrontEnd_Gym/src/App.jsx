@@ -20,8 +20,7 @@ const App = () => {
       <Routes>
        <Route path='/' element={<Login onLogin={handleLogin} />} />
         <Route path="/eventos" element={<Eventos />} />
-
-       
+          <Route path="/menu" element={<Menu />} />
       </Routes>
       </main>
     </BrowserRouter>

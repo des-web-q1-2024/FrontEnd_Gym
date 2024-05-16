@@ -22,13 +22,13 @@ const Menu = () => {
         </div>
         <ul className="nav-list">
           <li>
-            <a href="/perfiles">
+            <a href="/menu">
               <BsHouseDoorFill className="icon" />
               <span className="links_name">Perfiles</span>
             </a>
           </li>
           <li>
-            <a href="/usuarios">
+            <a href="/menu">
               <BsPersonFill className="icon" />
               <span className="links_name">Usuarios</span>
             </a>
@@ -40,13 +40,13 @@ const Menu = () => {
             </a>
           </li>
           <li>
-            <a href="/muro">
+            <a href="/menu">
               <BsGearFill className="icon" />
               <span className="links_name">Muro</span>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/menu">
               <BsBoxArrowRight className="icon" />
               <span className="links_name">Cerrar Sesión</span>
             </a>
