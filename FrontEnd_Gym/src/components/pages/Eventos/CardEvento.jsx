@@ -3,10 +3,9 @@ import axios from 'axios'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 
-export const CardEvento = () => {
+export const CardEvento = ({contador}) => {
   
   const [data, setData] = useState([])
-
   const getDatos = async () =>{
     const url = 'http://localhost:3000/api/evento'
     const response = await axios.get(url)
@@ -16,7 +15,7 @@ export const CardEvento = () => {
 
   useEffect(()=>{
     getDatos()
-  },[])
+  }, [contador])
 
   return (
     <>

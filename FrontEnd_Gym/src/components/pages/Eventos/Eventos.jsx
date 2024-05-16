@@ -9,13 +9,13 @@ import { CardEvento } from "./CardEvento";
 const Eventos = () => {
   const [isloading, setIsLoading] = useState(false)
   const [mensaje, setMensaje] = useState('')
+  const [contador, setContador] = useState(0)
   const [Form, setForm] = useState({
     nombre: "",
     foto: "",
     fecha: "",
     descripcion: "",
   });
-
 
 
   const onChangeHandler = (event) => {
@@ -58,6 +58,7 @@ const Eventos = () => {
     await axios.post(url, datosFormulario);
     setIsLoading(false)
     setMensaje('Publicado con exito!')
+    setContador(prevContador => prevContador + 1);
   };
 
   return (
@@ -146,7 +147,7 @@ const Eventos = () => {
             <hr />
             <div className="card-body crear-event">
               <div className="row">
-                <CardEvento/>
+                <CardEvento contador={contador} />
               </div>
             </div>
           </div>
@@ -280,7 +281,7 @@ const Eventos = () => {
                           <span className="visually-hidden"></span>
                         </div>
                       </div>
-                    ): null}
+                    ) : null}
                     <span className="text-white text-center ff-inter">{mensaje}</span>
                   </form>
                 </div>
