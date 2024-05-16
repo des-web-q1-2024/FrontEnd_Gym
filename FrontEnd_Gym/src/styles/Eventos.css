@@ -143,3 +143,15 @@ button.btn-close {
 hr{
   color: #474476;
 }
+
+.bg-eventos{
+  background-color: #1a192d;
+}
+
+.fecha-evento {
+    color: white;
+    font-size: 13px;
+    background: #ff6c00;
+    padding: 3px 10px;
+    border-radius: 16px;
+}

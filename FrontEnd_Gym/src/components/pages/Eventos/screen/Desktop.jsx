@@ -10,10 +10,10 @@ import {
 export const Desktop = () => {
   return (
     <>
-      <section className='container-fluid'>
+      <section className='container-fluid mb-5'>
         <div className="row">
           <div className="col-3">
-              <Menu />
+            <Menu />
           </div>
           <div className="col-9">
             <div className="col-11 mt-5">
@@ -28,8 +28,8 @@ export const Desktop = () => {
               </div>
             </div>
             <div className="col-11 mt-5">
-              <div className="card card-evento " style={{ height: '220px' }}>
-               
+              <div className="card card-evento ">
+
                 <div class="row align-items-center">
                   <div class="col">
                     <h5 className="card-header text-white ff-inter fw-medium">Mis Eventos</h5>
@@ -37,9 +37,9 @@ export const Desktop = () => {
                   <div class="col-10 d-flex justify-content-end gap-2">
                     <form class="row">
                       <div class="col-auto d-flex align-items-center">
-                        <label for="staticEmail2" className='text-white ff-inter' >Filtrar por fecha: </label>                
+                        <label for="staticEmail2" className='text-white ff-inter' >Filtrar por fecha: </label>
                       </div>
-                      <div class="col-auto">                  
+                      <div class="col-auto">
                         <input type="date" className="form-control events" placeholder="Last name" aria-label="Last name" />
                       </div>
                       <div class="col-auto">
@@ -58,10 +58,41 @@ export const Desktop = () => {
                     </div>
                   </div>
                 </div>
-              
+
                 <hr />
                 <div className="card-body crear-event">
-                  <span className='text-white '>No hay eventos creados.</span>
+                  <div className="row">
+                    <div className="col-4">
+                      <div class="card bg-eventos" style={{ width: "18rem;" }}>
+                        <img src="src/assets/logo-de-react.png" class="card-img-top" alt="..." />
+                        <div class="card-body">                      
+                          <h6 class="card-title text-white ff-inter">Pelea del maestro Sensei con Osama bin Laden.</h6>
+                          <span className='fecha-evento ff-inter'>15/5/2024</span>                        
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="col-4">
+                      <div class="card bg-eventos" style={{ width: "18rem;" }}>
+                        <img src="src/assets/logo-de-react.png" class="card-img-top" alt="..." />
+                        <div class="card-body">
+                          <h6 class="card-title text-white ff-inter">Pelea Osama bin Laden con Donald Trum.</h6>
+                          <span className='fecha-evento ff-inter'>20/5/2024</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="col-4">
+                      <div class="card bg-eventos" style={{ width: "18rem;" }}>
+                        <img src="src/assets/logo-de-react.png" class="card-img-top" alt="..." />
+                        <div class="card-body">
+                          <h6 class="card-title text-white ff-inter">Pelea del maestro Sensei con Osama bin Laden.</h6>
+                          <span className='fecha-evento ff-inter'>27/5/2024</span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
               </div>
             </div>

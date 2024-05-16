@@ -26,7 +26,7 @@ function Login({ onLogin }) {
       const data = response.data;
 
       if (data.success) {
-        navigate("/menu");
+        navigate("/eventos");
       } else {
         Swal.fire({
           icon: "error",
