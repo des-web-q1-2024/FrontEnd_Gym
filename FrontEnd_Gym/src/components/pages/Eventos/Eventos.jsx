@@ -5,6 +5,7 @@ import "../../../styles/Eventos.css";
 import { BsPlusCircleFill } from "react-icons/bs";
 import axios from "axios";
 import { CardEvento } from "./CardEvento";
+import Swal from "sweetalert2";
 
 const Eventos = () => {
   const [isloading, setIsLoading] = useState(false)
@@ -18,6 +19,20 @@ const Eventos = () => {
   });
 
 
+  const limpiarCampos = () => {
+    setForm({
+      nombre: "",
+      foto: "",
+      fecha: "",
+      descripcion: "",
+    });
+    setMensaje('');
+    document.getElementById("mostrarFoto").style.display = "none";
+    document.getElementById("fileInputEstile").style.display = "block";
+    document.getElementById("inputFile").value = null;
+  };
+
+
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
 
@@ -25,7 +40,7 @@ const Eventos = () => {
       const img = event.target.files[0];
 
       if (img) {
-        document.getElementById("mostrarFoto").style.visibility = "visible";
+        document.getElementById("mostrarFoto").style.display = "inline-block";
         document.getElementById("fileInputEstile").style.display = "none";
         const reader = new FileReader();
 
@@ -58,13 +73,21 @@ const Eventos = () => {
     await axios.post(url, datosFormulario);
     setIsLoading(false)
     setMensaje('Publicado con exito!')
+    Swal.fire({
+      icon: "success",
+      title: "Evento creado con exito",
+      showConfirmButton: false,
+      timer: 1500
+    });
     setContador(prevContador => prevContador + 1);
+    limpiarCampos();
+    
   };
 
   return (
     <>
-      <section className="col-12">
-        <div className="col-lg-11 col-md-12 col-sm-12 col-xs-12 mt-5">
+      <section className="col-12 mb-5">
+        <div className="col-lg-11 col-md-12 col-sm-12 col-xs-12  mx-auto">
           <div className="card card-evento" style={{ height: "220px" }}>
             <h5 className="card-header text-white ff-inter fw-medium">
               Crear eventos
@@ -82,7 +105,7 @@ const Eventos = () => {
             </div>
           </div>
         </div>
-        <div className="col-lg-11 col-md-11 col-sm-12 col-xs-12 mt-5">
+        <div className="col-lg-11 col-md-11 col-sm-12 col-xs-12 mt-5 mx-auto">
           <div className="card card-evento ">
             <div className="row align-items-center">
               <div className="col">
@@ -147,7 +170,7 @@ const Eventos = () => {
             <hr />
             <div className="card-body crear-event">
               <div className="row">
-                <CardEvento contador={contador} />
+                  <CardEvento contador={contador} />
               </div>
             </div>
           </div>
@@ -174,6 +197,7 @@ const Eventos = () => {
                     className="btn-close"
                     data-bs-dismiss="modal"
                     aria-label="Close"
+                    onClick={()=> limpiarCampos()}
                   ></button>
                 </div>
                 <div className="card-body">
@@ -215,6 +239,7 @@ const Eventos = () => {
                             name="fecha"
                             onChange={onChangeHandler}
                             className="form-control events"
+                            value={Form.fecha}
                             placeholder="Last name"
                             aria-label="Last name"
                           />
@@ -232,6 +257,7 @@ const Eventos = () => {
                             name="nombre"
                             onChange={onChangeHandler}
                             className="form-control events"
+                            value={Form.nombre}
                             id="nameEvento"
                           />
                         </div>
@@ -258,6 +284,7 @@ const Eventos = () => {
                             name="descripcion"
                             onChange={onChangeHandler}
                             className="form-control events"
+                            value={Form.descripcion}
                             id="descripcion"
                           />
                         </div>

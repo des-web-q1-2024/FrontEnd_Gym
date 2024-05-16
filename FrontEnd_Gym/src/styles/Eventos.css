@@ -120,6 +120,7 @@ button.btn-close {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 8rem;
 }
 
 .btn-orange{
@@ -165,7 +166,7 @@ hr{
 }
 
 img#mostrarFoto {
-    visibility: hidden;
+    display: none;
 }
 
 .fs-8{
