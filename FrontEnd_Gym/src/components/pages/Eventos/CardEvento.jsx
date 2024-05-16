@@ -36,8 +36,7 @@ export const CardEvento = ({contador}) => {
         if (result.isConfirmed) {
           await axios.delete(url);
           Swal.fire({
-            title: "Deleted!",
-            text: "Evento Eliminado",
+            title: "Evento eliminado!",
             icon: "success"
           });
         }
