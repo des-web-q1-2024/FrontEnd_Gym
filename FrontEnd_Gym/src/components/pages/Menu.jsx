@@ -58,7 +58,7 @@ const Menu = () => {
           <div className="offcanvas-body">
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li className={`nav-item ${location.pathname === "/menu" ? "active" : ""}`}>
-                <Link className="nav-link" to="/menu">
+                <Link className="nav-link" to="/perfiles">
                   <BsHouseDoorFill className="me-2" /> Perfiles
                 </Link>
               </li>

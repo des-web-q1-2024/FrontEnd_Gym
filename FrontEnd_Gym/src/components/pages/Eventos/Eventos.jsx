@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "../../../styles/Eventos.css";
+import "../../../styles/Modal.css";
 import { BsPlusCircleFill } from "react-icons/bs";
 
 const Eventos = () => {
@@ -149,7 +150,7 @@ const Eventos = () => {
       
       {/* MODAL */}
       <div
-        className="modal fade"
+        className="modal fade custom-modal"
         id="exampleModal"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
