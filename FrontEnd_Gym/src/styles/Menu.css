@@ -1,98 +1,144 @@
+
 .sidebar {
-    position: fixed;
-    padding: 1rem;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 295px;
-    background: #11101D;
-    z-index: 99;
-    transition: all 0.5s ease;
+  position: fixed;
+  top: 110px;
+  left: 0;
+  height: calc(100% - 200px); 
+  width: 250px;
+  background: #11101D;
+  z-index: 99;
+  transition: all 0.5s ease;
 }
 
-.sidebar .logo-details {
+@media (max-width: 992px) {
+  /* .sidebar {
+      position: fixed;
+      top: 0;
+      height: 100%;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+  } */
+  .col-lg-9 {
+    flex: 0 0 auto;
+    width: 75%;
+    margin-left: 300px;
+    
+    
+}
+  .sidebar.collapse.show {
+      transform: translateX(0);
+  }
+}
+
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler-icon {
+  background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox%3D"0 0 30 30" xmlns%3D"http://www.w3.org/2000/svg"%3E%3Cpath stroke%3D"rgba%288, 8, 8, 0.5%29" stroke-width%3D"2" linecap%3D"round" linejoin%3D"round" d%3D"M4 7h22M4 15h22M4 23h22"%3E%3C/path%3E%3C/svg%3E');
+}
+
+
+.logo-details {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
-  top: 0;
-  width: 250px;
 }
 
-.sidebar .logo-details .icon {
+.logo-details .icon {
   color: #fff;
   font-size: 30px;
 }
 
-.sidebar .logo-details .logo_name {
+.logo-details .logo_name {
   color: #fff;
   font-size: 25px;
   font-weight: 600;
 }
 
-.sidebar .nav-list {
+
+.nav-list {
   padding: 0;
   margin-top: 20px;
   list-style: none;
 }
 
-.sidebar .nav-list li {
+.nav-list li {
   margin-bottom: 15px;
 }
 
-.sidebar .nav-list li:last-child {
+.nav-list li:last-child {
   margin-bottom: 0;
 }
 
-.sidebar .nav-list li a {
+.nav-list li a {
   display: flex;
   align-items: center;
   text-decoration: none;
   color: #fff;
   padding: 12px 20px;
+  width: 100%;
+  box-sizing: border-box; 
   border-radius: 10px;
   transition: all 0.3s ease;
 }
 
-.sidebar .nav-list li a:hover {
+.nav-list li a:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.sidebar .nav-list li a .links_name {
+.nav-list li a .links_name {
   margin-left: 15px;
 }
 
-.sidebar .profile {
+/* Estilos para el perfil */
+.profile {
   position: fixed;
   bottom: 20px;
   width: 100%;
 }
 
-.sidebar .profile-details {
+.profile-details {
   display: flex;
   align-items: center;
   padding: 10px 20px;
 }
 
-.sidebar .profile-details img {
+.profile-details img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
 }
 
-.sidebar .profile-details .name-job {
+.profile-details .name-job {
   display: flex;
   flex-direction: column;
 }
 
-.sidebar .profile-details .name-job .name {
+.profile-details .name-job .name {
   color: #fff;
   font-size: 16px;
   font-weight: 500;
 }
 
-.sidebar .profile-details .name-job .job {
+.profile-details .name-job .job {
   color: #aaa;
   font-size: 14px;
+}
+
+
+.navbar-toggler {
+  border-color: transparent;
+}
+
+.navbar-toggler.custom-toggler {
+  background-color: transparent;
+}
+
+
+.navbar-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
