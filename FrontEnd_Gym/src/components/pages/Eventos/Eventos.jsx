@@ -1,14 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "../../../styles/Eventos.css";
-import "../../../styles/Modal.css";
 import { BsPlusCircleFill } from "react-icons/bs";
+import axios from "axios";
+import { CardEvento } from "./CardEvento";
 
 const Eventos = () => {
+  const [isloading, setIsLoading] = useState(false)
+  const [mensaje, setMensaje] = useState('')
+  const [Form, setForm] = useState({
+    nombre: "",
+    foto: "",
+    fecha: "",
+    descripcion: "",
+  });
+
+
+
+  const onChangeHandler = (event) => {
+    const { name, value } = event.target;
+
+    if (name === "foto") {
+      const img = event.target.files[0];
+
+      if (img) {
+        document.getElementById("mostrarFoto").style.visibility = "visible";
+        document.getElementById("fileInputEstile").style.display = "none";
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          const imgDataUrl = e.target.result;
+          const imgElement = document.getElementById("mostrarFoto");
+
+          if (imgElement) {
+            imgElement.src = imgDataUrl;
+          }
+        };
+        reader.readAsDataURL(img);
+      }
+      setForm({ ...Form, [name]: img });
+      return;
+    }
+    setForm({ ...Form, [name]: value });
+  };
+
+  const submitHandler = async () => {
+    event.preventDefault();
+    const url = "http://localhost:3000/api/evento";
+    const datosFormulario = new FormData();
+
+    datosFormulario.append("nombre", Form.nombre);
+    datosFormulario.append("foto", Form.foto);
+    datosFormulario.append("fecha", Form.fecha);
+    datosFormulario.append("descripcion", Form.descripcion);
+    setIsLoading(true)
+    await axios.post(url, datosFormulario);
+    setIsLoading(false)
+    setMensaje('Publicado con exito!')
+  };
+
   return (
     <>
-      <section className="col-10">
+      <section className="col-12">
         <div className="col-lg-11 col-md-12 col-sm-12 col-xs-12 mt-5">
           <div className="card card-evento" style={{ height: "220px" }}>
             <h5 className="card-header text-white ff-inter fw-medium">
@@ -38,7 +92,10 @@ const Eventos = () => {
               <div className="col-lg-10 col-md-10 col-sm-12 col-xs-12 d-flex justify-content-end gap-2">
                 <form className="row">
                   <div className="col-auto d-flex align-items-center">
-                    <label htmlFor="staticEmail2" className="text-white ff-inter">
+                    <label
+                      htmlFor="staticEmail2"
+                      className="text-white ff-inter"
+                    >
                       Filtrar por fecha:{" "}
                     </label>
                   </div>
@@ -89,68 +146,16 @@ const Eventos = () => {
             <hr />
             <div className="card-body crear-event">
               <div className="row">
-                <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                  <div className="card bg-eventos" style={{ width: "18rem;" }}>
-                    <img
-                      src="src/assets/logo-de-react.png"
-                      className="card-img-top"
-                      alt="..."
-                    />
-                    <div className="card-body">
-                      <h6 className="card-title text-white ff-inter">
-                        Pelea del maestro Sensei con Osama bin Laden.
-                      </h6>
-                      <span className="fecha-evento ff-inter">
-                        15/5/2024
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                  <div className="card bg-eventos" style={{ width: "18rem;" }}>
-                    <img
-                      src="src/assets/logo-de-react.png"
-                      className="card-img-top"
-                      alt="..."
-                    />
-                    <div className="card-body">
-                      <h6 className="card-title text-white ff-inter">
-                        Pelea Osama bin Laden con Donald Trump.
-                      </h6>
-                      <span className="fecha-evento ff-inter">
-                        20/5/2024
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                  <div className="card bg-eventos" style={{ width: "18rem;" }}>
-                    <img
-                      src="src/assets/logo-de-react.png"
-                      className="card-img-top"
-                      alt="..."
-                    />
-                    <div className="card-body">
-                      <h6 className="card-title text-white ff-inter">
-                        Pelea del maestro Sensei con Osama bin Laden.
-                      </h6>
-                      <span className="fecha-evento ff-inter">
-                        27/5/2024
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                <CardEvento/>
               </div>
             </div>
           </div>
         </div>
       </section>
-      
+
       {/* MODAL */}
       <div
-        className="modal fade custom-modal"
+        className="modal fade"
         id="exampleModal"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
@@ -171,23 +176,34 @@ const Eventos = () => {
                   ></button>
                 </div>
                 <div className="card-body">
-                  <form>
+                  <form onSubmit={submitHandler}>
                     <div className="mb-3">
                       <div className="row">
                         <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                           <label className="form-label text-white ff-inter fw-medium fs-7">
                             Miniatura del evento*
                           </label>
-                          <label
-                            className="form-label text-white ff-inter fw-medium fs-7 custom-file-upload"
-                            htmlFor="inputFile"
-                          ></label>
-                          <input
-                            type="file"
-                            className="form-control events"
-                            id="inputFile"
-                            style={{ display: "none" }}
-                          />
+                          <div className="img-content">
+                            <img
+                              id="mostrarFoto"
+                              src="#"
+                              alt="Vista Previa"
+                              style={{ maxWidth: "300px", maxHeight: "300px" }}
+                            />
+                            <label
+                              className="form-label text-white ff-inter fw-medium fs-7 custom-file-upload"
+                              htmlFor="inputFile"
+                              id="fileInputEstile"
+                            ></label>
+                            <input
+                              type="file"
+                              className="form-control events"
+                              id="inputFile"
+                              name="foto"
+                              onChange={onChangeHandler}
+                              style={{ display: "none" }}
+                            />
+                          </div>
                         </div>
                         <div className="col">
                           <label className="form-label text-white ff-inter fw-medium fs-7">
@@ -195,6 +211,8 @@ const Eventos = () => {
                           </label>
                           <input
                             type="date"
+                            name="fecha"
+                            onChange={onChangeHandler}
                             className="form-control events"
                             placeholder="Last name"
                             aria-label="Last name"
@@ -206,10 +224,12 @@ const Eventos = () => {
                       <div className="row">
                         <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                           <label className="form-label text-white ff-inter fw-medium fs-7">
-                            Nombre del Evento
+                            Titulo
                           </label>
                           <input
                             type="text"
+                            name="nombre"
+                            onChange={onChangeHandler}
                             className="form-control events"
                             id="nameEvento"
                           />
@@ -229,6 +249,22 @@ const Eventos = () => {
                     <div className="mb-3">
                       <div className="row">
                         <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                          <label className="form-label text-white ff-inter fw-medium fs-7">
+                            Descripción
+                          </label>
+                          <input
+                            type="text"
+                            name="descripcion"
+                            onChange={onChangeHandler}
+                            className="form-control events"
+                            id="descripcion"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mb-3">
+                      <div className="row">
+                        <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                           <button
                             type="submit"
                             className="btn btn-primary w-100 ff-inter fw-medium"
@@ -238,6 +274,14 @@ const Eventos = () => {
                         </div>
                       </div>
                     </div>
+                    {isloading ? (
+                      <div className="text-center mt-5">
+                        <div className="spinner-border text-primary" role="status">
+                          <span className="visually-hidden"></span>
+                        </div>
+                      </div>
+                    ): null}
+                    <span className="text-white text-center ff-inter">{mensaje}</span>
                   </form>
                 </div>
               </div>

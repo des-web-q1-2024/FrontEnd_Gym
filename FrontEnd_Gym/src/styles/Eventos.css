@@ -155,3 +155,19 @@ hr{
     padding: 3px 10px;
     border-radius: 16px;
 }
+
+.img-content {
+    background: #1a192a;
+    text-align: center;
+    border-radius: 7px;
+    border-color: white;
+    border: 1px solid;
+}
+
+img#mostrarFoto {
+    visibility: hidden;
+}
+
+.fs-8{
+  font-size: 13px;
+}
