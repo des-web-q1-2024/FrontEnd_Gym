@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
+import "../../../styles/Eventos.css";
+
 
 export const CardEvento = ({contador}) => {
   
@@ -29,11 +31,15 @@ export const CardEvento = ({contador}) => {
               alt="evento"
             />
             <div className="card-body">
-              <h6 className="card-title text-white ff-inter">
+              <span className="fecha-evento ff-inter">{evento.fecha.slice(0, 10)}</span>
+              <h6 className="card-title text-white ff-inter mt-2">
                {evento.nombre}
               </h6>
-              <p className='text-white ff-inter fs-8'>{evento.descripcion}</p>
-              <span className="fecha-evento ff-inter">{evento.fecha}</span>
+              <p className='text-white ff-inter fs-8'>{evento.descripcion}</p>   
+              <div class="d-grid gap-2 d-flex">
+                <button class="btn btn-primary btn-sm w-50" type="button">Editar</button>
+                <button class="btn btn-danger btn-sm w-50" type="button">Eliminar</button>
+              </div>     
             </div>
           </div>
         </div>

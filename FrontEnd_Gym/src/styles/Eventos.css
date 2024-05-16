@@ -171,3 +171,9 @@ img#mostrarFoto {
 .fs-8{
   font-size: 13px;
 }
+
+.card.bg-eventos {
+    border-radius: 13px;
+    border-color: #2a2a2a;
+    overflow: hidden;
+}
