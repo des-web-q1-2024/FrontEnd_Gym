@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button, Table } from "react-bootstrap";
-import { BsPlusCircle ,BsPencilSquare, BsTrash } from "react-icons/bs";
+import { BsPlusCircle, BsPencilSquare, BsTrash } from "react-icons/bs";
+import Swal from "sweetalert2";
 import "../../../styles/Modal.css";
 import "../../../styles/Tablas.css";
 
@@ -31,44 +32,85 @@ const Perfiles = () => {
 
     const handleCloseNuevoModal = () => {
         setShowNuevoModal(false);
-        setNombrePerfil(""); // Limpiar el nombre del perfil al cerrar el modal
+        setNombrePerfil("");
     };
 
     const handleEditarPerfil = (perfil) => {
         setPerfilEditar(perfil);
         setShowEditarModal(true);
-        setNombrePerfil(perfil.nombre); // Establecer el nombre del perfil seleccionado
+        setNombrePerfil(perfil.nombre);
     };
 
     const handleCloseEditarModal = () => {
         setShowEditarModal(false);
         setPerfilEditar(null);
-        setNombrePerfil(""); // Limpiar el nombre del perfil al cerrar el modal
+        setNombrePerfil("");
     };
 
     const handleGuardarNuevoPerfil = async () => {
         try {
-            await axios.post("http://localhost:3000/api/Perfiles", {
-                nombre: nombrePerfil,
-                activo: true,
-            });
-            handleCloseNuevoModal();
-            obtenerPerfiles();
+            if (nombrePerfil.length == 0) {
+         
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Debe colocar un nombre de perfil",
+                });
+            } else {
+
+                await axios.post("http://localhost:3000/api/Perfiles", {
+                    nombre: nombrePerfil,
+                    activo: true,
+                });
+                handleCloseNuevoModal();
+                obtenerPerfiles();
+                Swal.fire({
+                    icon: "success",
+                    title: "Nuevo Perfil",
+                    text: "se a creado el nuevo perfil " + nombrePerfil,
+                });
+            }
         } catch (error) {
-            console.error("Error al crear perfil:", error);
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error al crear perfil "+ error,
+            });
+            //console.error("Error al crear perfil:", error);
         }
     };
 
     const handleGuardarPerfilEditado = async () => {
         try {
-            await axios.put(`http://localhost:3000/api/Perfiles/${perfilEditar.id}`, {
-                nombre: nombrePerfil,
-                activo: perfilEditar.activo,
-            });
-            handleCloseEditarModal();
-            obtenerPerfiles();
+            if (nombrePerfil.length == 0) {
+               
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Debe colocar un nombre de perfil",
+                });
+            } else {
+
+                await axios.put(`http://localhost:3000/api/Perfiles/${perfilEditar.id}`, {
+                    nombre: nombrePerfil,
+                    activo: perfilEditar.activo,
+                });
+                handleCloseEditarModal();
+                obtenerPerfiles();
+                Swal.fire({
+                    icon: "success",
+                    title: "Actualizacion de Perfil",
+                    text: "se a actualizado el perfil ",
+                });
+            }
+
         } catch (error) {
-            console.error("Error al editar perfil:", error);
+            wal.fire({
+                icon: "error",
+                title: "Actualizar",
+                text: "Error al editar perfil" + error,
+            });
+            //console.error("Error al editar perfil:", error);
         }
     };
 
@@ -76,14 +118,24 @@ const Perfiles = () => {
         try {
             await axios.delete(`http://localhost:3000/api/Perfiles/${id}`);
             obtenerPerfiles();
+            Swal.fire({
+                icon: "error",
+                title: "Eliminado",
+                text: "Perfil Eliminado",
+            });
         } catch (error) {
-            console.error("Error al eliminar perfil:", error);
+            Swal.fire({
+                icon: "error",
+                title: "Eliminado",
+                text: "Error al eliminar perfil" + error,
+            });
+           // console.error("Error al eliminar perfil:", error);
         }
     };
 
     return (
         <>
-           <div className="d-flex justify-content-end mb-2">
+            <div className="d-flex justify-content-end mb-2">
                 <Button onClick={handleNuevoPerfil} variant="warning">
                     <BsPlusCircle className="me-2" /> Nuevo Perfil
                 </Button>
@@ -102,7 +154,7 @@ const Perfiles = () => {
                             <td>{perfil.nombre}</td>
                             <td>{perfil.activo ? "Activo" : "Inactivo"}</td>
                             <td>
-                            <Button onClick={() => handleEditarPerfil(perfil)} variant="success">
+                                <Button onClick={() => handleEditarPerfil(perfil)} variant="success">
                                     <BsPencilSquare className="me-2" /> Editar
                                 </Button>
                                 {" "}
@@ -144,7 +196,7 @@ const Perfiles = () => {
                 <Modal.Header closeButton className="custom-modal-header">
                     <Modal.Title>Editar Perfil</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="custom-modal-body"> 
+                <Modal.Body className="custom-modal-body">
                     <input
                         type="text"
                         value={nombrePerfil}
