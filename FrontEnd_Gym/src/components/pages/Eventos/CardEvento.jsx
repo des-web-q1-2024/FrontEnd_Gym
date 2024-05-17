@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import "../../../styles/Eventos.css";
+import React, { useEffect, useState } from 'react';
 import Swal from "sweetalert2";
+import "../../../styles/Eventos.css";
 
 
 export const CardEvento = ({ contador, handleEditarEvento }) => {
@@ -75,6 +75,13 @@ export const CardEvento = ({ contador, handleEditarEvento }) => {
                 <button className="btn btn-primary btn-sm w-50" type="button" data-bs-toggle="modal"
                   data-bs-target="#exampleModal" onClick={() => handleEditarPerfil(2, evento.id, evento.nombre, evento.foto, evento.fecha.slice(0, 10), evento.descripcion, evento.mime_type)}>Editar</button>
                 <button className="btn btn-danger btn-sm w-50" type="button" onClick={() => handleEliminarPerfil(evento.id)}>Eliminar</button>
+                <button
+                type="button"
+                className="btn btn-outline-primary margin-right:30px"
+                onClick={() => handleRegistrarse(evento.id)}
+              >
+                Registrarse
+              </button>
               </div>     
             </div>
           </div>

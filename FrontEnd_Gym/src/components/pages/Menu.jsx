@@ -1,14 +1,14 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
+import React from "react";
 import {
-  BsHouseDoorFill,
-  BsPersonFill,
-  BsGearFill,
   BsBoxArrowRight,
   BsCalendar2DateFill,
+  BsGearFill,
+  BsHouseDoorFill,
+  BsPersonFill,
 } from "react-icons/bs";
+import { Link, useLocation } from "react-router-dom";
 
 const Menu = () => {
   const location = useLocation();
@@ -75,6 +75,11 @@ const Menu = () => {
               <li className={`nav-item ${location.pathname === "/muro" ? "active" : ""}`}>
                 <Link className="nav-link" to="/muro">
                   <BsGearFill className="me-2" /> Muro
+                </Link>
+              </li>
+              <li className={`nav-item ${location.pathname === "/ParticipacionesAlumnos" ? "active" : ""}`}>
+                <Link className="nav-link" to="/ParticipacionesAlumnos">
+                  <BsGearFill className="me-2" /> Participaciones Alumnos
                 </Link>
               </li>
               <li className="nav-item dropdown">
