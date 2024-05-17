@@ -269,7 +269,7 @@ const Eventos = () => {
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
+          <div className="modal-content bg-trans">
             <div className="modal-body">
               <div className="card card-evento">
                 <div className="modal-header">
@@ -343,16 +343,6 @@ const Eventos = () => {
                             className="form-control events"
                             value={Form.nombre}
                             id="nameEvento"
-                          />
-                        </div>
-                        <div className="col">
-                          <label className="form-label text-white ff-inter fw-medium fs-7">
-                            Categoria*
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control events"
-                            id="categoria"
                           />
                         </div>
                       </div>

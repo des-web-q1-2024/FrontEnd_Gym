@@ -18,11 +18,12 @@
   }
   
   .modal-content {
-    background-color: #ffffff;
+    background-color: #414952;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+    border-color: #343a40;
+}
   
   .custom-modal {
     background-color: #343a40; 
