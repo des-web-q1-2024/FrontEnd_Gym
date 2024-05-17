@@ -288,7 +288,7 @@ const Eventos = () => {
                   <form onSubmit={enviar}>
                     <div className="mb-3">
                       <div className="row">
-                        <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <label className="form-label text-white ff-inter fw-medium fs-7">
                             Miniatura del evento*
                           </label>
@@ -332,7 +332,7 @@ const Eventos = () => {
                     </div>
                     <div className="mb-3">
                       <div className="row">
-                        <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <label className="form-label text-white ff-inter fw-medium fs-7">
                             Titulo
                           </label>
@@ -349,7 +349,7 @@ const Eventos = () => {
                     </div>
                     <div className="mb-3">
                       <div className="row">
-                        <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <label className="form-label text-white ff-inter fw-medium fs-7">
                             Descripción
                           </label>
@@ -366,7 +366,7 @@ const Eventos = () => {
                     </div>
                     <div className="mb-3">
                       <div className="row">
-                        <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <button
                             onClick={() => enviar()}
                             className="btn btn-primary w-100 ff-inter fw-medium"

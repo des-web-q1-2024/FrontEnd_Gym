@@ -87,7 +87,6 @@ input.form-control.events::placeholder {
 }
 
 .modal-dialog {
-  max-width: 53% !important;
   margin-right: auto;
   margin-left: auto;
 }
