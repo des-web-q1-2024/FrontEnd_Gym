@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, Row, Col } from 'react-bootstrap'; 
 import ListaUsuarios from './ListaUsuarios';
 import DetalleUsuario from './DetalleUsuario';
@@ -10,29 +10,34 @@ const UsuariosPrincipal = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [usuarios, setUsuarios] = useState([]);
 
-  useEffect(() => {
-    cargarUsuarios();
-  }, []);
-
-  const cargarUsuarios = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/api/usuarios');
-      setUsuarios(response.data);
-    } catch (error) {
-      console.error('Error al cargar los usuarios:', error);
-    }
-  };
-
   const handleUsuarioSeleccionado = (usuario) => {
     setUsuarioSeleccionado(usuario);
   };
 
-  const handleNuevoUsuarioCreado = async (nuevoUsuario) => {
+  const handleNuevoUsuarioCreado = (nuevoUsuario) => {
+    // Lógica para actualizar la lista de usuarios después de crear uno nuevo
+    cargarUsuarios();
     console.log('Nuevo usuario creado:', nuevoUsuario);
-    // Actualizar la lista de usuarios
-    await cargarUsuarios();
-    // Cerrar el modal
-    setModalVisible(false);
+  };
+
+  const handleUsuarioEliminado = (idUsuarioEliminado) => {
+    // Filtrar los usuarios para eliminar el que tiene el ID especificado
+    const nuevosUsuarios = usuarios.filter(usuario => usuario.id !== idUsuarioEliminado);
+    setUsuarios(nuevosUsuarios);
+  };
+
+  const cargarUsuarios = async () => {
+    try {
+      const response = await fetch('URL_DEL_API');
+      if (response.ok) {
+        const data = await response.json();
+        setUsuarios(data);
+      } else {
+        console.error('Error al cargar los usuarios:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error al cargar los usuarios:', error);
+    }
   };
 
   return (
@@ -43,10 +48,10 @@ const UsuariosPrincipal = () => {
 
       <Row className="mt-4"> 
         <Col md={6}> 
-          <ListaUsuarios usuarios={usuarios} onUsuarioSeleccionado={handleUsuarioSeleccionado} />
+          <ListaUsuarios onUsuarioSeleccionado={handleUsuarioSeleccionado} />
         </Col>
         <Col md={6}> 
-          <DetalleUsuario usuario={usuarioSeleccionado} />
+          <DetalleUsuario usuario={usuarioSeleccionado} onUsuarioEliminado={handleUsuarioEliminado} />
         </Col>
       </Row>
 
