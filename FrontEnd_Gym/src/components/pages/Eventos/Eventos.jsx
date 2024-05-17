@@ -19,23 +19,44 @@ const Eventos = () => {
     descripcion: "",
   });
 
-
-  const handleEditarEvento = (ops, id, nombre, foto, fecha, descripcions) =>{
+  console.log(op)
+  const handleEditarEvento = (ops, id, nombre, foto, fecha, descripcions, mime_type) =>{
     setOp(ops)
-    if(op === ops){
+    if(ops === 1){
        setForm({
         nombre: "",
         foto: "",
         fecha: "",
-        descripcion: "",
+        descripcion: ""
       });
-    }else{    
-      setForm({
-        nombre: nombre,
-        foto: foto,
-        fecha: fecha,
-        descripcion: descripcions
-      });
+    }else if(ops === 2){    
+      console.log(`el modal es: ${op}`)
+      const url = `http://localhost:3000/api/avento/${id}`
+        setForm({
+          nombre: nombre,
+          foto: foto,
+          fecha: fecha,
+          descripcion: descripcions
+        })   
+
+
+      if (foto) {
+        console.log(foto);
+        const imgElement = document.getElementById("mostrarFoto");
+        const fileInputElement = document.getElementById("fileInputEstile");
+
+        if (imgElement && fileInputElement) {
+          imgElement.style.display = "inline-block";
+          fileInputElement.style.display = "none";
+          let fotoData = `data:${mime_type};base64,${foto}`
+          console.log(`esta es la foto${fotoData}`)
+          imgElement.src = fotoData
+          //src = {`data:${evento.mime_type};base64,${evento.foto}`
+
+        }
+      }
+
+     
      
     }
   }
@@ -155,6 +176,7 @@ const Eventos = () => {
             <div className="card-body crear-event">
               <button
                 type="button"
+                onClick={() => handleEditarEvento(1)}
                 className="btn btn-orange"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"

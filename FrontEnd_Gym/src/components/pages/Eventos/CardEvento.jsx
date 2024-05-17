@@ -13,15 +13,14 @@ export const CardEvento = ({ contador, handleEditarEvento }) => {
     const url = 'http://localhost:3000/api/evento'
     const response = await axios.get(url)
     setData(response.data)
-    console.log(response.data)
   }
 
   useEffect(()=>{
     getDatos()
   }, [contador])
 
-  const handleEditarPerfil = (evento, nombre, foto, fecha, descripcion) => {
-    handleEditarEvento(evento, nombre, foto, fecha, descripcion);
+  const handleEditarPerfil = (ops, evento, nombre, foto, fecha, descripcion, mime_type) => {
+    handleEditarEvento(ops, evento, nombre, foto, fecha, descripcion, mime_type);
   };
 
   const handleEliminarPerfil = async (id) => {
@@ -74,7 +73,7 @@ export const CardEvento = ({ contador, handleEditarEvento }) => {
               <p className='text-white ff-inter fs-8'>{evento.descripcion}</p>   
               <div className="d-grid gap-2 d-flex">
                 <button className="btn btn-primary btn-sm w-50" type="button" data-bs-toggle="modal"
-                  data-bs-target="#exampleModal" onClick={() => handleEditarPerfil(2, evento.id, evento.nombre, evento.foto, evento.fecha.slice(0, 10), evento.descripcion)}>Editar</button>
+                  data-bs-target="#exampleModal" onClick={() => handleEditarPerfil(2, evento.id, evento.nombre, evento.foto, evento.fecha.slice(0, 10), evento.descripcion, evento.mime_type)}>Editar</button>
                 <button className="btn btn-danger btn-sm w-50" type="button" onClick={() => handleEliminarPerfil(evento.id)}>Eliminar</button>
               </div>     
             </div>
