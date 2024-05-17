@@ -6,7 +6,7 @@ import "../../../styles/Eventos.css";
 import Swal from "sweetalert2";
 
 
-export const CardEvento = ({contador}) => {
+export const CardEvento = ({ contador, handleEditarEvento }) => {
   
   const [data, setData] = useState([])
   const getDatos = async () =>{
@@ -20,6 +20,9 @@ export const CardEvento = ({contador}) => {
     getDatos()
   }, [contador])
 
+  const handleEditarPerfil = (evento, nombre, foto, fecha, descripcion) => {
+    handleEditarEvento(evento, nombre, foto, fecha, descripcion);
+  };
 
   const handleEliminarPerfil = async (id) => {
     try {
@@ -57,7 +60,7 @@ export const CardEvento = ({contador}) => {
      {
       data.map((evento)=>(
         <div key={evento.id} className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <div className="card bg-eventos mt-3" style={{ width: "18rem;" }}>
+          <div className="card bg-eventos mt-3">
             <img
               src={`data:${evento.mime_type};base64,${evento.foto}`} 
               className="card-img-top"
@@ -69,9 +72,10 @@ export const CardEvento = ({contador}) => {
                {evento.nombre}
               </h6>
               <p className='text-white ff-inter fs-8'>{evento.descripcion}</p>   
-              <div class="d-grid gap-2 d-flex">
-                <button class="btn btn-primary btn-sm w-50" type="button">Editar</button>
-                <button class="btn btn-danger btn-sm w-50" type="button" onClick={() => handleEliminarPerfil(evento.id)}>Eliminar</button>
+              <div className="d-grid gap-2 d-flex">
+                <button className="btn btn-primary btn-sm w-50" type="button" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal" onClick={() => handleEditarPerfil(2, evento.id, evento.nombre, evento.foto, evento.fecha.slice(0, 10), evento.descripcion)}>Editar</button>
+                <button className="btn btn-danger btn-sm w-50" type="button" onClick={() => handleEliminarPerfil(evento.id)}>Eliminar</button>
               </div>     
             </div>
           </div>

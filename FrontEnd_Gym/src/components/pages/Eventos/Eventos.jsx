@@ -11,6 +11,7 @@ const Eventos = () => {
   const [isloading, setIsLoading] = useState(false)
   const [mensaje, setMensaje] = useState('')
   const [contador, setContador] = useState(0)
+  const [op, setOp] = useState(null)
   const [Form, setForm] = useState({
     nombre: "",
     foto: "",
@@ -18,6 +19,63 @@ const Eventos = () => {
     descripcion: "",
   });
 
+
+  const handleEditarEvento = (ops, id, nombre, foto, fecha, descripcions) =>{
+    setOp(ops)
+    if(op === ops){
+       setForm({
+        nombre: "",
+        foto: "",
+        fecha: "",
+        descripcion: "",
+      });
+    }else{    
+      setForm({
+        nombre: nombre,
+        foto: foto,
+        fecha: fecha,
+        descripcion: descripcions
+      });
+     
+    }
+  }
+
+
+  const enviar =()=>{
+    if(op === 1){
+      submitHandler()
+    }
+  }
+
+ 
+  // const handleEditarEvento = async (id, nombre, foto, fecha, descripcion) => {
+  //   const url = `http://localhost:3000/api/avento/${id}`
+  //   setForm({
+  //     nombre: nombre,
+  //     foto: foto,
+  //     fecha: fecha,
+  //     descripcion: descripcion
+  //   })   
+  //   await axios.put(url, Form)
+
+
+  //   if (foto) {
+  //     console.log(foto)
+  //     document.getElementById("mostrarFoto").style.display = "inline-block";
+  //     document.getElementById("fileInputEstile").style.display = "none";
+  //     const reader = new FileReader();
+
+  //     reader.onload = function (e) {
+  //       const imgDataUrl = e.target.result;
+  //       const imgElement = document.getElementById("mostrarFoto");
+
+  //       if (imgElement) {
+  //         imgElement.src = imgDataUrl;
+  //       }
+  //     };
+  //     reader.readAsDataURL(foto);
+  //   }
+  // };
 
   const limpiarCampos = () => {
     setForm({
@@ -31,7 +89,6 @@ const Eventos = () => {
     document.getElementById("fileInputEstile").style.display = "block";
     document.getElementById("inputFile").value = null;
   };
-
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -83,6 +140,8 @@ const Eventos = () => {
     limpiarCampos();
     
   };
+
+
 
   return (
     <>
@@ -170,7 +229,7 @@ const Eventos = () => {
             <hr />
             <div className="card-body crear-event">
               <div className="row">
-                  <CardEvento contador={contador} />
+                <CardEvento contador={contador} handleEditarEvento={handleEditarEvento} />
               </div>
             </div>
           </div>
@@ -294,7 +353,7 @@ const Eventos = () => {
                       <div className="row">
                         <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                           <button
-                            type="submit"
+                            onClick={() => enviar()}
                             className="btn btn-primary w-100 ff-inter fw-medium"
                           >
                             Publicar
