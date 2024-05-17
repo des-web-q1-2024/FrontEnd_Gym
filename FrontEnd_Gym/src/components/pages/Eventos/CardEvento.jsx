@@ -18,7 +18,7 @@ export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
   }
 
   const getDatosFiltrados = async () => {
-    const url = `http://localhost:3000/api/evento/filtrar/${filtroFecha}`
+    const url = `http://localhost:3000/api/evento/${filtroFecha}`
     const response = await axios.get(url)
     setFiltroData(response.data)
   }
