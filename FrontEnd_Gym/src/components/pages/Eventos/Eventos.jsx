@@ -76,7 +76,18 @@ const Eventos = () => {
       descripcion: Form.descripcion
     })   
     console.log(Form)
+    setIsLoading(true)
     await axios.put(url, Form)
+     setIsLoading(false)
+     setMensaje('Editado con exito!')
+     Swal.fire({
+       icon: "success",
+       title: "Evento editado con exito",
+       showConfirmButton: false,
+       timer: 1500
+     });
+     setContador(prevContador => prevContador + 1);
+     limpiarCampos();
 
    }
  
