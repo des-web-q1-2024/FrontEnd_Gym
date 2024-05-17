@@ -1,12 +1,12 @@
 import React from 'react';
-import axios from 'axios'; // Importar axios
+import axios from 'axios'; 
 import { BsTrash } from "react-icons/bs";
-import { FaTrashAlt } from "react-icons/fa"; // Importar un icono diferente
+import { FaTrashAlt } from "react-icons/fa"; 
 
 const DetalleUsuario = ({ usuario, onUsuarioEliminado }) => {
   const handleEliminarUsuario = async () => {
     try {
-      const response = await axios.delete(`http://localhost:3000/api/usuarios/${usuario.id}`); // Utilizar axios.delete para enviar la solicitud DELETE
+      const response = await axios.delete(`http://localhost:3000/api/usuarios/${usuario.id}`);
       if (response.status === 200) {
         onUsuarioEliminado(usuario.id);
       } else {
@@ -18,14 +18,14 @@ const DetalleUsuario = ({ usuario, onUsuarioEliminado }) => {
   };
 
   const estiloFormulario = {
-    backgroundColor: 'rgba(0, 0, 0, 0.8)', // Fondo transparente oscuro
-    color: 'white', // Letras blancas
-    padding: '20px', // Espaciado interno
-    borderRadius: '10px', // Bordes redondeados
-    maxWidth: '300px', // Ancho máximo
-    margin: '0 auto', // Centrar en el medio
-    marginTop: '20px', // Margen superior
-    position: 'relative', // Agregar posición relativa para que el ícono de eliminar se posicione correctamente
+    backgroundColor: 'rgba(0, 0, 0, 0.8)', 
+    color: 'white', 
+    padding: '20px',
+    borderRadius: '10px', 
+    maxWidth: '300px', 
+    margin: '0 auto', 
+    marginTop: '20px', 
+    position: 'relative', 
   };
 
   return (

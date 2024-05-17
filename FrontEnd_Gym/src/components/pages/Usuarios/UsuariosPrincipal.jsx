@@ -15,13 +15,13 @@ const UsuariosPrincipal = () => {
   };
 
   const handleNuevoUsuarioCreado = (nuevoUsuario) => {
-    // Lógica para actualizar la lista de usuarios después de crear uno nuevo
+ 
     cargarUsuarios();
     console.log('Nuevo usuario creado:', nuevoUsuario);
   };
 
   const handleUsuarioEliminado = (idUsuarioEliminado) => {
-    // Filtrar los usuarios para eliminar el que tiene el ID especificado
+ 
     const nuevosUsuarios = usuarios.filter(usuario => usuario.id !== idUsuarioEliminado);
     setUsuarios(nuevosUsuarios);
   };
