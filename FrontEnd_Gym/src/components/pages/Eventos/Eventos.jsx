@@ -69,10 +69,9 @@ const Eventos = () => {
 
    const handlerActulualizar = async () =>{
     event.preventDefault()
-    const url = `http://localhost:3000/api/avento/${id}`
+    const url = `http://localhost:3000/api/evento/${id}`
     setForm({
       nombre: Form.nombre,
-      foto: Form.foto,
       fecha: Form.fecha,
       descripcion: Form.descripcion
     })   
