@@ -253,7 +253,7 @@ const Eventos = () => {
 
             <hr />
             <div className="card-body crear-event">
-              <div className="row">
+              <div className="row col-12">
                 <CardEvento contador={contador} handleEditarEvento={handleEditarEvento} filtroFecha={filtroFecha} />
               </div>
             </div>
