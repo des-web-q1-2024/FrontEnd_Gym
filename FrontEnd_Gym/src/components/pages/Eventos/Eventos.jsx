@@ -20,7 +20,7 @@ const Eventos = () => {
     descripcion: "",
   });
 
-  console.log(op)
+
   const handleEditarEvento = (ops, id, nombre, foto, fecha, descripcions, mime_type) =>{
     setOp(ops)
     setId(id)
@@ -31,16 +31,13 @@ const Eventos = () => {
         fecha: "",
         descripcion: ""
       });
-    }else if(ops === 2){    
-      console.log(`el modal es: ${op}`)
-      const url = `http://localhost:3000/api/avento/${id}`
+    }else{    
         setForm({
           nombre: nombre,
           foto: foto,
           fecha: fecha,
           descripcion: descripcions
-        })   
-
+        })      
 
       if (foto) {
         const imgElement = document.getElementById("mostrarFoto");
