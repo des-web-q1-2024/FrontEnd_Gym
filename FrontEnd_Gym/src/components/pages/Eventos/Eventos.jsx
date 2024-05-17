@@ -12,6 +12,7 @@ const Eventos = () => {
   const [mensaje, setMensaje] = useState('')
   const [contador, setContador] = useState(0)
   const [op, setOp] = useState(null)
+  const [id, setId] = useState('')
   const [Form, setForm] = useState({
     nombre: "",
     foto: "",
@@ -22,6 +23,7 @@ const Eventos = () => {
   console.log(op)
   const handleEditarEvento = (ops, id, nombre, foto, fecha, descripcions, mime_type) =>{
     setOp(ops)
+    setId(id)
     if(ops === 1){
        setForm({
         nombre: "",
@@ -41,7 +43,6 @@ const Eventos = () => {
 
 
       if (foto) {
-        console.log(foto);
         const imgElement = document.getElementById("mostrarFoto");
         const fileInputElement = document.getElementById("fileInputEstile");
 
@@ -52,51 +53,34 @@ const Eventos = () => {
           console.log(`esta es la foto${fotoData}`)
           imgElement.src = fotoData
           //src = {`data:${evento.mime_type};base64,${evento.foto}`
-
         }
-      }
-
-     
-     
+      }     
     }
   }
 
-
-  const enviar =()=>{
+  const enviar = () => {
     if(op === 1){
       submitHandler()
+    }else if(op === 2){
+      handlerActulualizar()
     }
   }
 
+
+   const handlerActulualizar = async () =>{
+    event.preventDefault()
+    const url = `http://localhost:3000/api/avento/${id}`
+    setForm({
+      nombre: Form.nombre,
+      foto: Form.foto,
+      fecha: Form.fecha,
+      descripcion: Form.descripcion
+    })   
+    console.log(Form)
+    await axios.put(url, Form)
+
+   }
  
-  // const handleEditarEvento = async (id, nombre, foto, fecha, descripcion) => {
-  //   const url = `http://localhost:3000/api/avento/${id}`
-  //   setForm({
-  //     nombre: nombre,
-  //     foto: foto,
-  //     fecha: fecha,
-  //     descripcion: descripcion
-  //   })   
-  //   await axios.put(url, Form)
-
-
-  //   if (foto) {
-  //     console.log(foto)
-  //     document.getElementById("mostrarFoto").style.display = "inline-block";
-  //     document.getElementById("fileInputEstile").style.display = "none";
-  //     const reader = new FileReader();
-
-  //     reader.onload = function (e) {
-  //       const imgDataUrl = e.target.result;
-  //       const imgElement = document.getElementById("mostrarFoto");
-
-  //       if (imgElement) {
-  //         imgElement.src = imgDataUrl;
-  //       }
-  //     };
-  //     reader.readAsDataURL(foto);
-  //   }
-  // };
 
   const limpiarCampos = () => {
     setForm({
@@ -282,7 +266,7 @@ const Eventos = () => {
                   ></button>
                 </div>
                 <div className="card-body">
-                  <form onSubmit={submitHandler}>
+                  <form onSubmit={enviar}>
                     <div className="mb-3">
                       <div className="row">
                         <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
