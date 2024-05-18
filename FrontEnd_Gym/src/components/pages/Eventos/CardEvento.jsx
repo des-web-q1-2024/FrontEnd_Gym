@@ -69,7 +69,7 @@ export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
                   alt="evento"
                 />
                 <div className="card-body">
-                  <span className="fecha-evento ff-inter">{evento.fecha.slice(0, 10)}</span>
+                  <span className="fecha-evento ff-inter ">{evento.fecha.slice(0, 10)}</span>
                   <h6 className="card-title text-white ff-inter mt-2">
                     {evento.nombre}
                   </h6>

@@ -1,13 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
 body {
   background-color: #0c0b14 !important;
 }
+
 .ff-inter {
   font-family: "Inter";
 }
+
 .fs-7 {
   font-size: 15px;
 }
+
 .card.card-evento {
   background: #11101d;
   border-color: #222133;
@@ -15,23 +19,29 @@ body {
   padding: 1.2rem;
   padding-bottom: 0.1rem;
 }
+
 .card-header.text-white {
   border-color: #222133;
 }
+
 input.form-control.events {
   color: white;
   background: #1a192a;
   border-color: #232235;
 }
+
 input.form-control.events[type="date"] {
   color: #a0a0a0;
 }
+
 input.form-control.events[type="file"] {
   color: #a0a0a0;
 }
+
 input.form-control.events::placeholder {
   color: #e7e7e7 !important;
 }
+
 .form-control.events:focus {
   color: #fefefe !important;
   background-color: #1a192a !important;
@@ -39,6 +49,7 @@ input.form-control.events::placeholder {
   outline: 0;
   box-shadow: 0 0 0 0.08rem rgba(13, 110, 253, 0.25) !important;
 }
+
 .custom-file-upload {
   padding: 10px;
   width: 100%;
@@ -50,6 +61,7 @@ input.form-control.events::placeholder {
   border-radius: 5px;
   position: relative;
 }
+
 .custom-file-upload::before {
   scale: 0.5;
   content: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgKBYQh36hWzV0E1zeoCvtCeuoo7i9nDZhvjB-v18NLjFy2dddU1VJWPwkWDGxt4IqD60jbGWJS81dzqrnrfzYBrlzc30a_9jNB9bM149yFzabwbpyk54JXNwzynBdCUSJqyYb_TNcmjPkUAUxSqXiNMX1BhH2UX7AxGgWPXnU0NCC4e0QRKjqCpzXvKi4/s1600/imagens%281%29.png");
@@ -58,6 +70,7 @@ input.form-control.events::placeholder {
   left: 46%;
   transform: translate(-50%, -50%);
 }
+
 .custom-file-upload::after {
   content: "subir imagen";
   position: absolute;
@@ -68,6 +81,7 @@ input.form-control.events::placeholder {
   font-weight: 400;
   font-size: 13px;
 }
+
 .custom-file-upload:hover {
   background: #28273f;
 }
@@ -76,60 +90,77 @@ input.form-control.events::placeholder {
   margin-right: auto;
   margin-left: auto;
 }
+
 .card-header {
   border-bottom: none !important;
   padding: 0;
 }
+
 .modal-body {
   position: relative;
   flex: 1 1 auto;
   padding: 0 !important;
 }
+
 .bg-trans {
   background-color: transparent !important;
   box-shadow: none !important;
   border: none;
 }
+
 .modal-header {
   border-bottom: transparent !important;
 }
+
 button.btn-close {
   filter: invert(1);
 }
+
 .card-body.crear-event {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 8rem;
 }
+
 .btn-orange {
   background-color: #ff6c00 !important;
   border-color: orange !important;
   color: white !important;
 }
+
 .btn-orange:hover {
   background: #ac4a02 !important;
   color: white !important;
   border-color: orange !important;
 }
+
 .btn-orange:active {
   background: #ac4a02 !important;
   color: white !important;
   border-color: orange !important;
 }
+
 hr {
   color: #474476;
 }
+
 .bg-eventos {
   background-color: #1a192d;
 }
+
 .fecha-evento {
   color: white;
   font-size: 13px;
   background: #ff6c00;
   padding: 3px 10px;
   border-radius: 16px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .img-content {
   background: #1a192a;
   text-align: center;
@@ -137,14 +168,51 @@ hr {
   border-color: white;
   border: 1px solid;
 }
+
 img#mostrarFoto {
   display: none;
 }
+
 .fs-8 {
   font-size: 13px;
 }
+
 .card.bg-eventos {
-  border-radius: 13px;
-  border-color: #2a2a2a;
-  overflow: hidden;
+  width: 100%;
+  max-width: 350px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card.bg-eventos .card-img-top {
+  height: 200px; 
+  width: 100%;
+  object-fit: fill; 
+}
+
+.card.bg-eventos .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card.bg-eventos .card-body .fecha-evento {
+  margin-bottom: 8px;
+}
+
+.card.bg-eventos .card-body .card-title {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 1.25rem;
+}
+
+.card.bg-eventos .card-body .text-white {
+  overflow-y: auto;
+  max-height: 100px;
+}
+
+.d-grid.gap-2.d-flex {
+  margin-top: 8px;
 }
