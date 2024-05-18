@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Eventos from "./components/pages/Eventos/Eventos.jsx";
-import ParticipacionesAlumnos from "./components/pages/Eventos/ParticipacionesAlumnos.jsx";
+import ParticipacionesAlumnos from "./components/pages/Participaciones/ParticipacionesAlumnos.jsx";
 import Menu from "./components/pages/Menu.jsx";
 import Perfiles from "./components/pages/Perfiles/Perfiles.jsx";
 

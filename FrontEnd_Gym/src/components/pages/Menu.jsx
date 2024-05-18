@@ -6,6 +6,7 @@ import {
   BsCalendar2DateFill,
   BsGearFill,
   BsHouseDoorFill,
+  BsPersonArmsUp,
   BsPersonFill,
 } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
@@ -79,7 +80,7 @@ const Menu = () => {
               </li>
               <li className={`nav-item ${location.pathname === "/ParticipacionesAlumnos" ? "active" : ""}`}>
                 <Link className="nav-link" to="/ParticipacionesAlumnos">
-                  <BsGearFill className="me-2" /> Participaciones Alumnos
+                  <BsPersonArmsUp className="me-2" /> Participaciones Alumnos
                 </Link>
               </li>
               <li className="nav-item dropdown">

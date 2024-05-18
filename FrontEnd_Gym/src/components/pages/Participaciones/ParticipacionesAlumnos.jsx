@@ -1,10 +1,9 @@
-
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import React, { useState } from "react";
+import { useState } from "react";
 import "../../../styles/Eventos.css";
-import { CardEvento } from "./CardEvento";
+import { CardEventosDisponibles } from "./CardEventosDisponibles";
 
 const ParticipacionesAlumnos = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +80,7 @@ const ParticipacionesAlumnos = () => {
             <div className="row align-items-center">
               <div className="col">
                 <h5 className="card-header text-white ff-inter fw-medium">
-                  Mis Eventos
+                  Eventos Disponibles
                 </h5>
               </div>
               <div className="col-lg-10 col-md-10 col-sm-12 col-xs-12 d-flex justify-content-end gap-2">
@@ -153,7 +152,7 @@ const ParticipacionesAlumnos = () => {
                     </div>
                   </div>
                 ) : (
-                  <CardEvento handleRegistrarse={handleRegistrarse} isButtonVisible={true}  />
+                  <CardEventosDisponibles handleRegistrarse={handleRegistrarse} isButtonVisible={true}  />
                 )}
               </div>
             </div>

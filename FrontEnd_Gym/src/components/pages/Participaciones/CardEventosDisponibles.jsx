@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import Swal from "sweetalert2";
 import "../../../styles/Eventos.css";
 
-export const CardEvento = ({ contador, handleEditarEvento, isButtonVisible = false }) => {
+export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonVisible = false }) => {
 
   const [isloading, setIsLoading] = useState(false);
   const [mensaje, setMensaje] = useState('');
@@ -89,10 +89,6 @@ export const CardEvento = ({ contador, handleEditarEvento, isButtonVisible = fal
     getDatos()
   }, [contador])
 
-  const handleEditarPerfil = (ops, evento, nombre, foto, fecha, descripcion, mime_type) => {
-    handleEditarEvento(ops, evento, nombre, foto, fecha, descripcion, mime_type);
-  };
-
   const limpiarCampos = () => {
     setDataForm({
       idusuarios: 0,
@@ -120,12 +116,7 @@ export const CardEvento = ({ contador, handleEditarEvento, isButtonVisible = fal
                 </h6>
                 <p className='text-white ff-inter fs-8'>{evento.descripcion}</p>
 
-
                 <div className="d-grid gap-2 d-flex">
-                  <button className="btn btn-primary btn-sm w-50" type="button" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal" onClick={() => handleEditarPerfil(2, evento.id, evento.nombre, evento.foto, evento.fecha.slice(0, 10), evento.descripcion, evento.mime_type)}>Editar</button>
-                  <button className="btn btn-danger btn-sm w-50" type="button" onClick={() => handleEliminarPerfil(evento.id)}>Eliminar</button>
-
                   {isButtonVisible && (
                     <button
                       type="button"
@@ -139,7 +130,6 @@ export const CardEvento = ({ contador, handleEditarEvento, isButtonVisible = fal
               </div>
             </div>
           </div>
-
           
         ))
       }
