@@ -6,43 +6,43 @@ import { BsPlusCircleFill } from "react-icons/bs";
 import axios from "axios";
 import { CardEvento } from "./CardEvento";
 import Swal from "sweetalert2";
-
 const Eventos = () => {
   const [isloading, setIsLoading] = useState(false)
   const [mensaje, setMensaje] = useState('')
   const [contador, setContador] = useState(0)
   const [op, setOp] = useState(null)
   const [id, setId] = useState('')
+  const [filtroFecha, setFiltroFecha] = useState("0000-00-00");
+  const [tituloModal, setTituloModal] = useState('Crear Evento')
   const [Form, setForm] = useState({
     nombre: "",
     foto: "",
     fecha: "",
     descripcion: "",
   });
-
-
-  const handleEditarEvento = (ops, id, nombre, foto, fecha, descripcions, mime_type) =>{
+  console.log(`la fecha por defecto es: ${filtroFecha}`)
+  const handleEditarEvento = (ops, id, nombre, foto, fecha, descripcions, mime_type) => {
     setOp(ops)
     setId(id)
-    if(ops === 1){
-       setForm({
+    if (ops === 1) {
+      setTituloModal('Crear Evento')
+      setForm({
         nombre: "",
         foto: "",
         fecha: "",
         descripcion: ""
       });
-    }else{    
-        setForm({
-          nombre: nombre,
-          foto: foto,
-          fecha: fecha,
-          descripcion: descripcions
-        })      
-
+    } else {
+      setTituloModal('Editar Evento')
+      setForm({
+        nombre: nombre,
+        foto: foto,
+        fecha: fecha,
+        descripcion: descripcions
+      })
       if (foto) {
         const imgElement = document.getElementById("mostrarFoto");
         const fileInputElement = document.getElementById("fileInputEstile");
-
         if (imgElement && fileInputElement) {
           imgElement.style.display = "inline-block";
           fileInputElement.style.display = "none";
@@ -51,44 +51,39 @@ const Eventos = () => {
           imgElement.src = fotoData
           //src = {`data:${evento.mime_type};base64,${evento.foto}`
         }
-      }     
+      }
     }
   }
-
   const enviar = () => {
-    if(op === 1){
+    if (op === 1) {
       submitHandler()
-    }else if(op === 2){
+    } else if (op === 2) {
       handlerActulualizar()
     }
   }
 
-
-   const handlerActulualizar = async () =>{
+  const handlerActulualizar = async () => {
     event.preventDefault()
     const url = `http://localhost:3000/api/evento/${id}`
     setForm({
       nombre: Form.nombre,
       fecha: Form.fecha,
       descripcion: Form.descripcion
-    })   
+    })
     console.log(Form)
     setIsLoading(true)
     await axios.put(url, Form)
-     setIsLoading(false)
-     setMensaje('Editado con exito!')
-     Swal.fire({
-       icon: "success",
-       title: "Evento editado con exito",
-       showConfirmButton: false,
-       timer: 1500
-     });
-     setContador(prevContador => prevContador + 1);
-     limpiarCampos();
-
-   }
- 
-
+    setIsLoading(false)
+    setMensaje('Editado con exito!')
+    Swal.fire({
+      icon: "success",
+      title: "Evento editado con exito",
+      showConfirmButton: false,
+      timer: 1500
+    });
+    setContador(prevContador => prevContador + 1);
+    limpiarCampos();
+  }
   const limpiarCampos = () => {
     setForm({
       nombre: "",
@@ -101,22 +96,17 @@ const Eventos = () => {
     document.getElementById("fileInputEstile").style.display = "block";
     document.getElementById("inputFile").value = null;
   };
-
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
-
     if (name === "foto") {
       const img = event.target.files[0];
-
       if (img) {
         document.getElementById("mostrarFoto").style.display = "inline-block";
         document.getElementById("fileInputEstile").style.display = "none";
         const reader = new FileReader();
-
         reader.onload = function (e) {
           const imgDataUrl = e.target.result;
           const imgElement = document.getElementById("mostrarFoto");
-
           if (imgElement) {
             imgElement.src = imgDataUrl;
           }
@@ -128,12 +118,10 @@ const Eventos = () => {
     }
     setForm({ ...Form, [name]: value });
   };
-
   const submitHandler = async () => {
     event.preventDefault();
     const url = "http://localhost:3000/api/evento";
     const datosFormulario = new FormData();
-
     datosFormulario.append("nombre", Form.nombre);
     datosFormulario.append("foto", Form.foto);
     datosFormulario.append("fecha", Form.fecha);
@@ -150,11 +138,10 @@ const Eventos = () => {
     });
     setContador(prevContador => prevContador + 1);
     limpiarCampos();
-    
   };
-
-
-
+  const handleFiltrarPorFecha = () => {
+    setContador(prevContador => prevContador + 1);
+  }
   return (
     <>
       <section className="col-12 mb-5">
@@ -170,7 +157,8 @@ const Eventos = () => {
                 onClick={() => handleEditarEvento(1)}
                 className="btn btn-orange"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal" >
+                data-bs-target="#exampleModal"
+              >
                 <BsPlusCircleFill className="icon" /> Nuevo Evento
               </button>
             </div>
@@ -185,7 +173,7 @@ const Eventos = () => {
                 </h5>
               </div>
               <div className="col-lg-10 col-md-10 col-sm-12 col-xs-12 d-flex justify-content-end gap-2">
-                <form className="row">
+                <div className="row">
                   <div className="col-auto d-flex align-items-center">
                     <label
                       htmlFor="staticEmail2"
@@ -200,14 +188,20 @@ const Eventos = () => {
                       className="form-control events"
                       placeholder="Last name"
                       aria-label="Last name"
+                      value={filtroFecha}
+                      onChange={(e) => setFiltroFecha(e.target.value)}
                     />
                   </div>
                   <div className="col-auto">
-                    <button type="button" className="btn btn-primary">
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={() => handleFiltrarPorFecha()}
+                    >
                       Filtrar
                     </button>
                   </div>
-                </form>
+                </div>
                 <div className="dropdown">
                   <button
                     className="btn btn-orange dropdown-toggle"
@@ -237,44 +231,43 @@ const Eventos = () => {
                 </div>
               </div>
             </div>
-
             <hr />
             <div className="card-body crear-event">
-              <div className="row">
-                <CardEvento contador={contador} handleEditarEvento={handleEditarEvento} />
+              <div className="row col-12">
+                <CardEvento contador={contador} handleEditarEvento={handleEditarEvento} filtroFecha={filtroFecha} />
               </div>
             </div>
           </div>
         </div>
       </section>
-
       {/* MODAL */}
       <div
         className="modal fade"
         id="exampleModal"
         aria-labelledby="exampleModalLabel"
-        aria-hidden="true" >
+        aria-hidden="true"
+      >
         <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
+          <div className="modal-content bg-trans">
             <div className="modal-body">
               <div className="card card-evento">
                 <div className="modal-header">
                   <h5 className="card-header text-white ff-inter fw-medium">
-                    Crear Evento
+                    {tituloModal}
                   </h5>
                   <button
                     type="button"
                     className="btn-close"
                     data-bs-dismiss="modal"
                     aria-label="Close"
-                    onClick={()=> limpiarCampos()}
+                    onClick={() => limpiarCampos()}
                   ></button>
                 </div>
                 <div className="card-body">
                   <form onSubmit={enviar}>
                     <div className="mb-3">
                       <div className="row">
-                        <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <label className="form-label text-white ff-inter fw-medium fs-7">
                             Miniatura del evento*
                           </label>
@@ -318,7 +311,7 @@ const Eventos = () => {
                     </div>
                     <div className="mb-3">
                       <div className="row">
-                        <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <label className="form-label text-white ff-inter fw-medium fs-7">
                             Titulo
                           </label>
@@ -331,21 +324,11 @@ const Eventos = () => {
                             id="nameEvento"
                           />
                         </div>
-                        <div className="col">
-                          <label className="form-label text-white ff-inter fw-medium fs-7">
-                            Categoria*
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control events"
-                            id="categoria"
-                          />
-                        </div>
                       </div>
                     </div>
                     <div className="mb-3">
                       <div className="row">
-                        <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <label className="form-label text-white ff-inter fw-medium fs-7">
                             Descripción
                           </label>
@@ -362,7 +345,7 @@ const Eventos = () => {
                     </div>
                     <div className="mb-3">
                       <div className="row">
-                        <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <button
                             onClick={() => enviar()}
                             className="btn btn-primary w-100 ff-inter fw-medium"
@@ -390,5 +373,4 @@ const Eventos = () => {
     </>
   );
 };
-
 export default Eventos;
