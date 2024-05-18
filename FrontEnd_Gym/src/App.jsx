@@ -5,6 +5,7 @@ import Eventos from "./components/pages/Eventos/Eventos.jsx";
 import ParticipacionesAlumnos from "./components/pages/Eventos/ParticipacionesAlumnos.jsx";
 import Menu from "./components/pages/Menu.jsx";
 import Perfiles from "./components/pages/Perfiles/Perfiles.jsx";
+import UsuariosPrincipal from "./components/pages/Usuarios/UsuariosPrincipal.jsx"
 
 const App = () => {
   const [usuario, setUsuario] = useState("");
@@ -26,7 +27,11 @@ const App = () => {
                 <Routes>
                   <Route path="eventos" element={<Eventos />} />
                   <Route path="perfiles" element={<Perfiles />} />
+
+                  <Route path="usuarios" element={<UsuariosPrincipal />} />             
+
                   <Route path="ParticipacionesAlumnos" element={<ParticipacionesAlumnos />} />
+
                 </Routes>
               </div>
             </>
