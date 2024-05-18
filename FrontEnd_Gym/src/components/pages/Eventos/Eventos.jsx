@@ -13,7 +13,6 @@ const Eventos = () => {
   const [op, setOp] = useState(null)
   const [id, setId] = useState('')
   const [filtroFecha, setFiltroFecha] = useState("0000-00-00");
-  const [tituloModal, setTituloModal] = useState('Crear Evento')
   const [Form, setForm] = useState({
     nombre: "",
     foto: "",
@@ -25,7 +24,6 @@ const Eventos = () => {
     setOp(ops)
     setId(id)
     if (ops === 1) {
-      setTituloModal('Crear Evento')
       setForm({
         nombre: "",
         foto: "",
@@ -33,7 +31,6 @@ const Eventos = () => {
         descripcion: ""
       });
     } else {
-      setTituloModal('Editar Evento')
       setForm({
         nombre: nombre,
         foto: foto,
@@ -61,7 +58,6 @@ const Eventos = () => {
       handlerActulualizar()
     }
   }
-
   const handlerActulualizar = async () => {
     event.preventDefault()
     const url = `http://localhost:3000/api/evento/${id}`
@@ -253,7 +249,7 @@ const Eventos = () => {
               <div className="card card-evento">
                 <div className="modal-header">
                   <h5 className="card-header text-white ff-inter fw-medium">
-                    {tituloModal}
+                    Crear Evento
                   </h5>
                   <button
                     type="button"
