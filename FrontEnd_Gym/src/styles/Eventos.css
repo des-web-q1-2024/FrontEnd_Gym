@@ -178,3 +178,16 @@ img#mostrarFoto {
     border-color: #2a2a2a;
     overflow: hidden;
 }
+
+.App {
+  text-align: center;
+  margin-top: 50px;
+}
+select {
+  color: white;
+  background: #1a192a;
+  border-color: #232235;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 16px;
+}

@@ -153,7 +153,7 @@ const ParticipacionesAlumnos = () => {
                     </div>
                   </div>
                 ) : (
-                  <CardEvento handleRegistrarse={handleRegistrarse} />
+                  <CardEvento handleRegistrarse={handleRegistrarse} isButtonVisible={true}  />
                 )}
               </div>
             </div>

@@ -170,8 +170,7 @@ const Eventos = () => {
                 onClick={() => handleEditarEvento(1)}
                 className="btn btn-orange"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
+                data-bs-target="#exampleModal" >
                 <BsPlusCircleFill className="icon" /> Nuevo Evento
               </button>
             </div>
@@ -254,8 +253,7 @@ const Eventos = () => {
         className="modal fade"
         id="exampleModal"
         aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
+        aria-hidden="true" >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-body">
