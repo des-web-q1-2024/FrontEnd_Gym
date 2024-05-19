@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
   const [data, setData] = useState([])
   const [filtroData, setFiltroData] = useState([])
-  
+
   const getDatos = async () => {
     const url = 'http://localhost:3000/api/evento'
     const response = await axios.get(url)
@@ -16,7 +16,7 @@ export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
   }
 
   const getDatosFiltrados = async () => {
-    const url = `http://localhost:3000/api/evento/${filtroFecha}`
+    const url = `http://localhost:3000/api/evento/filtrar/${filtroFecha}`
     const response = await axios.get(url)
     setFiltroData(response.data)
   }
@@ -25,6 +25,9 @@ export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
     getDatos()
     getDatosFiltrados()
   }, [contador])
+
+
+  console.log(filtroData)
   
   //console.log(`la fecha pasada como props es: ${filtroFecha}`)
 
