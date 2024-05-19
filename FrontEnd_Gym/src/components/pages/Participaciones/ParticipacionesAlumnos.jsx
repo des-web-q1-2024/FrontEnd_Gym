@@ -144,7 +144,7 @@ const ParticipacionesAlumnos = () => {
 
             <hr />
             <div className="card-body crear-event">
-              <div className="row">
+              <div className="row col-12">
                 {isLoading ? (
                   <div className="text-center mt-5">
                     <div className="spinner-border text-primary" role="status">
