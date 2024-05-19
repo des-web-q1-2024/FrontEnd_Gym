@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
   const [data, setData] = useState([])
   const [filtroData, setFiltroData] = useState([])
+  
   const getDatos = async () => {
     const url = 'http://localhost:3000/api/evento'
     const response = await axios.get(url)
@@ -19,6 +20,7 @@ export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
     const response = await axios.get(url)
     setFiltroData(response.data)
   }
+
   useEffect(() => {
     getDatos()
     getDatosFiltrados()
@@ -29,7 +31,7 @@ export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
   const handleEditarPerfil = (ops, evento, nombre, foto, fecha, descripcion, mime_type) => {
     handleEditarEvento(ops, evento, nombre, foto, fecha, descripcion, mime_type);
   };
-  
+
   const handleEliminarPerfil = async (id) => {
     try {
       const url = `http://localhost:3000/api/evento/${id}`
