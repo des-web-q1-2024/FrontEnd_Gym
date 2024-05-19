@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "../../../styles/Eventos.css";
 import Swal from "sweetalert2";
+
 export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
   const [data, setData] = useState([])
   const [filtroData, setFiltroData] = useState([])
@@ -23,10 +24,12 @@ export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
     getDatosFiltrados()
   }, [contador])
   
-  console.log(`la fecha pasada como props es: ${filtroFecha}`)
+  //console.log(`la fecha pasada como props es: ${filtroFecha}`)
+
   const handleEditarPerfil = (ops, evento, nombre, foto, fecha, descripcion, mime_type) => {
     handleEditarEvento(ops, evento, nombre, foto, fecha, descripcion, mime_type);
   };
+  
   const handleEliminarPerfil = async (id) => {
     try {
       const url = `http://localhost:3000/api/evento/${id}`
