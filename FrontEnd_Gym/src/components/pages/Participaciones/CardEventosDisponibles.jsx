@@ -26,11 +26,11 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
   }
   const handlerSubmit = async (e) => { 
     e.preventDefault();
-
+   
     let url = `${urlBase}/${eventoID}/${dataForm.idusuarios}`;
     const result = await axios.get(url);
     const resulData = (await result).data;
-
+ 
     dataForm.idevento = eventoID;
     url = `${urlBase}/${resulData[0].id}`;
     await axios.put(url, dataForm);
@@ -48,10 +48,11 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
     dataForm.idusuarios = userLogin.id;
     dataForm.logro = "";
 
-    let url = `${urlBase}/${dataForm.idevento}/${dataForm.idusuarios}`;
+    let url = `${urlBase}/existe/${dataForm.idevento}/${dataForm.idusuarios}`;
+ 
     const result = await axios.get(url);
-
-    if (result.data.length === 0 ){
+    console.log(result)
+    if (result.data[0].existe == 0 ){
       url = urlBase;
       await axios.post(url, dataForm);
       Swal.fire({
