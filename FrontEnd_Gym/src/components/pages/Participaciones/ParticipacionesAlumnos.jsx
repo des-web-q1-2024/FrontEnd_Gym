@@ -1,13 +1,15 @@
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "../../../styles/Eventos.css";
 import { CardEventosDisponibles } from "./CardEventosDisponibles";
+import UserContext from '../Usuarios/UserContext';
 
 const ParticipacionesAlumnos = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [mensaje, setMensaje] = useState("");
+  const { userLogin, setUserLogin } = useContext(UserContext);
   const [form, setForm] = useState({
     nombre: "",
     foto: "",
@@ -143,17 +145,10 @@ const ParticipacionesAlumnos = () => {
             </div>
 
             <hr />
+
             <div className="card-body crear-event">
-              <div className="row">
-                {isLoading ? (
-                  <div className="text-center mt-5">
-                    <div className="spinner-border text-primary" role="status">
-                      <span className="visually-hidden"></span>
-                    </div>
-                  </div>
-                ) : (
-                  <CardEventosDisponibles handleRegistrarse={handleRegistrarse} isButtonVisible={true}  />
-                )}
+              <div className="row col-12">
+                <CardEventosDisponibles handleRegistrarse={handleRegistrarse} isButtonVisible={true} />
               </div>
             </div>
           </div>

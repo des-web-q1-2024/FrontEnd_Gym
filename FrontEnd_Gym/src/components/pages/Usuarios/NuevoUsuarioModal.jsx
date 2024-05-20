@@ -69,7 +69,6 @@ const NuevoUsuarioModal = ({ isOpen, onRequestClose, onUsuarioCreado }) => {
   };
 
   return (
-   
     <Modal show={isOpen} onHide={onRequestClose} className="custom-modal" >
       <Modal.Header closeButton>
         <Modal.Title style={{  color: 'white' }}>Nuevo Usuario</Modal.Title>

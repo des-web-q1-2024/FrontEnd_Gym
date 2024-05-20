@@ -90,15 +90,6 @@ const Menu = () => {
                 </li>
                 <li
                   className={`nav-item ${
-                    location.pathname === "/muro" ? "active" : ""
-                  }`}
-                >
-                  <Link className="nav-link" to="/muro">
-                    <BsGearFill className="me-2" /> Muro
-                  </Link>
-                </li>
-                <li
-                  className={`nav-item ${
                     location.pathname === "/ParticipacionesAlumnos"
                       ? "active"
                       : ""
@@ -106,6 +97,15 @@ const Menu = () => {
                 >
                   <Link className="nav-link" to="/ParticipacionesAlumnos">
                     <BsPersonArmsUp className="me-2" /> Participaciones Alumnos
+                  </Link>
+                </li>
+                <li
+                  className={`nav-item ${
+                    location.pathname === "/muro" ? "active" : ""
+                  }`}
+                >
+                  <Link className="nav-link" to="/muro">
+                    <BsGearFill className="me-2" /> Muro
                   </Link>
                 </li>
                 <li className="nav-item dropdown">
