@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Modal from 'react-modal';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import { useEffect, useState, useContext } from 'react';
@@ -76,21 +75,29 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
   const [optionsParticipantes, setOptionsParticipantes] = useState([]);
   useEffect(() => {
     // URL del endpoint
-    const endpoint = `${urlBase}/${eventoID}`;
-    // Función para obtener datos del endpoint
-    const fetchData = async () => {
-      try {
-        const response = await fetch(endpoint);
-        const data = await response.json();
-        setOptionsParticipantes(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    if (eventoID > 0){
 
-    fetchData();
+      const endpoint = `${urlBase}/${eventoID}`;
+      // Función para obtener datos del endpoint
+      const fetchData = async () => {
+        try {
+          const response = await fetch(endpoint);
+          const data = await response.json();
+          setOptionsParticipantes(data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+      
+      fetchData();
+    }
   }, eventoID);
 
+
+  const handleCargaEvento = async (_id) => { 
+    alert(_id);
+    await setEventoID(_id);
+  }
   // Alimentacion Select Eventos
   const [optionsEventos, setOptionsEventos] = useState([]);
   useEffect(() => {
@@ -155,7 +162,7 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
                         type="button"
                         className="btn btn-success"
                         style={{ marginRight: '20px' }}
-                        onClick={() => setEventoID(evento.id)}
+                        onClick={() => handleCargaEvento(evento.id)}
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal" > 
                         Registrar Logros

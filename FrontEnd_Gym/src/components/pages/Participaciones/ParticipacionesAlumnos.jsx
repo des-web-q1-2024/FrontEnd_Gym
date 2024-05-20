@@ -10,7 +10,7 @@ const ParticipacionesAlumnos = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [mensaje, setMensaje] = useState("");
   const { userLogin, setUserLogin } = useContext(UserContext);
-  const [form, setForm] = useState({
+  const [form, setForm] = useState({ 
     nombre: "",
     foto: "",
     fecha: "",
