@@ -180,15 +180,14 @@ img#mostrarFoto {
 .card.bg-eventos {
   width: 100%;
   max-width: 350px;
-  height: 450px;
   display: flex;
   flex-direction: column;
 }
 
 .card.bg-eventos .card-img-top {
-  height: 200px; 
-  width: 100%;
-  object-fit: fill; 
+    height: 166px;
+    width: 100%;
+    object-fit: cover;
 }
 
 .card.bg-eventos .card-body {

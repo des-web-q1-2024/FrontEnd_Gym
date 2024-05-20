@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 const Eventos = () => {
   const [isloading, setIsLoading] = useState(false)
   const [mensaje, setMensaje] = useState('')
+  const [titleModal, setTitleModal] = useState('')
   const [contador, setContador] = useState(0)
   const [op, setOp] = useState(null)
   const [id, setId] = useState('')
@@ -30,7 +31,9 @@ const Eventos = () => {
         fecha: "",
         descripcion: ""
       });
+      setTitleModal('Crear Evento')
     } else {
+      setTitleModal('Editar Evento')
       setForm({
         nombre: nombre,
         foto: foto,
@@ -44,7 +47,7 @@ const Eventos = () => {
           imgElement.style.display = "inline-block";
           fileInputElement.style.display = "none";
           let fotoData = `data:${mime_type};base64,${foto}`
-          console.log(`esta es la foto${fotoData}`)
+          //console.log(`esta es la foto${fotoData}`)
           imgElement.src = fotoData
           //src = {`data:${evento.mime_type};base64,${evento.foto}`
         }
@@ -236,6 +239,7 @@ const Eventos = () => {
           </div>
         </div>
       </section>
+
       {/* MODAL */}
       <div
         className="modal fade"
@@ -249,7 +253,7 @@ const Eventos = () => {
               <div className="card card-evento">
                 <div className="modal-header">
                   <h5 className="card-header text-white ff-inter fw-medium">
-                    Crear Evento
+                    {titleModal}
                   </h5>
                   <button
                     type="button"

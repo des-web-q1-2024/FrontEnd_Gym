@@ -4,9 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "../../../styles/Eventos.css";
 import Swal from "sweetalert2";
+
 export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
   const [data, setData] = useState([])
   const [filtroData, setFiltroData] = useState([])
+
   const getDatos = async () => {
     const url = 'http://localhost:3000/api/evento'
     const response = await axios.get(url)
@@ -14,19 +16,25 @@ export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
   }
 
   const getDatosFiltrados = async () => {
-    const url = `http://localhost:3000/api/evento/${filtroFecha}`
+    const url = `http://localhost:3000/api/evento/filtrar/${filtroFecha}`
     const response = await axios.get(url)
     setFiltroData(response.data)
   }
+
   useEffect(() => {
     getDatos()
     getDatosFiltrados()
   }, [contador])
+
+
+  console.log(filtroData)
   
-  console.log(`la fecha pasada como props es: ${filtroFecha}`)
+  //console.log(`la fecha pasada como props es: ${filtroFecha}`)
+
   const handleEditarPerfil = (ops, evento, nombre, foto, fecha, descripcion, mime_type) => {
     handleEditarEvento(ops, evento, nombre, foto, fecha, descripcion, mime_type);
   };
+
   const handleEliminarPerfil = async (id) => {
     try {
       const url = `http://localhost:3000/api/evento/${id}`
