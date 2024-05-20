@@ -1,14 +1,14 @@
-// Login.js
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginStyles from "../styles/LoginStyles";
-import UserContext from '../components/UserContext';
+import UserContext from './pages/Usuarios/UserContext';
 
-function Login() {
-  const { setUserLogin } = useContext(UserContext);
+function Login({ onLogin }) {
+  const { userLogin, setUserLogin } = useContext(UserContext);
+
   const [dataForm, setDataForm] = useState({
     nombre_usuario: "",
     pass: "",
@@ -29,7 +29,7 @@ function Login() {
       const data = response.data;
 
       if (data.success) {
-        await handleGlobalUser();
+        handleGlobalUser();
         navigate("/menu");
       } else {
         Swal.fire({
@@ -40,6 +40,7 @@ function Login() {
       }
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
+
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -51,8 +52,8 @@ function Login() {
   const handleGlobalUser = async () => {
     try {
       const url = `http://localhost:3000/api/Usuarios/${dataForm.nombre_usuario}`;
-      const result = await axios.get(url);
-      const resulData = result.data;
+      const result = axios.get(url);
+      const resulData = (await result).data;
       let tempRecord = {
         id: resulData[0].id,
         nombre_usuario: resulData[0].nombre_usuario,
@@ -60,12 +61,12 @@ function Login() {
         correo: resulData[0].correo,
         idperfil: resulData[0].idperfil,
         perfil: resulData[0].perfil
-      };
+      }
       setUserLogin(tempRecord);
     } catch (error) {
-      console.error("Error al establecer datos del usuario:", error);
+      console.error("Error al iniciar sesión:", error);
     }
-  };
+  }
 
   return (
     <div className="container-fluit login-container">
