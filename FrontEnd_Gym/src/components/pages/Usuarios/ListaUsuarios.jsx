@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const ListaUsuarios = ({ onUsuarioSeleccionado }) => {
+const ListaUsuarios = ({ onUsuarioSeleccionado , conteModal}) => {
   const [usuarios, setUsuarios] = useState([]);
 
   useEffect(() => {
     cargarUsuarios();
-  }, []);
+    console.log(conteModal)
+  }, [conteModal]);
 
   const cargarUsuarios = async () => {
     try {
+      //colocar un lader
       const response = await axios.get("http://localhost:3000/api/usuarios");
       setUsuarios(response.data);
+      //eliminar loader
     } catch (error) {
       console.error("Error al cargar los usuarios:", error);
     }

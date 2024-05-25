@@ -8,36 +8,14 @@ import { BsPlusCircle } from "react-icons/bs";
 const UsuariosPrincipal = () => {
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [usuarios, setUsuarios] = useState([]);
+  const [conteModal, setConteoModal] = useState(0);
 
   const handleUsuarioSeleccionado = (usuario) => {
     setUsuarioSeleccionado(usuario);
   };
 
   const handleNuevoUsuarioCreado = (nuevoUsuario) => {
- 
-    cargarUsuarios();
     console.log('Nuevo usuario creado:', nuevoUsuario);
-  };
-
-  const handleUsuarioEliminado = (idUsuarioEliminado) => {
- 
-    const nuevosUsuarios = usuarios.filter(usuario => usuario.id !== idUsuarioEliminado);
-    setUsuarios(nuevosUsuarios);
-  };
-
-  const cargarUsuarios = async () => {
-    try {
-      const response = await fetch('URL_DEL_API');
-      if (response.ok) {
-        const data = await response.json();
-        setUsuarios(data);
-      } else {
-        console.error('Error al cargar los usuarios:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error al cargar los usuarios:', error);
-    }
   };
 
   return (
@@ -48,17 +26,19 @@ const UsuariosPrincipal = () => {
 
       <Row className="mt-4"> 
         <Col md={6}> 
-          <ListaUsuarios onUsuarioSeleccionado={handleUsuarioSeleccionado} />
+          <ListaUsuarios onUsuarioSeleccionado={handleUsuarioSeleccionado}  conteModal={conteModal} />
         </Col>
         <Col md={6}> 
-          <DetalleUsuario usuario={usuarioSeleccionado} onUsuarioEliminado={handleUsuarioEliminado} />
+          <DetalleUsuario usuario={usuarioSeleccionado} onUsuarioEliminado={()=> 1+1 } />
         </Col>
       </Row>
 
       <NuevoUsuarioModal
         isOpen={modalVisible}
         onRequestClose={() => setModalVisible(false)}
-        onUsuarioCreado={handleNuevoUsuarioCreado}
+        onUsuarioCreado={handleNuevoUsuarioCreado} 
+        setConteoModal = {setConteoModal}
+        conteModal={conteModal}
       />
     </div>
   );

@@ -5,7 +5,7 @@ import "../../../styles/Modal.css";
 import axios from 'axios';
 
 
-const NuevoUsuarioModal = ({ isOpen, onRequestClose, onUsuarioCreado }) => {
+const NuevoUsuarioModal = ({ isOpen, onRequestClose, onUsuarioCreado, setConteoModal ,conteModal}) => {
   const [nombreUsuario, setNombreUsuario] = useState('');
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
@@ -15,10 +15,9 @@ const NuevoUsuarioModal = ({ isOpen, onRequestClose, onUsuarioCreado }) => {
   const [fotoPerfil, setFotoPerfil] = useState(null);
   const [idPerfil, setIdPerfil] = useState('');
   const [perfiles, setPerfiles] = useState([]);
-
-  
-  useEffect(() => {
-    cargarPerfiles();
+ 
+  useEffect(()=>{
+    cargarPerfiles()
   }, []);
 
   useEffect(() => {
@@ -33,8 +32,6 @@ const NuevoUsuarioModal = ({ isOpen, onRequestClose, onUsuarioCreado }) => {
       console.error('Error al cargar los perfiles:', error);
     }
   };
-
-  
   const generarNombreUsuario = () => {
     if (nombre && apellido) {
       setNombreUsuario(`${nombre.charAt(0)}${apellido.substring(0, 4)}`.toLowerCase());
@@ -60,8 +57,10 @@ const NuevoUsuarioModal = ({ isOpen, onRequestClose, onUsuarioCreado }) => {
       const response = await axios.post('http://localhost:3000/api/usuarios', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
+      setConteoModal(conteModal+1);
       onUsuarioCreado(response.data);
       onRequestClose();
+      
 
     } catch (error) {
       console.error('Error al crear el usuario:', error);
