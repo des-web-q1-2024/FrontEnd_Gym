@@ -74,29 +74,30 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
 
   // Alimentacion Select Usuarios
   const [optionsParticipantes, setOptionsParticipantes] = useState([]);
+
+  const fetchDataEventAl = async (eventoID) => {
+
+    const endpoint = `${urlBase}/${eventoID}`;
+
+    try {
+      const response = await fetch(endpoint);
+      const data = await response.json();
+      setOptionsParticipantes(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
   useEffect(() => {
     // URL del endpoint
     if (eventoID > 0){
-
-      const endpoint = `${urlBase}/${eventoID}`;
       // Función para obtener datos del endpoint
-      const fetchData = async () => {
-        try {
-          const response = await fetch(endpoint);
-          const data = await response.json();
-          setOptionsParticipantes(data);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-      
-      fetchData();
+      fetchDataEventAl(eventoID);
     }
-  }, eventoID);
+  }, [eventoID]);
 
 
   const handleCargaEvento = async (_id) => { 
-    alert(_id);
     await setEventoID(_id);
   }
   // Alimentacion Select Eventos
