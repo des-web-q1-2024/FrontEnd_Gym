@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import "../../../styles/Modal.css";
 import axios from 'axios';
 
-
-const NuevoUsuarioModal = ({ isOpen, onRequestClose, onUsuarioCreado, setConteoModal ,conteModal}) => {
+const NuevoUsuarioModal = ({ isOpen, onRequestClose, onUsuarioCreado, setConteoModal, conteModal }) => {
+  // Estados para los campos del formulario
   const [nombreUsuario, setNombreUsuario] = useState('');
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
@@ -15,15 +14,18 @@ const NuevoUsuarioModal = ({ isOpen, onRequestClose, onUsuarioCreado, setConteoM
   const [fotoPerfil, setFotoPerfil] = useState(null);
   const [idPerfil, setIdPerfil] = useState('');
   const [perfiles, setPerfiles] = useState([]);
- 
-  useEffect(()=>{
-    cargarPerfiles()
+
+  // Cargar perfiles al montar el componente
+  useEffect(() => {
+    cargarPerfiles();
   }, []);
 
+  // Generar nombre de usuario cuando cambian el nombre o el apellido
   useEffect(() => {
     generarNombreUsuario();
   }, [nombre, apellido]);
 
+  // Función para cargar perfiles desde la API
   const cargarPerfiles = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/Perfiles');
@@ -32,12 +34,15 @@ const NuevoUsuarioModal = ({ isOpen, onRequestClose, onUsuarioCreado, setConteoM
       console.error('Error al cargar los perfiles:', error);
     }
   };
+
+  // Función para generar el nombre de usuario automáticamente
   const generarNombreUsuario = () => {
     if (nombre && apellido) {
       setNombreUsuario(`${nombre.charAt(0)}${apellido.substring(0, 4)}`.toLowerCase());
     }
   };
 
+  // Función para manejar el envío del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -57,22 +62,20 @@ const NuevoUsuarioModal = ({ isOpen, onRequestClose, onUsuarioCreado, setConteoM
       const response = await axios.post('http://localhost:3000/api/usuarios', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      setConteoModal(conteModal+1);
-      onUsuarioCreado(response.data);
-      onRequestClose();
-      
-
+      setConteoModal(conteModal + 1); // Actualiza el conteo de modales
+      onUsuarioCreado(response.data); // Notifica al componente padre sobre la creación del nuevo usuario
+      onRequestClose(); // Cierra el modal
     } catch (error) {
       console.error('Error al crear el usuario:', error);
     }
   };
 
   return (
-    <Modal show={isOpen} onHide={onRequestClose} className="custom-modal" >
+    <Modal show={isOpen} onHide={onRequestClose} className="custom-modal">
       <Modal.Header closeButton>
-        <Modal.Title style={{  color: 'white' }}>Nuevo Usuario</Modal.Title>
+        <Modal.Title style={{ color: 'white' }}>Nuevo Usuario</Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{  color: 'white' }} className="custom-modal-body">
+      <Modal.Body style={{ color: 'white' }} className="custom-modal-body">
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formNombreUsuario">
             <Form.Label>Nombre de Usuario</Form.Label>

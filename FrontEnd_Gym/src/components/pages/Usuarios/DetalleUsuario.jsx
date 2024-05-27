@@ -1,13 +1,15 @@
 import React from 'react';
 import axios from 'axios'; 
-import { BsTrash } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa"; 
 
 const DetalleUsuario = ({ usuario, onUsuarioEliminado }) => {
-  const handleEliminarUsuario = async () => {
+  // Maneja la eliminación del usuario
+  const handleEliminarUsuario = async (event) => {
+    event.preventDefault(); // Previene el comportamiento predeterminado del enlace
     try {
       const response = await axios.delete(`http://localhost:3000/api/usuarios/${usuario.id}`);
       if (response.status === 200) {
+        // Llama a la función pasada por props para actualizar la lista de usuarios en el componente padre
         onUsuarioEliminado(usuario.id);
       } else {
         console.error('Error al eliminar el usuario:', response.statusText);
@@ -51,7 +53,9 @@ const DetalleUsuario = ({ usuario, onUsuarioEliminado }) => {
           <p>Apellido: {usuario.apellido}</p>
           <p>Correo: {usuario.correo}</p>
           <p>Fecha de Nacimiento: {usuario.fechaNacimiento}</p>
-          <a href="#" onClick={handleEliminarUsuario} style={{ color: 'red' }}><FaTrashAlt /></a>
+          <a href="#" onClick={handleEliminarUsuario} style={{ color: 'red' }}>
+            <FaTrashAlt />
+          </a>
         </div>
       )}
     </div>
