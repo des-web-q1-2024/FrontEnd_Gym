@@ -8,6 +8,8 @@ import Menu from "./components/pages/Menu.jsx";
 import Perfiles from "./components/pages/Perfiles/Perfiles.jsx";
 import UsuariosPrincipal from "./components/pages/Usuarios/UsuariosPrincipal.jsx";
 import LandingPage from "./components/pages/LandingPage";
+import MuroPrincipal from "./components/pages/Muro/PrincipalMuro.jsx"
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const App = () => {
   const [usuario, setUsuario] = useState("");
@@ -28,10 +30,8 @@ const App = () => {
       <UserContext.Provider value={{ userLogin, setUserLogin }}>
         <Routes>
           <Route path="/" element={<Login onLogin={handleLogin} />} />
-          <Route
-            path="/landing" // Define la ruta '/landing' para mostrar LandingPage
-            element={<LandingPage />} // Renderiza LandingPage cuando se accede a '/landing'
-          />
+          <Route path="/landing" element={<LandingPage />} />
+          <Route path="/muroPrincipal" element={<MuroPrincipal />} />
           <Route
             path="/*"
             element={
