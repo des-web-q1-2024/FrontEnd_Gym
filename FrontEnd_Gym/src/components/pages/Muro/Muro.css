@@ -170,6 +170,7 @@ body {
   border: 2px solid rgba(169, 150, 253, 0.5);
   box-shadow: 0px 4px 5px 0px var(--shadow-color),
     0px 1px 8px 0px var(--shadow-color), 0px 2px 4px -1px var(--shadow-color);
+    color: none ;
 }
 
 /* LEFT CONTENT */
@@ -260,7 +261,7 @@ body {
 
 .event-header {
   position: relative;
-  height: 180px;
+  height: auto;
   margin-bottom: 8px;
 }
 
@@ -268,7 +269,7 @@ body {
   position: relative;
   inset: 0;
   width: 100%;
-  height: 180px;
+  height: auto;
   border-radius: 6px;
   border: 2px solid rgba(125, 125, 137, 0.5);
   object-fit: fill;

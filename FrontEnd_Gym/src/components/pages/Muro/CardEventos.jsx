@@ -72,8 +72,8 @@ export const CardEventos = () => {
                     ></i>
                   </div>
                   <div className="event-content">
-                    <h2>{evento.nombre}</h2>
-                    <p
+                    <h2 className="text-white">{evento.nombre}</h2>
+                    <p className="text-white"
                       style={{
                         whiteSpace: "normal",
                         wordBreak: "break-word",
