@@ -9,7 +9,7 @@ const CardLanding = ({ filtroFecha }) => {
   const [data, setData] = useState([]);
 
   const getDatos = async () => {
-    const url = 'http://localhost:3000/api/evento';
+    const url = 'http://localhost:3000/api/evento/recientes';
     try {
       const response = await axios.get(url);
       setData(response.data);

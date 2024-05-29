@@ -51,7 +51,10 @@ header h1 {
 
 header p {
   color: #6c757d;
+  font-size: 1.2rem;
 }
+
+
 
 .about-us,
 .vision-mission,
@@ -59,6 +62,10 @@ header p {
   background-color: #222133;
   padding: 20px;
   border-radius: 10px;
+}
+
+.contact-us p {
+  margin: 0.5rem 0;
 }
 
 .events .card {
