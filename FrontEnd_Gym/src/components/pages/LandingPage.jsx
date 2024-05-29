@@ -25,7 +25,7 @@ const LandingPage = () => {
       </section>
 
       <section className="events my-5">
-        <h2 className="text-center mb-3">Eventos</h2>
+        <h2 className="text-center text-uppercase mb-3">Eventos</h2>
         <div className="row">
           <CardLanding />
         </div>

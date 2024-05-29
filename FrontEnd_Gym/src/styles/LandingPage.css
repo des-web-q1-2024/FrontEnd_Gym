@@ -8,17 +8,7 @@
 
 
 #root {
-  background-image: url('/FrontEnd_Gym/src/assets/kickBoxing.avif');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background-image: url('/FrontEnd_Gym/src/assets/kickBoxing.avif');
+  background-image: url('src/assets/kickBoxing.avif') !important;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -54,7 +44,26 @@ header p {
   margin-bottom: 20px;
 }
 
+.card{
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 15px;
+}
 
+.card-body{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  justify-content: center;
+  align-items: center;
+  color: white; 
+}
 
 section h2 {
   color: #fff;

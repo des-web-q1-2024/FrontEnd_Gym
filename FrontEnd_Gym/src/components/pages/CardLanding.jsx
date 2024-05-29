@@ -42,10 +42,10 @@ const CardLanding = ({ filtroFecha }) => {
             />
             <div className="card-body">
               <span className="fecha-evento ff-inter">{evento.fecha ? evento.fecha.slice(0, 10) : 'Fecha no disponible'}</span>
-              <h6 className="card-title text-white ff-inter mt-2">
+              <h6 className="card-title text-uppercase text-center text-white ff-inter mt-2">
                 {evento.nombre}
               </h6>
-              <p className='text-white ff-inter fs-8'>{evento.descripcion}</p>
+              <p className='text-white text-center ff-inter fs-8'>{evento.descripcion}</p>
             </div>
           </div>
         </div>
