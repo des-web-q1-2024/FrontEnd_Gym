@@ -1,49 +1,69 @@
 /* src/styles/LandingPage.css */
 
 .container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-  }
-  
-  header {
-    background-color: #222133;
-    padding: 40px 20px;
-    border-radius: 10px;
-  }
-
-  header h1 {
-    color: #fff;
-  }
-
-  header p {
-    color: #6c757d;
-  }
-  
-  .about-us, .vision-mission, .contact-us {
-    background-color: #222133;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  .events .card {
-    margin-bottom: 20px;
-  }
-  
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
 
 
-  section h2 {
-    color: #fff;
-  }
-  
-  section p {
-    color: #6c757d;
-  }
-  
-  section {
-    margin-bottom: 40px;
-  }
-  
+#root {
+  background-image: url('/FrontEnd_Gym/src/assets/kickBoxing.avif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url('/FrontEnd_Gym/src/assets/kickBoxing.avif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+
+header {
+  background-color: #222133;
+  padding: 40px 20px;
+  border-radius: 10px;
+}
+
+header h1 {
+  color: #fff;
+}
+
+header p {
+  color: #6c757d;
+}
+
+.about-us,
+.vision-mission,
+.contact-us {
+  background-color: #222133;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.events .card {
+  margin-bottom: 20px;
+}
 
 
 
+section h2 {
+  color: #fff;
+}
+
+section p {
+  color: #6c757d;
+}
+
+section {
+  margin-bottom: 40px;
+}
