@@ -64,7 +64,9 @@ export const CardEventos = () => {
                       className={
                         likedEvents.includes(evento.id)
                           ? "bx bx-heart like-btn bounce-in fa-solid fa-heart" 
-                          : "bx bxs-heart like-btn fa-solid fa-heart"
+                          : "bx bxs-heart like-btn fa-regular fa-heart"
+
+                      
                       }
                       onClick={() => handleLike(evento.id)}
                     ></i>
