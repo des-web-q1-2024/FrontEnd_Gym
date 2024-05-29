@@ -55,6 +55,10 @@ ul li a {
   text-decoration: none;
 }
 
+ol, ul {
+    padding-left: 0rem;
+}
+
 img {
   width: 100%;
 }
@@ -70,7 +74,6 @@ h2 {
 body {
   position: relative;
   background: var(--bg-body) !important;
-  overflow: hidden;
 }
 
 /* MAIN MENU */
@@ -979,4 +982,18 @@ body::-webkit-scrollbar-thumb {
   .chart {
     width: 100%;
   }
+}
+
+
+.card.bg-eventos {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.muro-evento {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
