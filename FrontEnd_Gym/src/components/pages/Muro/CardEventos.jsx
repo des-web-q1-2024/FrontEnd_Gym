@@ -7,7 +7,6 @@ export const CardEventos = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [likedEvents, setLikedEvents] = useState([]);
   const { userLogin } = useContext(UserContext);
-  const [likesCount, setLikesCount] = useState({});
 
   const getDatos = async () => {
     try {
@@ -38,9 +37,28 @@ export const CardEventos = () => {
   }, []);
 
   const handleLike = async (id) => {
-    userLogin.id = 19; // Temporal, asegúrate de usar el id real del usuario logueado.
+    userLogin.id = 19; // Temporal, asegurase de usar el id real del usuario logueado.
     try {
       const isLiked = likedEvents.includes(id);
+      let newLikesCount;
+  
+      if (isLiked) {
+        await axios.delete('http://localhost:3000/api/Muro', {
+          data: {
+            idPost: id,
+            idUsuarios: userLogin.id,
+          },
+        });
+        newLikesCount = parseInt(dataMuro.find((evento) => evento.id === id).likes, 10) - 1;
+      } else {
+        await axios.post('http://localhost:3000/api/Muro', {
+          idPost: id,
+          idUsuarios: userLogin.id,
+        });
+        newLikesCount = parseInt(dataMuro.find((evento) => evento.id === id).likes, 10) + 1;
+      }
+  
+      // Actualizar likedEvents
       setLikedEvents((prevLikedEvents) => {
         if (isLiked) {
           return prevLikedEvents.filter((eventId) => eventId !== id);
@@ -48,41 +66,27 @@ export const CardEventos = () => {
           return [...prevLikedEvents, id];
         }
       });
-
-      let newLikesCount;
-      if (isLiked) {
-        const response = await axios.delete('http://localhost:3000/api/Muro', {
-          data: {
-            idPost: id,
-            idUsuarios: userLogin.id,
-          },
-        });
-        newLikesCount = response.data.likes;
-      } else {
-        const response = await axios.post('http://localhost:3000/api/Muro', {
-          idPost: id,
-          idUsuarios: userLogin.id,
-        });
-        newLikesCount = response.data.likes;
-      }
-
-      setLikesCount((prevLikesCount) => ({
-        ...prevLikesCount,
-        [id]: newLikesCount,
-      }));
-
-      // Actualizar la cantidad de likes en dataMuro
+  
+      // Actualizar dataMuro
       setDataMuro((prevDataMuro) =>
-        prevDataMuro.map((evento) =>
-          evento.id === id ? { ...evento, likes: newLikesCount } : evento
-        )
+        prevDataMuro.map((evento) => {
+          if (evento.id === id) {
+            return {
+              ...evento,
+              likes: newLikesCount >= 0 ? newLikesCount : 0, 
+            };
+          }
+          return evento;
+        })
       );
-
+  
     } catch (error) {
       console.error('Error al manejar like', error);
     }
   };
-
+  
+  
+  
   return (
     <>
       <div className="col-12 px-0">
