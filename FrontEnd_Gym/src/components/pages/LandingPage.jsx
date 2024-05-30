@@ -7,6 +7,8 @@ import "../../styles/LandingPage.css";
 
 const LandingPage = () => {
   return (
+    <>
+    <div className="background"></div>
     <div className="container">
       <header className="text-center my-5">
         <h1 className="display-4">Bienvenido a KAHUNA</h1>
@@ -37,6 +39,7 @@ const LandingPage = () => {
         <p>Marina Sifontes: +504 3176-7371</p>
       </section>
     </div>
+    </>
   );
 };
 
