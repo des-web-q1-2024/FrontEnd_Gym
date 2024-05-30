@@ -40,7 +40,7 @@
   font-family: "Nunito", sans-serif;
 }
 
-nav {
+.nav {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -48,34 +48,34 @@ nav {
   -o-user-select: none;
 }
 
-ul,
-ul li {
+.ul,
+.ul .li {
   outline: 0;
   list-style: none;
 }
 
-ul li a {
+.ul .li .a {
   text-decoration: none;
 }
 
-ol, ul {
+.ol, .ul {
     padding-left: 0rem;
 }
 
-img {
+.img {
   width: 100%;
 }
 
-h1 {
+.h1 {
   font-size: clamp(1rem, 4vw, 1.2rem);
 }
 
-h2 {
+.h2 {
   font-size: clamp(1.2rem, 4vw, 1rem);
   /* color: white !important; */
 }
 
-body {
+.body {
   position: relative;
   background: var(--bg-body) !important;
 }
