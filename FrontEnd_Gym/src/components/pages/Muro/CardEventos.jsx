@@ -1,19 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import UserContext from "../Usuarios/UserContext";
 import axios from "axios";
 
 export const CardEventos = () => {
   const [dataMuro, setDataMuro] = useState([]);
-  const [contador, setContador] = useState(0);
-  const [isloading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [likedEvents, setLikedEvents] = useState([]);
+  const { userLogin } = useContext(UserContext);
+  const [likesCount, setLikesCount] = useState({});
 
   const getDatos = async () => {
     try {
-      const url = "http://localhost:3000/api/evento";
-      const response = await axios.get(url);
-      setDataMuro(response.data);
+      const urlEventos = "http://localhost:3000/api/evento";
+      const responseEventos = await axios.get(urlEventos);
+      const eventos = responseEventos.data;
+
+      const likesPromises = eventos.map(async (evento) => {
+        const urlLikes = `http://localhost:3000/api/Muro/${evento.id}`;
+        const responseLikes = await axios.get(urlLikes);
+        return {
+          ...evento,
+          likes: responseLikes.data[0]?.like || 0,
+        };
+      });
+
+      const eventosConLikes = await Promise.all(likesPromises);
+      setDataMuro(eventosConLikes);
     } catch (err) {
-      throw new err("Error al cargar los datos");
+      console.error("Error al cargar los datos", err);
     } finally {
       setIsLoading(false);
     }
@@ -21,26 +35,59 @@ export const CardEventos = () => {
 
   useEffect(() => {
     getDatos();
-  }, [contador]);
+  }, []);
 
-  const handleLike = (id) => {
-    setLikedEvents((prevLikedEvents) => {
-      if (prevLikedEvents.includes(id)) {
-        console.log(likedEvents)
-        return prevLikedEvents.filter((eventId) => eventId !== id);
+  const handleLike = async (id) => {
+    userLogin.id = 19; // Temporal, asegúrate de usar el id real del usuario logueado.
+    try {
+      const isLiked = likedEvents.includes(id);
+      setLikedEvents((prevLikedEvents) => {
+        if (isLiked) {
+          return prevLikedEvents.filter((eventId) => eventId !== id);
+        } else {
+          return [...prevLikedEvents, id];
+        }
+      });
+
+      let newLikesCount;
+      if (isLiked) {
+        const response = await axios.delete('http://localhost:3000/api/Muro', {
+          data: {
+            idPost: id,
+            idUsuarios: userLogin.id,
+          },
+        });
+        newLikesCount = response.data.likes;
       } else {
-        console.log(likedEvents)
-        return [...prevLikedEvents, id];
+        const response = await axios.post('http://localhost:3000/api/Muro', {
+          idPost: id,
+          idUsuarios: userLogin.id,
+        });
+        newLikesCount = response.data.likes;
       }
-      
-    });
+
+      setLikesCount((prevLikesCount) => ({
+        ...prevLikesCount,
+        [id]: newLikesCount,
+      }));
+
+      // Actualizar la cantidad de likes en dataMuro
+      setDataMuro((prevDataMuro) =>
+        prevDataMuro.map((evento) =>
+          evento.id === id ? { ...evento, likes: newLikesCount } : evento
+        )
+      );
+
+    } catch (error) {
+      console.error('Error al manejar like', error);
+    }
   };
 
   return (
     <>
       <div className="col-12 px-0">
-        {isloading ? (
-          <div className="d-flex justify-content-center ">
+        {isLoading ? (
+          <div className="d-flex justify-content-center">
             <div className="spinner-border text-primary" role="status">
               <span className="visually-hidden"></span>
             </div>
@@ -63,17 +110,15 @@ export const CardEventos = () => {
                     <i
                       className={
                         likedEvents.includes(evento.id)
-                          ? "bx bx-heart like-btn bounce-in fa-solid fa-heart" 
+                          ? "bx bx-heart like-btn bounce-in fa-solid fa-heart"
                           : "bx bxs-heart like-btn fa-regular fa-heart"
-
-                      
                       }
                       onClick={() => handleLike(evento.id)}
                     ></i>
                   </div>
                   <div className="event-content">
-                    <h2 className="text-white">{evento.nombre}</h2>
-                    <p className="text-white"
+                    <h2>{evento.nombre}</h2>
+                    <p
                       style={{
                         whiteSpace: "normal",
                         wordBreak: "break-word",
@@ -90,58 +135,9 @@ export const CardEventos = () => {
                       <i className="fa-solid fa-bookmark"></i>{" "}
                     </p>
                     <p>
-                      <i className="fa-solid fa-heart"></i>
+                      <i className="fa-solid fa-heart"></i> {evento.likes}
                     </p>
                   </div>
-
-                  {/* <div className="card bg-eventos mt-3">
-                <img
-                  src={`data:${evento.mime_type};base64,${evento.foto}`}
-                  className="muro-evento"
-                  alt="evento"
-                />
-                <div className="card-body">
-                  <span className="fecha-evento ff-inter">
-                    {evento.fecha
-                      ? evento.fecha.slice(0, 10)
-                      : "Fecha no disponible"}
-                  </span>
-                  <h6 className="card-title text-white ff-inter mt-2">
-                    {evento.nombre}
-                  </h6>
-                  <p className="text-white ff-inter fs-8">
-                    {evento.descripcion}
-                  </p>
-                  <div className="gap-2 d-flex justify-content-between border-top pt-2">
-                    <span className="text-white">
-                      <i class="fa-solid fa-heart"></i> 1
-                    </span>
-                    <span className="text-white">2 comentarios</span>
-                  </div>
-                  <div className="d-grid gap-2 d-flex">
-                    <button
-                      className="btn btn-primary btn-sm w-50"
-                      type="button"
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal"
-                    >
-                      Me gusta <i class="fa-solid fa-heart"></i>
-                    </button>
-                    <button
-                      className="btn btn-success btn-sm w-50"
-                      type="button"
-                    >
-                      Comentarios <i class="fa-solid fa-comment"></i>
-                    </button>
-                    <button
-                      className="btn btn-secondary btn-sm w-50"
-                      type="button"
-                    >
-                      Guardar <i class="fa-solid fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div> */}
                 </div>
               </div>
             </div>
