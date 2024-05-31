@@ -2,10 +2,11 @@ import React, { useEffect, useState, useContext } from "react";
 import UserContext from "../Usuarios/UserContext";
 import axios from "axios";
 
-export const CardEventos = () => {
+export const CardEventos = (props) => {
   const [dataMuro, setDataMuro] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [likedEvents, setLikedEvents] = useState([]);
+  const [savedEvents, setSavedEvents] = useState([]);
   const { userLogin } = useContext(UserContext);
 
   const getDatos = async () => {
@@ -41,23 +42,25 @@ export const CardEventos = () => {
     try {
       const isLiked = likedEvents.includes(id);
       let newLikesCount;
-  
+
       if (isLiked) {
-        await axios.delete('http://localhost:3000/api/Muro', {
+        await axios.delete("http://localhost:3000/api/Muro", {
           data: {
             idPost: id,
             idUsuarios: userLogin.id,
           },
         });
-        newLikesCount = parseInt(dataMuro.find((evento) => evento.id === id).likes, 10) - 1;
+        newLikesCount =
+          parseInt(dataMuro.find((evento) => evento.id === id).likes, 10) - 1;
       } else {
-        await axios.post('http://localhost:3000/api/Muro', {
+        await axios.post("http://localhost:3000/api/Muro", {
           idPost: id,
           idUsuarios: userLogin.id,
         });
-        newLikesCount = parseInt(dataMuro.find((evento) => evento.id === id).likes, 10) + 1;
+        newLikesCount =
+          parseInt(dataMuro.find((evento) => evento.id === id).likes, 10) + 1;
       }
-  
+
       // Actualizar likedEvents
       setLikedEvents((prevLikedEvents) => {
         if (isLiked) {
@@ -66,27 +69,62 @@ export const CardEventos = () => {
           return [...prevLikedEvents, id];
         }
       });
-  
+
       // Actualizar dataMuro
       setDataMuro((prevDataMuro) =>
         prevDataMuro.map((evento) => {
           if (evento.id === id) {
             return {
               ...evento,
-              likes: newLikesCount >= 0 ? newLikesCount : 0, 
+              likes: newLikesCount >= 0 ? newLikesCount : 0,
             };
           }
           return evento;
         })
       );
-  
     } catch (error) {
-      console.error('Error al manejar like', error);
+      console.error("Error al manejar like", error);
     }
   };
-  
-  
-  
+
+  const handleSave = async (id) => {
+    userLogin.id = 19; // Temporal, asegúrate de usar el id real del usuario logueado.
+    try {
+      const isSaved = savedEvents.includes(id);
+
+      if (isSaved) {
+        await axios.delete("http://localhost:3000/api/Muro/saveEvent", {
+          data: {
+            idPost: id,
+            idUsuarios: userLogin.id,
+          },
+        });
+
+        props.setSavedEvent((prevSavedEvent) =>
+          prevSavedEvent.filter((eventId) => eventId !== id)
+        );
+      } else {
+        await axios.post("http://localhost:3000/api/Muro/saveEvent", {
+          idPost: id,
+          idUsuarios: userLogin.id,
+        });
+        props.setSavedEvent((prevSavedEvent) => [...prevSavedEvent, id]);
+      }
+
+      // Actualizar savedEvents
+      setSavedEvents((prevSavedEvents) => {
+        if (isSaved) {
+          return prevSavedEvents.filter((eventId) => eventId !== id);
+        } else {
+          return [...prevSavedEvents, id];
+        }
+      });
+      //  getSavedEvents();
+    } catch (error) {
+      console.error("Error al manejar save", error);
+    }
+  };
+
   return (
     <>
       <div className="col-12 px-0">
@@ -105,6 +143,11 @@ export const CardEventos = () => {
                     <img
                       src={`data:${evento.mime_type};base64,${evento.foto}`}
                       alt=""
+                      style={{
+                        maxWidth: "100%", 
+                        maxHeight: "300px", 
+                        objectFit: "fill",
+                      }}
                     />
                     <p>
                       {evento.fecha
@@ -136,7 +179,14 @@ export const CardEventos = () => {
                       <i className="fa-solid fa-comment"></i>{" "}
                     </p>
                     <p>
-                      <i className="fa-solid fa-bookmark"></i>{" "}
+                      <i
+                        className={
+                          savedEvents.includes(evento.id)
+                            ? "fa-solid fa-bookmark"
+                            : "fa-regular fa-bookmark"
+                        }
+                        onClick={() => handleSave(evento.id)}
+                      ></i>{" "}
                     </p>
                     <p>
                       <i className="fa-solid fa-heart"></i> {evento.likes}

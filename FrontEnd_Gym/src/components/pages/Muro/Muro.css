@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Roboto:wght@300;400;500;700&display=swap");
 
-:root {
-  --bg-body: rgb(252, 252, 252);
+.MuroMain {
+  --bg-body: rgb(255, 255, 255);
   --primary-color: rgb(42, 51, 65);
   --primary-hover-color: rgb(158, 161, 166);
   --scrollbar-color: rgba(253, 253, 253, 0.4);
@@ -14,7 +14,7 @@
 }
 
 .darkmode {
-  --bg-body: rgb(6, 5, 40);
+  --bg-body: rgb(24, 26, 50) !important;
   --primary-color: rgb(248, 248, 248);
   --primary-hover-color: rgb(159, 159, 159);
   --scrollbar-color: rgba(44, 49, 88, 0.7);
@@ -27,7 +27,9 @@
 .darkmode h2,
 .darkmode p {
   color: white !important;
+
 }
+
 *,
 *::before,
 *::after {
@@ -78,6 +80,7 @@
 .body {
   position: relative;
   background: var(--bg-body) !important;
+  
 }
 
 /* MAIN MENU */
@@ -86,7 +89,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 180px;
+  width: 250px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -95,6 +98,7 @@
   padding: 12px 0 10px;
   overflow: hidden;
   font-family: inherit;
+  align-items: left;
 }
 
 .user-info {
@@ -243,6 +247,7 @@
 
 .upcoming-events h1 {
   margin: 16px 0 10px;
+  
 }
 
 .event-container {
@@ -360,10 +365,11 @@
   align-items: flex-start;
   justify-content: flex-start; /* Alinea los elementos al inicio del contenedor */
   padding: 0 4px;
+
 }
 
 .event-footer p {
-  color: rgb(240, 248, 255);
+  color: var(--primary-color);
   font-size: clamp(0.6rem, 3vw, 0.8rem);
   font-weight: 600;
   letter-spacing: 1px;
@@ -1008,4 +1014,54 @@ body::-webkit-scrollbar-thumb {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+/* componente derecho */
+/* SavedEvents.css */
+.saved-event-card {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 10px;
+  position: relative;
+}
+
+.saved-event-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background-color:rgb(24, 26, 50); 
+  border-radius: 5px 0 0 5px;
+}
+
+.event-thumbnail img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-right: 5px;
+  margin-left: 1px;
+}
+
+.event-details {
+  flex-grow: 1;
+}
+
+.event-details h2 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.event-details p {
+  margin: 5px 0;
+}
+
+.view-more {
+  color: blue;
+  cursor: pointer;
 }
