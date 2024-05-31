@@ -247,6 +247,7 @@
 
 .upcoming-events h1 {
   margin: 16px 0 10px;
+  
 }
 
 .event-container {
@@ -1033,17 +1034,18 @@ body::-webkit-scrollbar-thumb {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 4px;
-  background-color: #007bff; /* Cambia el color según sea necesario */
+  width: 5px;
+  background-color:rgb(24, 26, 50); 
   border-radius: 5px 0 0 5px;
 }
 
 .event-thumbnail img {
-  width: 100px;
+  width: 100%;
   height: 100px;
   object-fit: cover;
-  border-radius: 5px;
-  margin-right: 10px;
+  border-radius: 15px;
+  margin-right: 5px;
+  margin-left: 1px;
 }
 
 .event-details {

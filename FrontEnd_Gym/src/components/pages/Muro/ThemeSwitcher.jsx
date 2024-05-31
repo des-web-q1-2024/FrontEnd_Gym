@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './ThemeSwitcher.css'; // Asegúrate de tener los estilos necesarios
+import React, { useEffect, useState } from "react";
+import "./ThemeSwitcher.css"; // Asegúrate de tener los estilos necesarios
 
 const ThemeSwitcher = () => {
-  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem("theme") === "dark");
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem("theme") === "dark"
+  );
 
   useEffect(() => {
     if (isDarkMode) {
@@ -25,16 +27,11 @@ const ThemeSwitcher = () => {
     <div className="theme-switcher">
       <button onClick={switchTheme} className="toggle">
         {isDarkMode ? (
-          <i className="sun">🌞</i>
+          <i className="sun fa-solid fa-cloud-sun"></i>
         ) : (
-          <i className="moon">🌜</i>
+          <i className="moon fa-solid fa-cloud-moon"></i>
         )}
       </button>
-      {/* {isDarkMode ? (
-        <img src="src/assets/noche.jpg" alt="Night" className="night-img" />
-      ) : (
-        <img src="src/assets/dia.jpg" alt="Morning" className="morning-img" />
-      )} */}
     </div>
   );
 };
