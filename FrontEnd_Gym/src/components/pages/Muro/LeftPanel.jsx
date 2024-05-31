@@ -21,7 +21,7 @@ const LeftPanel = () => {
                         <li className="nav-item">
                             <a href="#">
                                 <i className="fa fa-calendar nav-icon"></i>
-                                <span className="nav-text">Eventos Guardados</span>
+                                <span className="nav-text">Guardados</span>
                             </a>
                         </li>
                         <li className="nav-item">
