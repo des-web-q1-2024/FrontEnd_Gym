@@ -38,7 +38,7 @@ export const CardEventos = (props) => {
   }, []);
 
   const handleLike = async (id) => {
-    userLogin.id = 19; // Temporal, asegurase de usar el id real del usuario logueado.
+    userLogin.id = 7; // Temporal, asegurase de usar el id real del usuario logueado.
     try {
       const isLiked = likedEvents.includes(id);
       let newLikesCount;
@@ -52,6 +52,7 @@ export const CardEventos = (props) => {
         });
         newLikesCount =
           parseInt(dataMuro.find((evento) => evento.id === id).likes, 10) - 1;
+
       } else {
         await axios.post("http://localhost:3000/api/Muro", {
           idPost: id,
@@ -88,24 +89,25 @@ export const CardEventos = (props) => {
   };
 
   const handleSave = async (id) => {
-    userLogin.id = 19; // Temporal, asegúrate de usar el id real del usuario logueado.
+    userLogin.id = 7; // Temporal, asegúrate de usar el id real del usuario logueado.
     try {
       const isSaved = savedEvents.includes(id);
 
       if (isSaved) {
         await axios.delete("http://localhost:3000/api/Muro/saveEvent", {
           data: {
-            idPost: id,
+            idpost: id,
             idUsuarios: userLogin.id,
           },
         });
-
         props.setSavedEvent((prevSavedEvent) =>
           prevSavedEvent.filter((eventId) => eventId !== id)
         );
+
+
       } else {
         await axios.post("http://localhost:3000/api/Muro/saveEvent", {
-          idPost: id,
+          idpost: id,
           idUsuarios: userLogin.id,
         });
         props.setSavedEvent((prevSavedEvent) => [...prevSavedEvent, id]);
@@ -120,6 +122,7 @@ export const CardEventos = (props) => {
         }
       });
       //  getSavedEvents();
+      props.incrementarContador();
     } catch (error) {
       console.error("Error al manejar save", error);
     }
@@ -144,8 +147,8 @@ export const CardEventos = (props) => {
                       src={`data:${evento.mime_type};base64,${evento.foto}`}
                       alt=""
                       style={{
-                        maxWidth: "100%", 
-                        maxHeight: "300px", 
+                        maxWidth: "100%",
+                        maxHeight: "300px",
                         objectFit: "fill",
                       }}
                     />

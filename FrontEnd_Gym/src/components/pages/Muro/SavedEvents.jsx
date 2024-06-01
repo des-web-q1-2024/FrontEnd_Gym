@@ -3,14 +3,14 @@ import UserContext from "../Usuarios/UserContext";
 import ThemeSwitcher from "./ThemeSwitcher.jsx";
 import axios from "axios";
 
-const SavedEvents = () => {
+const SavedEvents = ({ contador }) => {
   const [savedEvents, setSavedEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { userLogin } = useContext(UserContext);
 
   const getSavedEvents = async () => {
     try {
-      userLogin.id = 19; // Temporal, asegúrate de usar el id real del usuario logueado.
+      userLogin.id = 7; // Temporal, asegúrate de usar el id real del usuario logueado.
       const response = await axios.get(
         `http://localhost:3000/api/Muro/saveEvent/${userLogin.id}`
       );
@@ -29,13 +29,15 @@ const SavedEvents = () => {
     return description;
   };
 
+  console.log(`contador del componenet savedEvents ${contador}`)
+
   useEffect(() => {
     getSavedEvents();
-  }, []);
+  }, [contador]);
 
   return (
     <>
-      <div class="interaction-control interactions">
+      <div className="interaction-control interactions">
         <ThemeSwitcher />
       </div>
       <div className="col-12 px-0 right-content ">

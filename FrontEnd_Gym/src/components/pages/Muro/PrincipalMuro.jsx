@@ -5,6 +5,14 @@ import { CardEventos } from "./CardEventos";
 import SavedEvents from "./SavedEvents";
 const MuroPrincipal = () => {
   const [savedEvent, setSavedEvent] = useState([]);
+  const [contador, setContador] = useState(0);
+
+  const incrementarContador = () => {
+    setContador((prevContador) => prevContador + 1)
+  }
+
+
+  console.log(contador)
 
   return (
     <>
@@ -17,10 +25,11 @@ const MuroPrincipal = () => {
             <CardEventos
               setSavedEvent={setSavedEvent}
               savedEvent={savedEvent}
+              incrementarContador={incrementarContador}
             />
           </div>
           <div className="col-3 col-sm-3 col-md-3 col-lg-4 ">
-            <SavedEvents />
+            <SavedEvents contador={contador} />
           </div>
         </div>
       </div>
