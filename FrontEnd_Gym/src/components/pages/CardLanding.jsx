@@ -2,7 +2,6 @@ import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import "../../styles/Eventos.css"; 
 import Swal from "sweetalert2";
 
 const CardLanding = ({ filtroFecha }) => {
@@ -11,7 +10,7 @@ const CardLanding = ({ filtroFecha }) => {
   const getDatos = async () => {
     const url = 'http://localhost:3000/api/evento/recientes';
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(url); 
       setData(response.data);
     } catch (error) {
       Swal.fire({
