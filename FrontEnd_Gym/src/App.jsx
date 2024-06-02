@@ -31,7 +31,7 @@ const App = () => {
       <UserContext.Provider value={{ userLogin, setUserLogin }}>
         <Routes>
           <Route path="/" element={<Login onLogin={handleLogin} />} />
-          <Route path="/landing" element={<LandingPage />} />
+          <Route path="/landing" element={<LandingPage onLogin={handleLogin} />} />
           <Route path="/muroPrincipal" element={<MuroPrincipal />} />
           <Route
             path="/*"
