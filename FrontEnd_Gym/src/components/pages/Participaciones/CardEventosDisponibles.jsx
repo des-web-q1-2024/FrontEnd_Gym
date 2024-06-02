@@ -4,7 +4,7 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import { useEffect, useState, useContext } from 'react';
 import Swal from "sweetalert2";
 import UserContext from '../Usuarios/UserContext';
-import "../../../styles/Eventos.css";
+import "../../../styles/EventosParticipaciones.css";
 
 export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonVisible = false }) => {
 
