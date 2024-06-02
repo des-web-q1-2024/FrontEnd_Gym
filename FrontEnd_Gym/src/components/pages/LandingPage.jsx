@@ -1,17 +1,24 @@
 // src/components/pages/LandingPage.jsx
-import React from 'react';
+import React, {useState} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import CardLanding from "./CardLanding";
 import "../../styles/LandingPage.css";
+import { Modal, Button, Form } from 'react-bootstrap';
 
 const LandingPage = () => {
+  
+  const [show, setShow] = useState(false)
+
+  const openModal = () => setShow(true)
+  const closeModal = () => setShow(false)
+  
   return (
     <>
       <div className="background"></div>
       <div className="container">
 
-      <div className="container-login">
+      <div className="container-login" onClick={openModal} style={{cursor: 'pointer'}}>
           <p className='fs-4 text-end'>
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-person-circle mx-2" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -21,7 +28,7 @@ const LandingPage = () => {
           </p>
         </div>
 
-        <header className="text-center my-5">
+        <header className="text-center my-5 text-light">
           <h1 className="display-4">Bienvenido a KAHUNA</h1>
           <p className="lead">Desde 2005 formando jóvenes en diferentes disciplinas como Taekwondo, Karate, Judo y Kickboxing.</p>
         </header>
@@ -50,6 +57,33 @@ const LandingPage = () => {
           <p>Marina Sifontes: +504 3176-7371</p>
         </section>
       </div>
+
+      <Modal className='text-light' style={{backgroundColor: 'black'}} show={show} onHide={closeModal} backdrop="true" keyboard={false}>
+        <Modal.Header closeButton>
+          <Modal.Title className='text-center fs-3'>Iniciar Sesion</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3 fs-5" controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control type="email" placeholder="Enter email" />
+            </Form.Group>
+
+            <Form.Group className="mb-3 fs-5" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeModal}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={closeModal}>
+            Login
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
