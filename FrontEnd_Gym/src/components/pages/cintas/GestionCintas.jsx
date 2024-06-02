@@ -1,147 +1,147 @@
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.js";
-import { useState, useContext } from "react";
-import "../../../styles/Eventos.css";
-import { CardEventosDisponibles } from "../Participaciones/CardEventosDisponibles";
+import { Modal, Button, Table } from "react-bootstrap";
+import { BsPlusCircle, BsPencilSquare, BsTrash } from "react-icons/bs";
+import Swal from "sweetalert2";
 import UserContext from '../Usuarios/UserContext';
+import "../../../styles/ModalAE.css";
+import "../../../styles/TablaAE.css";
 
-export const GestionCintas = ({ contador, handleEditarEvento, isButtonVisible = false }) => {
-const [isLoading, setIsLoading] = useState(false);
-  const [mensaje, setMensaje] = useState("");
+export const GestionCintas = () => {
   const { userLogin, setUserLogin } = useContext(UserContext);
-  const [form, setForm] = useState({ 
-    nombre: "",
-    foto: "",
-    fecha: "",
-    descripcion: "",
-  });
+  const [showModal, setShowModal] = useState(false);
+  const [cintas, setCintas] = useState([]);
+  const [cintaEditar, setCintaEditar] = useState(null);
+  const [nombreCinta, setNombreCinta] = useState("");
 
-  const onChangeHandler = (event) => {
-    const { name, value } = event.target;
-
-    if (name === "foto") {
-      const img = event.target.files[0];
-
-      if (img) {
-        document.getElementById("mostrarFoto").style.visibility = "visible";
-        document.getElementById("fileInputEstile").style.display = "none";
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-          const imgDataUrl = e.target.result;
-          const imgElement = document.getElementById("mostrarFoto");
-
-          if (imgElement) {
-            imgElement.src = imgDataUrl;
-          }
-        };
-        reader.readAsDataURL(img);
-      }
-      setForm({ ...form, [name]: img });
-      return;
-    }
-    setForm({ ...form, [name]: value });
+  const showAlert = (icon, title, text) => {
+    Swal.fire({ icon, title, text, });
   };
 
-  const submitHandler = async (event) => {
-    event.preventDefault();
-    const url = "http://localhost:3000/api/evento";
-    const datosFormulario = new FormData();
+  useEffect(() => {
+    obtenerCintas();
+  }, []);
 
-    datosFormulario.append("nombre", form.nombre);
-    datosFormulario.append("foto", form.foto);
-    datosFormulario.append("fecha", form.fecha);
-    datosFormulario.append("descripcion", form.descripcion);
-    setIsLoading(true);
-    await axios.post(url, datosFormulario);
-    setIsLoading(false);
-    setMensaje("Publicado con éxito!");
-  };
-
-  const handleRegistrarse = async (eventoId) => {
+  const obtenerCintas = async () => {
     try {
-      const url = "http://localhost:3000/api/participaciones";
-      const data = {
-        idusuario: req.params.id, 
-        idevento: eventoId,
-      };
-      await axios.post(url, data);
-      console.log(`Registrarse en el evento con ID ${eventoId}`);
+      const response = await axios.get("http://localhost:3000/api/Cintas");
+      setCintas(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Error al obtener registros:", error);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setCintaEditar(null);
+    setNombreCinta("");
+  };
+
+  const handleEditarRegistro = (cinta) => {
+    setCintaEditar(cinta);
+    setShowModal(true);
+    setNombreCinta(cinta.nombre);
+  };
+
+  const handleGuardarRegistro = async (id = 0) => {
+    try {
+      if (nombreCinta.length == 0) {
+        return showAlert("error", "Atención", "Debe colocar un nombre de cinta");
+      }
+
+      if (id == 0) {
+        await axios.post("http://localhost:3000/api/Cintas", {
+          nombre: nombreCinta,
+          activo: true,
+          idusuarios: userLogin.id,
+        });
+      } else {
+        await axios.put(`http://localhost:3000/api/Cintas/${cintaEditar.id}`, {
+          nombre: nombreCinta,
+          activo: cintaEditar.activo,
+          idusuarios: userLogin.id,
+        });
+      }
+      handleCloseModal();
+      obtenerCintas();
+      showAlert("success", "Registro", `Se ha ${id == 0 ? "creado" : "modificado"} el registro: ${nombreCinta}`);
+    } catch (error) {
+      showAlert("error", "Error", `Error al crear registro: ${error.message}`);
+    }
+  };
+
+  const handleEliminarRegistro = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/Cintas/${id}`);
+      obtenerCintas();
+      showAlert("error", "Eliminado", `Registro eliminado`);
+    } catch (error) {
+      showAlert("error", "Error", `Error al eliminar registro: ${error.message}`);
     }
   };
 
   return (
     <>
-      <section className="col-12">
-        {/* Mis Eventos */}
-        <div className="col-lg-11 col-md-11 col-sm-12 col-xs-12 mt-5">
-          <div className="card card-evento ">
-            <div className="row align-items-center">
-              <div className="col">
-                <h5 className="card-header text-white ff-inter fw-medium">
-                  Gestión de Cintas
-                </h5>
-              </div>
-              <div className="col-lg-10 col-md-10 col-sm-12 col-xs-12 d-flex justify-content-end gap-2">
-                <form className="row">
-                  <div className="col-auto d-flex align-items-center">
-                    <label htmlFor="staticEmail2" className="text-white ff-inter" >
-                      Filtrar por fecha:{" "}
-                    </label>
-                  </div>
-                  <div className="col-auto">
-                    <input type="date" className="form-control events" placeholder="Last name" aria-label="Last name"
-                    />
-                  </div>
-                  <div className="col-auto">
-                    <button type="button" className="btn btn-primary">
-                      Filtrar
-                    </button>
-                  </div>
-                </form>
-                <div className="dropdown">
-                  <button className="btn btn-orange dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                    Categorias
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        MMA
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        BOXEO
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        JIUJITSU
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        LETHWEI
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+      <div className="d-flex justify-content-end mb-2">
+        <Button onClick={() => setShowModal(true)} variant="warning">
+          <BsPlusCircle className="me-2" /> Nuevo Registro
+        </Button>
+      </div>
 
-            <hr />
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Activo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cintas.map((cinta) => (
+            <tr key={cinta.id}>
+              <td>{cinta.id}</td>
+              <td>{cinta.nombre}</td>
+              <td>{cinta.activo ? "Activo" : "Inactivo"}</td>
+              <td>
+                <Button onClick={() => handleEditarRegistro(cinta)} variant="success" title="Editar Registro" >
+                  <BsPencilSquare className="me-2" />
+                </Button>
+                {" "}
+                <Button onClick={() => handleEliminarRegistro(cinta.id)} variant="danger" title="Eliminar Registro" >
+                  <BsTrash className="me-2" />
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
 
-            <div className="card-body crear-event">
-              <div className="row col-12">
-                <CardEventosDisponibles handleRegistrarse={handleRegistrarse} isButtonVisible={true} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Modal show={showModal} onHide={handleCloseModal} className="custom-modal">
+        <Modal.Header closeButton className="custom-modal-header">
+          <Modal.Title>Nuevo Registro</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="custom-modal-body">
+          <input type="text" value={nombreCinta} onChange={(e) => setNombreCinta(e.target.value)} placeholder="Nombre de la Cinta" className="form-control" />
+          {cintaEditar && (
+            <label>
+              <input type="checkbox" checked={cintaEditar && cintaEditar.activo} onChange={(e) =>
+                setCintaEditar({ ...cintaEditar, activo: e.target.checked })
+              }
+              />{" "}
+              Activo
+            </label>
+          )}
+        </Modal.Body>
+        <Modal.Footer className="custom-modal-footer">
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cancelar
+          </Button>
+          <Button variant="primary" onClick={() => handleGuardarRegistro(cintaEditar && cintaEditar.id ? cintaEditar.id : 0)}>
+            Guardar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

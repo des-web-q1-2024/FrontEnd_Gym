@@ -109,7 +109,7 @@ const Menu = () => {
                   }`}
                 >
                   <Link className="nav-link" to="/GestionCintas">
-                    <BsAwardFill className="me-2" /> Gestión de Cintas Alumnos
+                    <BsAwardFill className="me-2" /> Gestión de Cintas
                   </Link>
                 </li>
 
