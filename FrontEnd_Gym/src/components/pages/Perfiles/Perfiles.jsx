@@ -16,7 +16,7 @@ const Perfiles = () => {
     useEffect(() => {
         obtenerPerfiles();
     }, []);
-89
+
     const obtenerPerfiles = async () => {
         try {
             const response = await axios.get("http://localhost:3000/api/Perfiles");
@@ -105,7 +105,7 @@ const Perfiles = () => {
             }
 
         } catch (error) {
-            wal.fire({
+            Swal.fire({
                 icon: "error",
                 title: "Actualizar",
                 text: "Error al editar perfil" + error,
