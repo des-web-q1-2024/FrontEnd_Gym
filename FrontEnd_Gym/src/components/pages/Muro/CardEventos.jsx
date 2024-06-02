@@ -46,7 +46,7 @@ export const CardEventos = (props) => {
       if (isLiked) {
         await axios.delete("http://localhost:3000/api/Muro", {
           data: {
-            idPost: id,
+            idEvento: id,
             idUsuarios: userLogin.id,
           },
         });
@@ -55,7 +55,7 @@ export const CardEventos = (props) => {
 
       } else {
         await axios.post("http://localhost:3000/api/Muro", {
-          idPost: id,
+          idEvento: id,
           idUsuarios: userLogin.id,
         });
         newLikesCount =
@@ -91,12 +91,14 @@ export const CardEventos = (props) => {
   const handleSave = async (id) => {
     userLogin.id = 19; // Temporal, asegúrate de usar el id real del usuario logueado.
     try {
+    
       const isSaved = savedEvents.includes(id);
-
+      console.log(savedEvents.includes(id))
       if (isSaved) {
+        console.log('eliminar')
         await axios.delete("http://localhost:3000/api/Muro/saveEvent", {
           data: {
-            idPost: id,
+            idEvento: id,
             idUsuarios: userLogin.id,
           },
         });
@@ -106,8 +108,9 @@ export const CardEventos = (props) => {
 
 
       } else {
+     
         await axios.post("http://localhost:3000/api/Muro/saveEvent", {
-          idPost: id,
+          idEvento: id,
           idUsuarios: userLogin.id,
         });
         props.setSavedEvent((prevSavedEvent) => [...prevSavedEvent, id]);
