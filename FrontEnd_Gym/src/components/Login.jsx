@@ -60,7 +60,8 @@ function Login({ onLogin }) {
         nombre: resulData[0].nombre,
         correo: resulData[0].correo,
         idperfil: resulData[0].idperfil,
-        perfil: resulData[0].perfil
+        perfil: resulData[0].perfil,
+        foto:resulData[0].foto
       }
       setUserLogin(tempRecord);
     } catch (error) {

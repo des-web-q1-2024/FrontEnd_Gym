@@ -1,0 +1,36 @@
+.cardComment,
+.cardComment {
+  /* padding: 32px 16px; */
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.headline {
+  font-weight: 400;
+  letter-spacing: normal !important;
+  font-size: 24px !important;
+  line-height: 32px !important;
+}
+
+.sign-in-wrapper {
+  margin-top: 16px;
+  margin-left: 32px;
+}
+
+.caption {
+  font-weight: 400;
+  font-size: 12px !important;
+}
+
+.error-message {
+  font-style: oblique;
+  color: #c40030;
+}
+
+.actions {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+}
