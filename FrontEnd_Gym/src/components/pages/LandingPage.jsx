@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 
 const LandingPage = () => {
   
+  /*Codigo para Iniciar sesion desde la landing Page */
   const {userLogin, setUserLogin} = useContext(UserContext)
   const navigate = useNavigate();
 
