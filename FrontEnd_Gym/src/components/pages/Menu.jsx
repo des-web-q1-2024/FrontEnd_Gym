@@ -8,6 +8,7 @@ import {
   BsHouseDoorFill,
   BsPersonArmsUp,
   BsPersonFill,
+  BsAwardFill,
 } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import "../../styles/Menu.css"; // Asegúrate de importar el archivo CSS aquí
@@ -99,6 +100,19 @@ const Menu = () => {
                     <BsPersonArmsUp className="me-2" /> Participaciones Alumnos
                   </Link>
                 </li>
+
+                <li
+                  className={`nav-item ${
+                    location.pathname === "/GestionCintas"
+                      ? "active"
+                      : ""
+                  }`}
+                >
+                  <Link className="nav-link" to="/GestionCintas">
+                    <BsAwardFill className="me-2" /> Gestión de Cintas Alumnos
+                  </Link>
+                </li>
+
                 <li
                   className={`nav-item ${
                     location.pathname === "/muro" ? "active" : ""

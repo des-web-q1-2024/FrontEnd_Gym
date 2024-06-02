@@ -10,6 +10,7 @@ import UsuariosPrincipal from "./components/pages/Usuarios/UsuariosPrincipal.jsx
 import LandingPage from "./components/pages/LandingPage";
 import MuroPrincipal from "./components/pages/Muro/PrincipalMuro.jsx"
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { GestionCintas } from "./components/pages/cintas/GestionCintas.jsx";
 
 const App = () => {
   const [usuario, setUsuario] = useState("");
@@ -42,6 +43,7 @@ const App = () => {
                     <Route path="eventos" element={<Eventos />} />
                     <Route path="perfiles" element={<Perfiles />} />
                     <Route path="ParticipacionesAlumnos" element={<ParticipacionesAlumnos />} />
+                    <Route path="GestionCintas" element={<GestionCintas />} />
                     <Route path="usuarios" element={<UsuariosPrincipal />} />
                   </Routes>
                 </div>
