@@ -31,16 +31,16 @@ export const GestionCintas = () => {
     }
   };
 
+  const handleRegistro = (RegistroAEditar = null) => {
+    setCintaEditar(RegistroAEditar);
+    setShowModal(true);
+    setNombreCinta(RegistroAEditar ? RegistroAEditar.nombre : "");
+  };
+
   const handleCloseModal = () => {
     setShowModal(false);
     setCintaEditar(null);
     setNombreCinta("");
-  };
-
-  const handleEditarRegistro = (cinta) => {
-    setCintaEditar(cinta);
-    setShowModal(true);
-    setNombreCinta(cinta.nombre);
   };
 
   const handleGuardarRegistro = async (id = 0) => {
@@ -83,7 +83,7 @@ export const GestionCintas = () => {
   return (
     <>
       <div className="d-flex justify-content-end mb-2">
-        <Button onClick={() => setShowModal(true)} variant="warning">
+        <Button onClick={() => handleRegistro()} variant="warning">
           <BsPlusCircle className="me-2" /> Nuevo Registro
         </Button>
       </div>
@@ -104,7 +104,7 @@ export const GestionCintas = () => {
               <td>{cinta.nombre}</td>
               <td>{cinta.activo ? "Activo" : "Inactivo"}</td>
               <td>
-                <Button onClick={() => handleEditarRegistro(cinta)} variant="success" title="Editar Registro" >
+                <Button onClick={() => handleRegistro(cinta)} variant="success" title="Editar Registro" >
                   <BsPencilSquare className="me-2" />
                 </Button>
                 {" "}
@@ -119,7 +119,7 @@ export const GestionCintas = () => {
 
       <Modal show={showModal} onHide={handleCloseModal} className="custom-modal">
         <Modal.Header closeButton className="custom-modal-header">
-          <Modal.Title>Nuevo Registro</Modal.Title>
+          <Modal.Title>{cintaEditar && cintaEditar.id ? "Modificando" : "Creando"} Registro</Modal.Title>
         </Modal.Header>
         <Modal.Body className="custom-modal-body">
           <input type="text" value={nombreCinta} onChange={(e) => setNombreCinta(e.target.value)} placeholder="Nombre de la Cinta" className="form-control" />
