@@ -208,7 +208,7 @@ const CommentList = ({ userId }) => {
                 >
                   <i
                     className={`fa ${
-                      visibleThreads[comment.id] ? "fa-eye-slash" : "fa-eye"
+                      visibleThreads[comment.id] ? "fa-eye-slash text-danger" : "fa-eye"
                     }`}
                     title={
                       visibleThreads[comment.id]
