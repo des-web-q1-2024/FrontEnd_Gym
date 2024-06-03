@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import UserContext from "../Usuarios/UserContext";
-
+import { Link } from "react-router-dom";
 const LeftPanel = ({ handleItemClick }) => {
   const { userLogin } = useContext(UserContext);
   return (
@@ -53,11 +53,11 @@ const LeftPanel = ({ handleItemClick }) => {
           </ul>
         </div>
         <ul>
-          <li className="nav-item">
-            <a href="#">
+        <li className="nav-item">
+            <Link to="/landing">
               <i className="fa fa-right-from-bracket nav-icon"></i>
               <span className="nav-text">Logout</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

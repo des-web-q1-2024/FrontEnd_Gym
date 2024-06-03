@@ -29,7 +29,7 @@ const PostForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    userLogin.id = 19;
+   // userLogin.id = 19;
 
     const formData = new FormData();
     formData.append("encabezado", encabezado);

@@ -42,7 +42,7 @@ const LandingPageHook = () => {
     try {
       const response = await axios.get(`http://localhost:3000/api/validarUsuario/${dataForm.user}/${dataForm.pass}`);
       const data = response.data;
-
+        console.log(response.data)
       if (data.success) {
         await userInfo();
         setShow(false);

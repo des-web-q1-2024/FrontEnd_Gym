@@ -10,7 +10,7 @@ const SavedEvents = ({ contador }) => {
 
   const getSavedEvents = async () => {
     try {
-      userLogin.id = 19; // Temporal, asegúrate de usar el id real del usuario logueado.
+     // userLogin.id = 19; // Temporal, asegúrate de usar el id real del usuario logueado.
       const response = await axios.get(
         `http://localhost:3000/api/Muro/saveEvent/${userLogin.id}`
       );
