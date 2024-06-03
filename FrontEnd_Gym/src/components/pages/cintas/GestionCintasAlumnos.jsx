@@ -10,61 +10,152 @@ import "../../../styles/TablaAE.css";
 export const GestionCintasAlumnos = () => {
   const { userLogin, setUserLogin } = useContext(UserContext);
   const [showModal, setShowModal] = useState(false);
-  const [cintas, setCintas] = useState([]);
-  const [cintaEditar, setCintaEditar] = useState(null);
-  const [nombreCinta, setNombreCinta] = useState("");
+  const [gridRegistros, setGridRegistros] = useState([]);
+
+  const [optionsArtesMarciales, setOptionsArtesMarciales] = useState([]);
+  const [optionsAlumnos, setOptionsAlumnos] = useState([]);
+  const [optionsCintas, setOptionsCintas] = useState([]);
+  const [editarRegistro, setEditarRegistro] = useState(null);
+
+  const [idArteMarcial, setIDArteMarcial] = useState(0);
+  const [idAlumno, setIDAlumno] = useState(0);
+
+  const [fecha, setFecha] = useState("");
+  const [idMatricula, setIDMatricula] = useState(0);
+  const [idCinta, setIDCinta] = useState(0);
+
+
+  const urlBase = "http://localhost:3000/api/graduaciones";
 
   const showAlert = (icon, title, text) => {
     Swal.fire({ icon, title, text, });
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  const formatDateYYYYMMDD = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${year}-${month}-${day}`;
+  };
+
   useEffect(() => {
+    obtenerArtesMarciales();
     obtenerCintas();
   }, []);
 
-  const obtenerCintas = async () => {
+  useEffect(() => {
+    obtenerAlumnos();
+  }, [idArteMarcial]);
+
+  useEffect(() => {
+    obtenerGrid();
+  }, [idMatricula]);
+
+  useEffect(() => {
+    if (idAlumno > 0) {
+      obtenerIDMatricula(idAlumno);
+    }
+  }, [idAlumno]);
+
+  const obtenerGrid = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/Cintas");
-      setCintas(response.data);
+      const response = await axios.get(`${urlBase}${idAlumno > 0 ? "/" + idMatricula + "/" + idAlumno : "/"}`);
+      setGridRegistros(response.data);
     } catch (error) {
       console.error("Error al obtener registros:", error);
     }
   };
 
+  const obtenerArtesMarciales = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/arteMarcial");
+      setOptionsArtesMarciales(response.data);
+    } catch (error) {
+      console.error("Error al obtener registros:", error);
+    }
+  };
+
+  const obtenerCintas = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/cintas");
+      setOptionsCintas(response.data);
+    } catch (error) {
+      console.error("Error al obtener registros:", error);
+    }
+  };
+
+  const obtenerAlumnos = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/matriculas/${idArteMarcial}`);
+      setOptionsAlumnos(response.data);
+    } catch (error) {
+      console.error("Error al obtener registros:", error);
+    }
+  };
+
+  const obtenerIDMatricula = async (idAlumno) => {
+    const endpoint = `http://localhost:3000/api/matriculas/${idArteMarcial}/${idAlumno}`;
+    try {
+      const response = await fetch(endpoint);
+      const data = await response.json();
+      const matriculas = data;
+      setIDMatricula(matriculas[0].id);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
   const handleRegistro = (RegistroAEditar = null) => {
-    setCintaEditar(RegistroAEditar);
+    setEditarRegistro(RegistroAEditar);
     setShowModal(true);
-    setNombreCinta(RegistroAEditar ? RegistroAEditar.nombre : "");
+    setFecha(RegistroAEditar ? formatDateYYYYMMDD(RegistroAEditar.fecha) : "");
+    setIDMatricula(RegistroAEditar ? RegistroAEditar.idmatricula : idMatricula);
+    setIDCinta(RegistroAEditar ? RegistroAEditar.idcinta : idCinta);
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
-    setCintaEditar(null);
-    setNombreCinta("");
+    setEditarRegistro(null);
+    setFecha("");
+    setIDCinta(0);
   };
 
   const handleGuardarRegistro = async (id = 0) => {
     try {
-      if (nombreCinta.length == 0) {
-        return showAlert("error", "Atención", "Debe colocar un nombre de cinta");
+      if (fecha.length == 0) {
+        return showAlert("error", "Atención", "Debe colocar una fecha.");
+      }
+      if (idMatricula == 0 || idCinta == 0) {
+        return showAlert("error", "Atención", `Debe seleccionar un ${idMatricula == 0 ? "arte marcial" : "cinta"}.`);
       }
 
       if (id == 0) {
-        await axios.post("http://localhost:3000/api/Cintas", {
-          nombre: nombreCinta,
-          activo: true,
-          idusuarios: userLogin.id,
+        await axios.post(urlBase, {
+          fecha: fecha,
+          idMatricula: idMatricula,
+          idCinta: idCinta,
+          idUsuarios: userLogin.id,
         });
       } else {
-        await axios.put(`http://localhost:3000/api/Cintas/${cintaEditar.id}`, {
-          nombre: nombreCinta,
-          activo: cintaEditar.activo,
-          idusuarios: userLogin.id,
+        await axios.put(`${urlBase}/${editarRegistro.id}`, {
+          fecha: fecha,
+          idMatricula: idMatricula,
+          idCinta: idCinta,
+          idUsuarios: userLogin.id,
         });
       }
       handleCloseModal();
-      obtenerCintas();
-      showAlert("success", "Registro", `Se ha ${id == 0 ? "creado" : "modificado"} el registro: ${nombreCinta}`);
+      obtenerGrid();
+      showAlert("success", "Registro", `Se ha ${id == 0 ? "creado" : "modificado"} el registro.`);
     } catch (error) {
       showAlert("error", "Error", `Error al crear registro: ${error.message}`);
     }
@@ -72,8 +163,8 @@ export const GestionCintasAlumnos = () => {
 
   const handleEliminarRegistro = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/Cintas/${id}`);
-      obtenerCintas();
+      await axios.delete(`${urlBase}/${id}`);
+      obtenerGrid();
       showAlert("error", "Eliminado", `Registro eliminado`);
     } catch (error) {
       showAlert("error", "Error", `Error al eliminar registro: ${error.message}`);
@@ -90,35 +181,24 @@ export const GestionCintasAlumnos = () => {
 
       <div className="col-lg-10 col-md-10 col-sm-12 col-xs-12 d-flex justify-content-end gap-2">
 
-        <div className="dropdown">
-          <button className="btn btn-orange dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
-            Alumnos
-          </button>
-          <ul className="dropdown-menu">
-            <li>
-              <a className="dropdown-item" href="#">
-                MMA
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                BOXEO
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                JIUJITSU
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                LETHWEI
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+        <select id="idArteMarcial" name="idArteMarcial" value={idArteMarcial} onChange={(e) => setIDArteMarcial(e.target.value)}>
+          <option value="0">Seleccione un Curso</option>
+          {optionsArtesMarciales.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.nombre}
+            </option>
+          ))}
+        </select>
 
+        <select id="idalumno" name="idalumno" value={idAlumno} onChange={(e) => setIDAlumno(e.target.value)}>
+          <option value="0">Seleccione un Alumno</option>
+          {optionsAlumnos.map((option) => (
+            <option key={option.idusuarios} value={option.idusuarios}>
+              {option.nombre}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div className="d-flex justify-content-end mb-2">
         <Button onClick={() => handleRegistro()} variant="warning">
@@ -130,23 +210,31 @@ export const GestionCintasAlumnos = () => {
         <thead>
           <tr>
             <th>ID</th>
+            <th>Fecha</th>
+            <th>Fecha Inicio</th>
+            <th>Arte Marcial</th>
+            <th>Cinta</th>
             <th>Nombre</th>
-            <th>Activo</th>
+            <th>Maestro</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {cintas.map((cinta) => (
-            <tr key={cinta.id}>
-              <td>{cinta.id}</td>
-              <td>{cinta.nombre}</td>
-              <td>{cinta.activo ? "Activo" : "Inactivo"}</td>
+          {gridRegistros.map((registro) => (
+            <tr key={registro.id}>
+              <td>{registro.id}</td>
+              <td>{formatDate(registro.fecha)}</td>
+              <td>{formatDate(registro.fechainicio)}</td>
+              <td>{registro.arte_marcial}</td>
+              <td>{registro.cinta}</td>
+              <td>{registro.nombrealumno}</td>
+              <td>{registro.nombremaestro}</td>
               <td>
-                <Button onClick={() => handleRegistro(cinta)} variant="success" title="Editar Registro" >
+                <Button onClick={() => handleRegistro(registro)} variant="success" title="Editar Registro" >
                   <BsPencilSquare className="me-2" />
                 </Button>
                 {" "}
-                <Button onClick={() => handleEliminarRegistro(cinta.id)} variant="danger" title="Eliminar Registro" >
+                <Button onClick={() => handleEliminarRegistro(registro.id)} variant="danger" title="Eliminar Registro" >
                   <BsTrash className="me-2" />
                 </Button>
               </td>
@@ -157,25 +245,25 @@ export const GestionCintasAlumnos = () => {
 
       <Modal show={showModal} onHide={handleCloseModal} className="custom-modal">
         <Modal.Header closeButton className="custom-modal-header">
-          <Modal.Title>{cintaEditar && cintaEditar.id ? "Modificando" : "Creando"} Registro</Modal.Title>
+          <Modal.Title>{editarRegistro && editarRegistro.id ? "Modificando" : "Creando"} Registro</Modal.Title>
         </Modal.Header>
         <Modal.Body className="custom-modal-body">
-          <input type="text" value={nombreCinta} onChange={(e) => setNombreCinta(e.target.value)} placeholder="Nombre de la Cinta" className="form-control" />
-          {cintaEditar && (
-            <label>
-              <input type="checkbox" checked={cintaEditar && cintaEditar.activo} onChange={(e) =>
-                setCintaEditar({ ...cintaEditar, activo: e.target.checked })
-              }
-              />{" "}
-              Activo
-            </label>
-          )}
+          <input id="fecha" name="fecha" type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} className="form-control" />
+
+          <select id="idCinta" name="idCinta" value={idCinta} onChange={(e) => setIDCinta(e.target.value)}>
+            <option value="0">Seleccione una Cinta</option>
+            {optionsCintas.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.nombre} {option.apellido}
+              </option>
+            ))}
+          </select>
         </Modal.Body>
         <Modal.Footer className="custom-modal-footer">
           <Button variant="secondary" onClick={handleCloseModal}>
             Cancelar
           </Button>
-          <Button variant="primary" onClick={() => handleGuardarRegistro(cintaEditar && cintaEditar.id ? cintaEditar.id : 0)}>
+          <Button variant="primary" onClick={() => handleGuardarRegistro(editarRegistro && editarRegistro.id ? editarRegistro.id : 0)}>
             Guardar
           </Button>
         </Modal.Footer>
