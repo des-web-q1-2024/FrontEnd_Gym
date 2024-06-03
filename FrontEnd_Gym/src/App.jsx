@@ -11,6 +11,7 @@ import LandingPage from "./components/pages/LandingPage";
 import MuroPrincipal from "./components/pages/Muro/PrincipalMuro.jsx"
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { GestionCintas } from "./components/pages/cintas/GestionCintas.jsx";
+import RegistroUsuario from "./components/pages/RegistroUsuario.jsx";
 
 const App = () => {
   const [usuario, setUsuario] = useState("");
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/" element={<Login onLogin={handleLogin} />} />
           <Route path="/landing" element={<LandingPage onLogin={handleLogin} />} />
           <Route path="/muroPrincipal" element={<MuroPrincipal />} />
+          <Route path="/registro" element={<RegistroUsuario />} /> {/* Agrega la ruta y el componente RegistroUsuario */}
           <Route
             path="/*"
             element={
