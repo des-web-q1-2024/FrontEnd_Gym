@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -10,7 +10,9 @@ const RegistroUsuario = ({ show, handleClose }) => {
     apellido: '',
     correo: '',
     contrasenia: '',
-    idPerfil: 3, // ID del perfil que quieres asignar (en este caso, 3)
+    fechanacimiento: '',
+    fotoPerfil: null,
+    idPerfil: 3,
   });
 
   const handleRegistroChange = (e) => {
@@ -18,19 +20,37 @@ const RegistroUsuario = ({ show, handleClose }) => {
     setRegistroForm({ ...registroForm, [name]: value });
   };
 
+  const handleFileChange = (e) => {
+    setRegistroForm({ ...registroForm, fotoPerfil: e.target.files[0] });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:3000/api/registro', registroForm);
-      const data = response.data;
 
-      if (data.success) {
+    const formData = new FormData();
+    formData.append('nombre_usuario', registroForm.nombre_usuario);
+    formData.append('nombre', registroForm.nombre);
+    formData.append('apellido', registroForm.apellido);
+    formData.append('correo', registroForm.correo);
+    formData.append('contrasenia', registroForm.contrasenia);
+    formData.append('fechanacimiento', registroForm.fechanacimiento);
+    formData.append('fotoPerfil', registroForm.fotoPerfil);
+    formData.append('idPerfil', registroForm.idPerfil);
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/registro', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.data.success) {
         Swal.fire({
           icon: 'success',
           title: 'Registro Exitoso',
           text: 'Usuario registrado correctamente',
         });
-        handleClose(); // Cierra el modal de registro después de un registro exitoso
+        handleClose();
       } else {
         Swal.fire({
           icon: 'error',
@@ -38,30 +58,94 @@ const RegistroUsuario = ({ show, handleClose }) => {
           text: 'No se pudo registrar al usuario',
         });
       }
-    } catch (e) {
-      console.error(e.message);
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un problema con el registro',
+      });
     }
   };
 
   return (
-    
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formNombreUsuario">
-            <Form.Label>Nombre de Usuario</Form.Label>
-            <Form.Control
-              type="text"
-              name="nombre_usuario"
-              value={registroForm.nombre_usuario}
-              onChange={handleRegistroChange}
-              placeholder="Ingrese su nombre de usuario"
-            />
-          </Form.Group>
-          {/* Agrega más campos de formulario para el registro */}
-          <Button variant="primary" type="submit">
-            Registrarse
-          </Button>
-        </Form>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="formNombreUsuario">
+        <Form.Label>Nombre de Usuario</Form.Label>
+        <Form.Control
+          type="text"
+          name="nombre_usuario"
+          value={registroForm.nombre_usuario}
+          onChange={handleRegistroChange}
+          placeholder="Ingrese su nombre de usuario"
+        />
+      </Form.Group>
+      <Form.Group controlId="formNombre">
+        <Form.Label>Nombre</Form.Label>
+        <Form.Control
+          type="text"
+          name="nombre"
+          value={registroForm.nombre}
+          onChange={handleRegistroChange}
+          placeholder="Ingrese su nombre"
+        />
+      </Form.Group>
+      <Form.Group controlId="formApellido">
+        <Form.Label>Apellido</Form.Label>
+        <Form.Control
+          type="text"
+          name="apellido"
+          value={registroForm.apellido}
+          onChange={handleRegistroChange}
+          placeholder="Ingrese su apellido"
+        />
+      </Form.Group>
+      <Form.Group controlId="formCorreo">
+        <Form.Label>Correo Electrónico</Form.Label>
+        <Form.Control
+          type="email"
+          name="correo"
+          value={registroForm.correo}
+          onChange={handleRegistroChange}
+          placeholder="Ingrese su correo electrónico"
+        />
+      </Form.Group>
+      <Form.Group controlId="formContrasenia">
+        <Form.Label>Contraseña</Form.Label>
+        <Form.Control
+          type="password"
+          name="contrasenia"
+          value={registroForm.contrasenia}
+          onChange={handleRegistroChange}
+          placeholder="Ingrese su contraseña"
+        />
+      </Form.Group>
+      <Form.Group controlId="formFechaNacimiento">
+        <Form.Label>Fecha de Nacimiento</Form.Label>
+        <Form.Control
+          type="date"
+          name="fechanacimiento"
+          value={registroForm.fechanacimiento}
+          onChange={handleRegistroChange}
+        />
+      </Form.Group>
+      <Form.Group controlId="formFotoPerfil">
+        <Form.Label>Foto de Perfil</Form.Label>
+        <Form.Control
+          type="file"
+          name="fotoPerfil"
+          onChange={handleFileChange}
+        />
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Registrarse
+      </Button>
+    </Form>
   );
 };
 
 export default RegistroUsuario;
+
+
+
+
