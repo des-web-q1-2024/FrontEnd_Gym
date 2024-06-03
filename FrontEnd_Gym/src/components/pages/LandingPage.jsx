@@ -54,9 +54,9 @@ const LandingPage = () => {
       const data = response.data;
 
       if(data.success) {
-       userInfo();
-       navigate('/muroPrincipal');
-      }else {
+      await userInfo();
+       navigate('/landing');
+      }else if (data.success = false) {
         Swal.fire({
           icon: 'error',
           title: 'Error',
@@ -65,6 +65,11 @@ const LandingPage = () => {
       }
     } catch (e) {
       console.error(e.message)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un problema al Iniciar Sesion :(',
+      })
     }
   }
 
@@ -76,7 +81,7 @@ const LandingPage = () => {
       <div className="background"></div>
       <div className="container">
 
-      <div className="container-login text-light" onClick={openModal} style={{cursor: 'pointer'}}>
+      { !dataForm.user ? <div className="container-login text-light" onClick={openModal} style={{cursor: 'pointer'}}>
           <p className='fs-4 text-end'>
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-person-circle mx-2" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -84,7 +89,16 @@ const LandingPage = () => {
           </svg>
           Login
           </p>
-        </div>
+        </div> : 
+        <div className="container-login text-light" style={{cursor: 'pointer'}}>
+        <p className='fs-4 text-end'>
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-person-circle mx-2" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+          <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+        </svg>
+        {dataForm.user}
+        </p>
+      </div>}
 
         <header className="text-center my-5 text-light">
           <h1 className="display-4">Bienvenido a KAHUNA</h1>
@@ -131,7 +145,7 @@ const LandingPage = () => {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" name='pass' value={dataForm.pass} onChange={handleChange} placeholder="Password" />
             </Form.Group>
-            <Button type='submit' variant="primary">
+            <Button type='submit' onClick={closeModal} variant="primary">
             Login
           </Button>
           </form>
