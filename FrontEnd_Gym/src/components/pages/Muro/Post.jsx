@@ -30,8 +30,6 @@ const PostForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     userLogin.id = 19;
-    console.log(encabezado);
-    console.log(descripcion);
 
     const formData = new FormData();
     formData.append("encabezado", encabezado);

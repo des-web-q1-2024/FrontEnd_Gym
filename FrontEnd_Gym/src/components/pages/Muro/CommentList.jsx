@@ -8,6 +8,8 @@ const CommentList = ({ userId }) => {
   const [replyingTo, setReplyingTo] = useState(null);
   const [replyText, setReplyText] = useState("");
   const [replyImage, setReplyImage] = useState(null);
+  const [visibleThreads, setVisibleThreads] = useState({});
+  const [replyingToUser, setReplyingToUser] = useState(null); // Nuevo estado para almacenar el nombre del usuario al que se está respondiendo
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -56,8 +58,9 @@ const CommentList = ({ userId }) => {
     }
   };
 
-  const handleReply = (commentId) => {
+  const handleReply = (commentId, userName) => {
     setReplyingTo(commentId);
+    setReplyingToUser(userName); // Almacena el nombre del usuario al que se está respondiendo
   };
 
   const handleSubmitReply = async (e) => {
@@ -79,6 +82,7 @@ const CommentList = ({ userId }) => {
       setReplyText("");
       setReplyImage(null);
       setReplyingTo(null);
+      setReplyingToUser(null); // Limpia el nombre del usuario al que se está respondiendo
       // Fetch comments again to include the new reply
       const response = await axios.get(
         `http://localhost:3000/api/Muro/post/${userId}`
@@ -112,110 +116,168 @@ const CommentList = ({ userId }) => {
     });
   }, [comments]);
 
+  const toggleThreadVisibility = (commentId) => {
+    setVisibleThreads((prevVisibleThreads) => ({
+      ...prevVisibleThreads,
+      [commentId]: !prevVisibleThreads[commentId],
+    }));
+  };
+
   return (
     <div className="comments-container">
-      <h2>Comentarios</h2>
-      <ul id="comments-list" className="comments-list">
+      <h2>Que escriben los demas... </h2>
+      <ul id="comments-list ">
         {comments.map((comment) => (
           <li key={comment.id}>
-            <div className="comment-main-level">
-              <div className="comment-avatar">
-                <img
-                  src={`data:image/jpeg;base64,${comment.fotousuario}`}
-                  alt="Avatar"
-                />
+            <div className="comment-box mt-5">
+              <div className="comment-head">
+                <h6 className="comment-name">{comment.encabezado}</h6>
+                <h6 className="comment-name">
+                  <a href="#">{comment.nombre}</a>
+                </h6>
+                <span>{comment.tiempo_transcurrido}</span>
               </div>
-              <div className="comment-box">
-                <div className="comment-head">
-                  <h6 className="comment-name by-author">
-                    <a href="#">{comment.nombre}</a>
-                  </h6>
-                  <span>{comment.tiempo_transcurrido}</span>
-                  <div
-                    className="like-section"
-                    onClick={() => handleLike(comment.id)}
-                  >
-                    <i
-                      className={`fa fa-heart ${
-                        likedComments.includes(comment.id) ? "liked" : ""
-                      }`}
-                    ></i>
-                    <span>{comment.likes}</span>
-                  </div>
-                  <div
-                    className="like-section"
-                    onClick={() => handleReply(comment.id)}
-                  >
-                    <i className="fa fa-reply"></i>
-                  </div>
-                </div>
-                <div className="comment-content">
-                  <div className="row ms-2">{comment.descripcion}</div>
-                  <div className="row">
-                    {comment.foto ? (
-                      <img
-                        src={`data:image/jpeg;base64,${comment.foto}`}
-                        alt="Foto de Perfil"
-                        style={{
-                          width: "300px",
-                          height: "300px",
-                          margin: "auto",
-                          borderRadius: "25px",
-                          alignContent: "center",
-                          opacity: "0.9",
-                        }}
-                      />
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                  {replyingTo === comment.id && (
-                    <div className="reply-form-container">
-                      <textarea
-                        value={replyText}
-                        onChange={(e) => setReplyText(e.target.value)}
-                        placeholder="Escribe tu respuesta..."
-                        required
-                      ></textarea>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => setReplyImage(e.target.files[0])}
-                      />
-                      <button type="button" onClick={handleSubmitReply}>
-                        Enviar
-                      </button>
-                    </div>
+
+              <div className="comment-content">
+                <div className="row ms-2">{comment.descripcion}</div>
+                <div className="row">
+                  {comment.foto ? (
+                    <img
+                      src={`data:image/jpeg;base64,${comment.foto}`}
+                      alt="Foto de Perfil"
+                      style={{
+                        width: "300px",
+                        height: "300px",
+                        margin: "auto",
+                        borderRadius: "25px",
+                        alignContent: "center",
+                        opacity: "0.9",
+                      }}
+                    />
+                  ) : (
+                    <></>
                   )}
+                </div>
+                {replyingTo === comment.id && (
+                  <div className="reply-form-container">
+                    <p>Respondiendo a: {replyingToUser}</p>
+                    <textarea
+                      value={replyText}
+                      onChange={(e) => setReplyText(e.target.value)}
+                      placeholder="Escribe tu respuesta..."
+                      required
+                    ></textarea>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => setReplyImage(e.target.files[0])}
+                    />
+                    <button type="button" onClick={handleSubmitReply}>
+                      Enviar
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="comment-footer">
+                <div
+                  className="like-section"
+                  onClick={() => handleLike(comment.id)}
+                >
+                  <i
+                    className={`fa fa-heart ${
+                      likedComments.includes(comment.id) ? "liked" : ""
+                    }`}
+                    title={
+                      likedComments.includes(comment.id) ? "Dislike" : "Like"
+                    }
+                  ></i>
+                  <span>{comment.likes}</span>
+                </div>
+                <div
+                  className="like-section"
+                  onClick={() => handleReply(comment.id, comment.nombre)}
+                >
+                  <i className="fa fa-comment" title="Comentar"></i>
+                  <span>
+                    {threadComments[comment.id]?.length || 0} comentarios
+                  </span>
+                </div>
+                <div
+                  className="like-section"
+                  onClick={() => toggleThreadVisibility(comment.id)}
+                >
+                  <i
+                    className={`fa ${
+                      visibleThreads[comment.id] ? "fa-eye-slash" : "fa-eye"
+                    }`}
+                    title={
+                      visibleThreads[comment.id]
+                        ? "Ocultar comentarios"
+                        : "Ver comentarios"
+                    }
+                  >
+                    {" "}
+                  </i> <span>Ver comentarios</span>
+                  <label>
+                    {visibleThreads[comment.id]
+                      ? "Ocultar comentarios"
+                      : "Ver comentarios"}
+                  </label>
                 </div>
               </div>
             </div>
-            {threadComments[comment.id] && (
+
+            {visibleThreads[comment.id] && threadComments[comment.id] && (
               <ul className="comments-list reply-list">
                 {threadComments[comment.id].map((threadComment) => (
                   <li key={threadComment.id}>
-                    <div class="comment-avatar">
+                    <div className="comment-avatar">
                       <img
                         src={`data:image/jpeg;base64,${threadComment.fotousuario}`}
                         alt=""
                       ></img>
                     </div>
-
-                    <div class="comment-box">
-                      <div class="comment-head">
-                        <h6 class="comment-name">
+                    <div className="comment-box">
+                      <div className="comment-head">
+                        <h6 className="comment-name">
                           <a href="http://creaticode.com/blog">
                             {threadComment.nombre}
                           </a>
                         </h6>
                         <span>{threadComment.tiempo_transcurrido}</span>
-                        <i class="fa fa-reply"></i>
-                        <i class="fa fa-heart"></i>
+                        <div
+                          className="like-section"
+                          onClick={() => handleLike(threadComment.id)}
+                        >
+                          <i
+                            className={`fa fa-heart ${
+                              likedComments.includes(threadComment.id)
+                                ? "liked"
+                                : ""
+                            }`}
+                            title={
+                              likedComments.includes(threadComment.id)
+                                ? "Dislike"
+                                : "Like"
+                            }
+                          ></i>
+                          <span>{threadComment.likes}</span>
+                        </div>
+                        <div
+                          className="like-section"
+                          onClick={() =>
+                            handleReply(threadComment.id, threadComment.nombre)
+                          }
+                        >
+                          <i className="fa fa-reply" title="Responder"></i>
+                        </div>
                       </div>
-                      <div class="comment-content">
-                        <div className="row ms-2">{threadComment.descripcion}</div>
+                      <div className="comment-content">
+                        <div className="row ms-2">
+                          {threadComment.descripcion}
+                        </div>
                         <div className="row">
-                          {comment.foto ? (
+                          {threadComment.foto ? (
                             <img
                               src={`data:image/jpeg;base64,${threadComment.foto}`}
                               alt="Foto de Perfil"
@@ -232,14 +294,45 @@ const CommentList = ({ userId }) => {
                             <></>
                           )}
                         </div>
+                        {replyingTo === threadComment.id && (
+                          <div className="reply-form-container">
+                            <h6>Respondiendo a: {replyingToUser}</h6>
+                            <textarea
+                              value={
+                                replyText.startsWith(`@${replyingToUser}`)
+                                  ? replyText
+                                  : `@${replyingToUser} ${replyText}`
+                              }
+                              onChange={(e) => setReplyText(e.target.value)}
+                              placeholder={`Escribe tu respuesta a ${replyingToUser} ...`}
+                              required
+                            ></textarea>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => setReplyImage(e.target.files[0])}
+                            />
+                            <div>
+                              <button type="button" onClick={handleSubmitReply}>
+                                Enviar
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setReplyText("");
+                                  setReplyImage(null);
+                                  setReplyingTo(null);
+                                  setReplyingToUser(null);
+                                }}
+                              >
+                                Cancelar
+                              </button>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </li>
-
-                  // <li key={threadComment.id} className="thread-comment">
-                  //   <p>{threadComment.descripcion}</p>
-
-                  // </li>
                 ))}
               </ul>
             )}
