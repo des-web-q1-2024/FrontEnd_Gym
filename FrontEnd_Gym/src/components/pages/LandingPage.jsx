@@ -4,9 +4,7 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import CardLanding from "./CardLanding";
 import "../../styles/LandingPage.css";
 import { Modal, Button, Form } from 'react-bootstrap';
-
 import LandingPageHook from '../../Hooks/LandingPageHook';
-import { useNavigate } from 'react-router-dom';
 import RegistroUsuario from './RegistroUsuario';
 
 const LandingPage = () => {

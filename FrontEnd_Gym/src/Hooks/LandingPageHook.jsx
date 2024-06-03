@@ -48,7 +48,7 @@ const LandingPageHook = () => {
         setShow(false);
         Swal.fire({
             icon: 'success',
-            title: 'Bienvenido',
+            title: `Bienvenido ${dataForm.user}`,
             text: 'Ingreso exitoso',
         })
       } else {
@@ -62,8 +62,8 @@ const LandingPageHook = () => {
       console.error(e.message);
       Swal.fire({
         icon: 'error',
-        title: 'Error',
-        text: 'Hubo un problema al Iniciar Sesión :(',
+        title: 'Hubo un problema al Iniciar Sesión :(',
+        text: e.message,
       });
     }
   };
