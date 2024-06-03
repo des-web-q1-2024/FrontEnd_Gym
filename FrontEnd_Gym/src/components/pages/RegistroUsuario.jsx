@@ -44,11 +44,7 @@ const RegistroUsuario = ({ show, handleClose }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Registro de Usuario</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+    
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formNombreUsuario">
             <Form.Label>Nombre de Usuario</Form.Label>
@@ -65,8 +61,6 @@ const RegistroUsuario = ({ show, handleClose }) => {
             Registrarse
           </Button>
         </Form>
-      </Modal.Body>
-    </Modal>
   );
 };
 

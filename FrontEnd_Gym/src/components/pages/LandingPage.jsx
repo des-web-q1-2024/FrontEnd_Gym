@@ -8,12 +8,14 @@ import UserContext from './Usuarios/UserContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import RegistroUsuario from './RegistroUsuario';
 
 const LandingPage = () => {
   const { userLogin, setUserLogin } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [show, setShow] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
   const [dataForm, setDataForm] = useState({
     user: "",
     pass: "",
@@ -73,12 +75,14 @@ const LandingPage = () => {
 
   const openModal = () => setShow(true);
   const closeModal = () => setShow(false);
+  const openRegisterModal = () => setShowRegister(true);
+  const closeRegisterModal = () => setShowRegister(false);
 
   return (
     <>
       <div className="background"></div>
       <div className="container">
-        { !userLogin.nombre_usuario ? (
+        {!userLogin.nombre_usuario ? (
           <div className="container-login text-light" onClick={openModal} style={{ cursor: 'pointer' }}>
             <p className='fs-4 text-end'>
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-person-circle mx-2" viewBox="0 0 16 16">
@@ -151,8 +155,21 @@ const LandingPage = () => {
           </form>
         </Modal.Body>
         <Modal.Footer>
+          <Button variant="primary" onClick={openRegisterModal}>
+            Registrarse
+          </Button>
         </Modal.Footer>
       </Modal>
+
+      <Modal className='text-light' style={{ backgroundColor: 'black' }} show={showRegister} onHide={closeRegisterModal} backdrop="true" keyboard={false}>
+        <Modal.Header closeButton>
+          <Modal.Title className='text-center fs-3'>Registro de Usuario</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <RegistroUsuario />
+        </Modal.Body>
+      </Modal>
+
     </>
   );
 };
