@@ -16,7 +16,7 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
   const urlBase = 'http://localhost:3000/api/participaciones';
 
   const [dataForm, setDataForm] = useState({
-    logro: "", 
+    logro: "",
     idusuarios: 0,
     idevento: 0,
   });
@@ -24,13 +24,13 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
     const { name, value } = e.target;
     setDataForm({ ...dataForm, [name]: value });
   }
-  const handlerSubmit = async (e) => { 
+  const handlerSubmit = async (e) => {
     e.preventDefault();
-   
+
     let url = `${urlBase}/${eventoID}/${dataForm.idusuarios}`;
     const result = await axios.get(url);
     const resulData = (await result).data;
- 
+
     dataForm.idevento = eventoID;
     url = `${urlBase}/${resulData[0].id}`;
     await axios.put(url, dataForm);
@@ -43,16 +43,16 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
     limpiarCampos();
   }
 
-  const handlerSaveParticipacionAlumno = async (_id) => { 
+  const handlerSaveParticipacionAlumno = async (_id) => {
     dataForm.idevento = _id;
     dataForm.idusuarios = userLogin.id;
     dataForm.logro = "";
 
     let url = `${urlBase}/existe/${dataForm.idevento}/${dataForm.idusuarios}`;
- 
+
     const result = await axios.get(url);
     console.log(result)
-    if (result.data[0].existe == 0 ){
+    if (result.data[0].existe == 0) {
       url = urlBase;
       await axios.post(url, dataForm);
       Swal.fire({
@@ -76,9 +76,7 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
   const [optionsParticipantes, setOptionsParticipantes] = useState([]);
 
   const fetchDataEventAl = async (eventoID) => {
-
     const endpoint = `${urlBase}/${eventoID}`;
-
     try {
       const response = await fetch(endpoint);
       const data = await response.json();
@@ -90,14 +88,14 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
 
   useEffect(() => {
     // URL del endpoint
-    if (eventoID > 0){
+    if (eventoID > 0) {
       // Función para obtener datos del endpoint
       fetchDataEventAl(eventoID);
     }
   }, [eventoID]);
 
 
-  const handleCargaEvento = async (_id) => { 
+  const handleCargaEvento = async (_id) => {
     await setEventoID(_id);
   }
   // Alimentacion Select Eventos
@@ -120,13 +118,13 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
     fetchData();
   }, []);
 
-  const getDatos = async () =>{
+  const getDatos = async () => {
     const url = 'http://localhost:3000/api/evento'
     const response = await axios.get(url)
     setData(response.data)
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getDatos()
   }, [contador])
 
@@ -142,11 +140,11 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
   return (
     <>
       {
-        data.map((evento)=>(
+        data.map((evento) => (
           <div key={evento.id} className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div className="card bg-eventos mt-3">
               <img
-                src={`data:${evento.mime_type};base64,${evento.foto}`} 
+                src={`data:${evento.mime_type};base64,${evento.foto}`}
                 className="card-img-top"
                 alt="evento"
               />
@@ -158,7 +156,7 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
                 <p className='text-white ff-inter fs-8'>{evento.descripcion}</p>
 
                 <div className="d-grid gap-2 d-flex">
-                  {userLogin.idperfil != 3 && ( 
+                  {userLogin.idperfil != 3 && (
                     <div>
                       <button
                         type="button"
@@ -166,7 +164,7 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
                         style={{ marginRight: '20px' }}
                         onClick={() => handleCargaEvento(evento.id)}
                         data-bs-toggle="modal"
-                        data-bs-target="#exampleModal" > 
+                        data-bs-target="#exampleModal" >
                         Registrar Logros
                       </button>
 
@@ -175,24 +173,24 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
                         className="btn btn-info"
                         onClick={() => setEventoID(evento.id)}
                         data-bs-toggle="modal"
-                        data-bs-target="#exampleModal" > 
+                        data-bs-target="#exampleModal" >
                         Lista
                       </button>
                     </div>
                   )}
-                  {userLogin.idperfil == 3 && ( 
+                  {userLogin.idperfil == 3 && (
                     <button
                       type="button"
                       className="btn btn-success margin-right:30px"
-                      onClick={() => handlerSaveParticipacionAlumno(evento.id)} > 
+                      onClick={() => handlerSaveParticipacionAlumno(evento.id)} >
                       Registrarse
                     </button>
                   )}
-                </div>     
+                </div>
               </div>
             </div>
           </div>
-          
+
         ))
       }
 
@@ -201,20 +199,20 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
           <div className="modal-content">
             <div className="modal-body">
 
-            <div className="card card-evento">
-              <div className="modal-header">
-                <div className="card-body">
-                  <h5 className="card-header text-white ff-inter fw-medium">
-                    Crear Participación
-                  </h5>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
-                  
+              <div className="card card-evento">
+                <div className="modal-header">
+                  <div className="card-body">
+                    <h5 className="card-header text-white ff-inter fw-medium">
+                      Crear Participación
+                    </h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+
                     <form onSubmit={handlerSubmit}>
                       <div className="row mb-3 col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                          <label className="form-label text-white ff-inter fw-medium fs-7" htmlFor="idevento">
+                        <label className="form-label text-white ff-inter fw-medium fs-7" htmlFor="idevento">
                           Evento:</label>
 
-                          <select readOnly={true} id="idevento" name="idevento" value={eventoID} onChange={handlerChange} >
+                        <select readOnly={true} id="idevento" name="idevento" value={eventoID} onChange={handlerChange} >
                           <option value="">Selecciona un Evento</option>
                           {optionsEventos.map((option) => (
                             <option key={option.id} value={option.id}>

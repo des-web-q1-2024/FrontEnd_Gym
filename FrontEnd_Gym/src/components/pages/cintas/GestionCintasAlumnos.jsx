@@ -7,13 +7,12 @@ import UserContext from '../Usuarios/UserContext';
 import "../../../styles/ModalAE.css";
 import "../../../styles/TablaAE.css";
 
-export const GestionCintas = () => {
+export const GestionCintasAlumnos = () => {
   const { userLogin, setUserLogin } = useContext(UserContext);
   const [showModal, setShowModal] = useState(false);
   const [cintas, setCintas] = useState([]);
   const [cintaEditar, setCintaEditar] = useState(null);
   const [nombreCinta, setNombreCinta] = useState("");
-  const urlBase = "http://localhost:3000/api/cintas";
 
   const showAlert = (icon, title, text) => {
     Swal.fire({ icon, title, text, });
@@ -25,7 +24,7 @@ export const GestionCintas = () => {
 
   const obtenerCintas = async () => {
     try {
-      const response = await axios.get(urlBase);
+      const response = await axios.get("http://localhost:3000/api/Cintas");
       setCintas(response.data);
     } catch (error) {
       console.error("Error al obtener registros:", error);
@@ -51,13 +50,13 @@ export const GestionCintas = () => {
       }
 
       if (id == 0) {
-        await axios.post(urlBase, {
+        await axios.post("http://localhost:3000/api/Cintas", {
           nombre: nombreCinta,
           activo: true,
           idusuarios: userLogin.id,
         });
       } else {
-        await axios.put(`${urlBase}/${cintaEditar.id}`, {
+        await axios.put(`http://localhost:3000/api/Cintas/${cintaEditar.id}`, {
           nombre: nombreCinta,
           activo: cintaEditar.activo,
           idusuarios: userLogin.id,
@@ -73,7 +72,7 @@ export const GestionCintas = () => {
 
   const handleEliminarRegistro = async (id) => {
     try {
-      await axios.delete(`${urlBase}/${id}`);
+      await axios.delete(`http://localhost:3000/api/Cintas/${id}`);
       obtenerCintas();
       showAlert("error", "Eliminado", `Registro eliminado`);
     } catch (error) {
@@ -85,9 +84,41 @@ export const GestionCintas = () => {
     <>
       <div className="col">
         <h4 className="card-header text-black-50 ff-inter fw-medium">
-          Gestión de Cintas
+          Gestión de Cintas Por Alumno
         </h4>
       </div>
+
+      <div className="col-lg-10 col-md-10 col-sm-12 col-xs-12 d-flex justify-content-end gap-2">
+
+        <div className="dropdown">
+          <button className="btn btn-orange dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+            Alumnos
+          </button>
+          <ul className="dropdown-menu">
+            <li>
+              <a className="dropdown-item" href="#">
+                MMA
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="#">
+                BOXEO
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="#">
+                JIUJITSU
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="#">
+                LETHWEI
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
 
       <div className="d-flex justify-content-end mb-2">
         <Button onClick={() => handleRegistro()} variant="warning">

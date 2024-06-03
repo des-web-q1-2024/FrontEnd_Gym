@@ -9,6 +9,10 @@ import {
   BsPersonArmsUp,
   BsPersonFill,
   BsAwardFill,
+  BsFillBookmarkCheckFill,
+  BsMastodon,
+  BsBrilliance,
+  BsYinYang,
 } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import "../../styles/Menu.css"; // Asegúrate de importar el archivo CSS aquí
@@ -63,38 +67,34 @@ const Menu = () => {
             <div className="offcanvas-body">
               <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li
-                  className={`nav-item ${
-                    location.pathname === "/menu" ? "active" : ""
-                  }`}
+                  className={`nav-item ${location.pathname === "/menu" ? "active" : ""
+                    }`}
                 >
                   <Link className="nav-link" to="/perfiles">
                     <BsHouseDoorFill className="me-2" /> Perfiles
                   </Link>
                 </li>
                 <li
-                  className={`nav-item ${
-                    location.pathname === "/usuarios" ? "active" : ""
-                  }`}
+                  className={`nav-item ${location.pathname === "/usuarios" ? "active" : ""
+                    }`}
                 >
                   <Link className="nav-link" to="/usuarios">
                     <BsPersonFill className="me-2" /> Usuarios
                   </Link>
                 </li>
                 <li
-                  className={`nav-item ${
-                    location.pathname === "/eventos" ? "active" : ""
-                  }`}
+                  className={`nav-item ${location.pathname === "/eventos" ? "active" : ""
+                    }`}
                 >
                   <Link className="nav-link" to="/eventos">
                     <BsCalendar2DateFill className="me-2" /> Eventos
                   </Link>
                 </li>
                 <li
-                  className={`nav-item ${
-                    location.pathname === "/ParticipacionesAlumnos"
-                      ? "active"
-                      : ""
-                  }`}
+                  className={`nav-item ${location.pathname === "/ParticipacionesAlumnos"
+                    ? "active"
+                    : ""
+                    }`}
                 >
                   <Link className="nav-link" to="/ParticipacionesAlumnos">
                     <BsPersonArmsUp className="me-2" /> Participaciones Alumnos
@@ -102,11 +102,21 @@ const Menu = () => {
                 </li>
 
                 <li
-                  className={`nav-item ${
-                    location.pathname === "/GestionCintas"
-                      ? "active"
-                      : ""
-                  }`}
+                  className={`nav-item ${location.pathname === "/GestionArtesMarciales"
+                    ? "active"
+                    : ""
+                    }`}
+                >
+                  <Link className="nav-link" to="/GestionArtesMarciales">
+                    <BsYinYang className="me-2" /> Gestión de Artes Marciales
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item ${location.pathname === "/GestionCintas"
+                    ? "active"
+                    : ""
+                    }`}
                 >
                   <Link className="nav-link" to="/GestionCintas">
                     <BsAwardFill className="me-2" /> Gestión de Cintas
@@ -114,9 +124,30 @@ const Menu = () => {
                 </li>
 
                 <li
-                  className={`nav-item ${
-                    location.pathname === "/muro" ? "active" : ""
-                  }`}
+                  className={`nav-item ${location.pathname === "/GestionMatriculas"
+                    ? "active"
+                    : ""
+                    }`}
+                >
+                  <Link className="nav-link" to="/GestionMatriculas">
+                    <BsMastodon className="me-2" /> Gestión de Matriculas
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item ${location.pathname === "/GestionCintasAlumnos"
+                    ? "active"
+                    : ""
+                    }`}
+                >
+                  <Link className="nav-link" to="/GestionCintasAlumnos">
+                    <BsFillBookmarkCheckFill className="me-2" /> Gestión de Cintas por Alumno
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item ${location.pathname === "/muro" ? "active" : ""
+                    }`}
                 >
                   <Link className="nav-link" to="/muro">
                     <BsGearFill className="me-2" /> Muro
