@@ -14,6 +14,7 @@ import { GestionArtesMarciales } from "./components/pages/cintas/GestionArtesMar
 import { GestionCintas } from "./components/pages/cintas/GestionCintas.jsx";
 import { GestionMatriculas } from "./components/pages/cintas/GestionMatriculas.jsx";
 import { GestionCintasAlumnos } from "./components/pages/cintas/GestionCintasAlumnos.jsx";
+import RegistroUsuario from "./components/pages/RegistroUsuario.jsx";
 
 const App = () => {
   const [usuario, setUsuario] = useState("");
@@ -34,8 +35,9 @@ const App = () => {
       <UserContext.Provider value={{ userLogin, setUserLogin }}>
         <Routes>
           <Route path="/" element={<Login onLogin={handleLogin} />} />
-          <Route path="/landing" element={<LandingPage />} />
+          <Route path="/landing" element={<LandingPage onLogin={handleLogin} />} />
           <Route path="/muroPrincipal" element={<MuroPrincipal />} />
+          <Route path="/registro" element={<RegistroUsuario />} /> {/* Agrega la ruta y el componente RegistroUsuario */}
           <Route
             path="/*"
             element={

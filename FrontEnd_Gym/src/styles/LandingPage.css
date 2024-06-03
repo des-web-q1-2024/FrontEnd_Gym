@@ -12,6 +12,18 @@
   height: 100%;
 }
 
+
+.modal-backdrop.show {
+  opacity: 0.5; 
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+
 .background {
   background-image: url('src/assets/kickBoxing.avif');
   background-size: cover;
