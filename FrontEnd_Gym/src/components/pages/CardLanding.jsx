@@ -8,9 +8,19 @@ import { useNavigate } from 'react-router-dom';
 
 const CardLanding = ({ filtroFecha }) => {
   const [data, setData] = useState([]);
+  const [userExist, setUserExist] = useState(false)
 
   const {userLogin} = LandingPageHook();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userLogin && userLogin.nombre_usuario) {
+      setUserExist(true);
+    } else {
+      setUserExist(false);
+    }
+  }, [userLogin]);
+
 
   const getDatos = async () => {
     const url = 'http://localhost:3000/api/evento/recientes';
@@ -50,7 +60,7 @@ const CardLanding = ({ filtroFecha }) => {
                 {evento.nombre}
               </h6>
               <p className='text-white text-center ff-inter fs-8'>{evento.descripcion}</p>
-              {userLogin && (
+              {userExist && (
                 <button className="btn btn-primary" onClick={() => navigate(`/eventos/${evento.id}`)}>Ver Detalles</button>
               )}
             </div>
