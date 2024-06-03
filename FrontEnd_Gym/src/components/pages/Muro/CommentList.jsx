@@ -212,16 +212,16 @@ const CommentList = ({ userId }) => {
                     }`}
                     title={
                       visibleThreads[comment.id]
-                        ? "Ocultar comentarios"
-                        : "Ver comentarios"
+                        ? <span>Ocultar comentarios</span>
+                        : <span>Ver comentarios</span>
                     }
                   >
                     {" "}
-                  </i> <span>Ver comentarios</span>
+                  </i> 
                   <label>
                     {visibleThreads[comment.id]
-                      ? "Ocultar comentarios"
-                      : "Ver comentarios"}
+                               ? <span>Ocultar comentarios</span>
+                               : <span>Ver comentarios</span>}
                   </label>
                 </div>
               </div>

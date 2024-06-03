@@ -309,8 +309,9 @@
  }
  
  .like-section .fa-heart.liked {
-   color: blue; /* color cuando está gustado */
+   color: rgb(240, 6, 26); /* color cuando está gustado */
  }
+ 
  .reply-form-container {
    display: flex;
    flex-direction: column;
