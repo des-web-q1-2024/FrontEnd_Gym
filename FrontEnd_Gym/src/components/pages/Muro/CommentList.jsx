@@ -45,7 +45,7 @@ const CommentList = ({ userId }) => {
         setLikedComments([...likedComments, commentId]);
       }
 
-      // Update the like count in the comments state
+   
       setComments(
         comments.map((comment) =>
           comment.id === commentId
@@ -60,7 +60,7 @@ const CommentList = ({ userId }) => {
 
   const handleReply = (commentId, userName) => {
     setReplyingTo(commentId);
-    setReplyingToUser(userName); // Almacena el nombre del usuario al que se está respondiendo
+    setReplyingToUser(userName); 
   };
 
   const handleSubmitReply = async (e) => {
@@ -82,8 +82,8 @@ const CommentList = ({ userId }) => {
       setReplyText("");
       setReplyImage(null);
       setReplyingTo(null);
-      setReplyingToUser(null); // Limpia el nombre del usuario al que se está respondiendo
-      // Fetch comments again to include the new reply
+      setReplyingToUser(null); 
+    
       const response = await axios.get(
         `http://localhost:3000/api/Muro/post/${userId}`
       );
@@ -93,7 +93,7 @@ const CommentList = ({ userId }) => {
     }
   };
 
-  // Nuevas adiciones para mostrar los hilos de comentarios debajo de cada comentario principal
+
   const [threadComments, setThreadComments] = useState({});
 
   useEffect(() => {
