@@ -53,18 +53,20 @@ export const GestionCintasAlumnos = () => {
   }, []);
 
   useEffect(() => {
-    obtenerAlumnos();
+    if (idArteMarcial > 0) {
+      obtenerAlumnos(idArteMarcial);
+    }
   }, [idArteMarcial]);
-
-  useEffect(() => {
-    obtenerGrid();
-  }, [idMatricula]);
 
   useEffect(() => {
     if (idAlumno > 0) {
       obtenerIDMatricula(idAlumno);
     }
   }, [idAlumno]);
+
+  useEffect(() => {
+    obtenerGrid();
+  }, [idMatricula]);
 
   const obtenerGrid = async () => {
     try {
@@ -93,12 +95,14 @@ export const GestionCintasAlumnos = () => {
     }
   };
 
-  const obtenerAlumnos = async () => {
+  const obtenerAlumnos = async (idArteMarcial) => {
+    const endpoint = `http://localhost:3000/api/matriculas/${idArteMarcial}`;
     try {
-      const response = await axios.get(`http://localhost:3000/api/matriculas/${idArteMarcial}`);
-      setOptionsAlumnos(response.data);
+      const response = await fetch(endpoint);
+      const data = await response.json();
+      setOptionsAlumnos(data);
     } catch (error) {
-      console.error("Error al obtener registros:", error);
+      console.error('Error fetching data:', error);
     }
   };
 
@@ -135,7 +139,7 @@ export const GestionCintasAlumnos = () => {
         return showAlert("error", "Atención", "Debe colocar una fecha.");
       }
       if (idMatricula == 0 || idCinta == 0) {
-        return showAlert("error", "Atención", `Debe seleccionar un ${idMatricula == 0 ? "arte marcial" : "cinta"}.`);
+        return showAlert("error", "Atención", `Debe seleccionar un ${idMatricula == 0 ? "arte marcial y/o Alumno" : "cinta"}.`);
       }
 
       if (id == 0) {
