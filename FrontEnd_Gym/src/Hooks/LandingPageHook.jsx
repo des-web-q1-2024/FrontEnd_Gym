@@ -4,6 +4,7 @@ import axios from 'axios';
 import UserContext from '../components/pages/Usuarios/UserContext';
 
 const LandingPageHook = () => {
+  /* Llamamos al usuario y sus datos mediante el useContext*/
     const { userLogin, setUserLogin } = useContext(UserContext);
     const [show, setShow] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -12,11 +13,15 @@ const LandingPageHook = () => {
     pass: "",
   });
 
+
+  /*Funcion para poder manejar los estados de los inputs */
   const handleChange = (e) => {
     const { name, value } = e.target;
     setDataForm({ ...dataForm, [name]: value });
   };
 
+
+  /*Funcion para poder llamar al endPoint de getUsuarios mediante su userName y asi tener todos sus datos de la base de datos */
   const userInfo = async () => {
     try {
       const url = `http://localhost:3000/api/Usuarios/${dataForm.user}`;
@@ -37,6 +42,8 @@ const LandingPageHook = () => {
     }
   };
 
+
+  /*Funcion para validar si el usuario y contraseña son validos */
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -68,6 +75,7 @@ const LandingPageHook = () => {
     }
   };
 
+  /*Funciones para manejar los estados booleanos de los modales */
   const openModal = () => setShow(true);
   const closeModal = () => setShow(false);
   const openRegisterModal = () => setShowRegister(true);

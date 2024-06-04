@@ -9,7 +9,7 @@ import RegistroUsuario from './RegistroUsuario';
 
 const LandingPage = () => {
   
-
+/*Llamamos a todos las funciones y variables necesarias para poder hacer funcionar la landing page */
   const {show,
     setShow,
     showRegister,
@@ -32,6 +32,8 @@ const LandingPage = () => {
     <>
       <div className="background"></div>
       <div className="container">
+        {/*Aqui hacemos que si el usuario aun no se a logueado, que aparezca un boton de login para poder iniciar sesiom
+        al contrario si ya esta registrado, aparecera el nombre del usuario, reemplazando el login */}
         {!userLogin.nombre_usuario ? (
           <div className="container-login text-light" onClick={openModal} style={{ cursor: 'pointer' }}>
             <p className='fs-4 text-end'>
