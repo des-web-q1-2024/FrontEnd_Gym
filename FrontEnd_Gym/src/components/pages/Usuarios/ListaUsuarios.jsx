@@ -58,8 +58,7 @@ const ListaUsuarios = ({ onUsuarioSeleccionado, conteModal }) => {
                     style={{ width: "50px", height: "50px" }}
                   />
                 ) : (
-                  <img
-                    src="https://tienda.cderma.com.co/wp-content/uploads/2022/05/IMAGEN-NO-DISPONIBLE.png"
+                  <img  src="src\assets\nousuario.png"             
                     alt="Imagen Predeterminada"
                     className="rounded-circle mr-3"
                     style={{ width: "50px", height: "50px" }}

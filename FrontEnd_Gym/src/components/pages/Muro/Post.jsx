@@ -12,6 +12,11 @@ const PostForm = () => {
   const [foto, setFoto] = useState(null);
   const [charCount, setCharCount] = useState(0);
   const { userLogin } = useContext(UserContext);
+  const [contador, setContador] = useState(0);
+
+  const incrementarContador = () => {
+    setContador((contador) => contador + 1);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -53,6 +58,7 @@ const PostForm = () => {
       setDescripcion("");
       setFoto(null);
       setCharCount(0);
+      incrementarContador();
     } catch (error) {
       console.error("Error al insertar post:", error);
     }
@@ -111,7 +117,7 @@ const PostForm = () => {
           </p>
           <hr></hr>
           
-          <CommentList userId={19} />
+          <CommentList userId={userLogin.id} contador={contador}  />
           <p className="error-message"></p>
         </div>
       </div>

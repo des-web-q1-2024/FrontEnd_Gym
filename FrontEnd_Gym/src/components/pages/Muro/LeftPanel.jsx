@@ -17,7 +17,7 @@ const LeftPanel = ({ handleItemClick }) => {
             />
           ) : (
             <img
-              src="https://tienda.cderma.com.co/wp-content/uploads/2022/05/IMAGEN-NO-DISPONIBLE.png"
+              src="src\assets\nousuario.png"
               alt="Imagen Predeterminada"
               className="rounded-circle mr-3"
               style={{ width: "200px", height: "200px" }}

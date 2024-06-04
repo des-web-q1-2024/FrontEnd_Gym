@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Css/Comentarios.css";
 
-const CommentList = ({ userId }) => {
+const CommentList = ({ userId ,contador}) => {
   const [comments, setComments] = useState([]);
   const [likedComments, setLikedComments] = useState([]);
   const [replyingTo, setReplyingTo] = useState(null);
@@ -24,7 +24,7 @@ const CommentList = ({ userId }) => {
     };
 
     fetchComments();
-  }, [userId]);
+  }, [userId,contador]);
 
   const handleLike = async (commentId) => {
     try {
