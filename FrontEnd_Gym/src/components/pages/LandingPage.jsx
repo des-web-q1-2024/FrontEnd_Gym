@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import CardLanding from "./CardLanding";
@@ -24,7 +24,12 @@ const LandingPage = () => {
      closeRegisterModal,
      handleSubmit,
      userInfo,
+     getDatos,
+     information,
+     contactos,
      handleChange} = LandingPageHook();
+
+     
 
   
 
@@ -63,13 +68,19 @@ const LandingPage = () => {
 
         <section className="about-us text-center my-5">
           <h2 className="mb-3">Sobre Nosotros</h2>
-          <p>Somos Kahuna, una escuela de artes marciales dedicada a formar jóvenes en diferentes disciplinas desde 2005. Ofrecemos clases de Taekwondo, Karate, Judo y Kickboxing.</p>
+          {information.map((reg) => (
+            <p key={reg.id} className="fs-5 lead">{reg.nosotros}</p>
+          ))}
         </section>
 
         <section className="vision-mission text-center my-5">
           <h2 className="mb-3">Nuestra Misión y Visión</h2>
-          <p><strong>Misión:</strong> [Aquí va la misión de la escuela]</p>
-          <p><strong>Visión:</strong> [Aquí va la visión de la escuela]</p>
+          <p><strong>Misión:</strong>{information.map((reg) => (
+            <p key={reg.id} className="fs-5 lead">{reg.mision}</p>
+          ))} </p>
+          <p><strong>Visión:</strong>{information.map((reg) => (
+            <p key={reg.id} className="fs-5 lead">{reg.vision}</p>
+          ))}</p>
         </section>
 
         <section className="events my-5">
@@ -80,9 +91,10 @@ const LandingPage = () => {
         </section>
 
         <section className="contact-us text-center my-5">
-          <h2 className="mb-3">Contáctanos</h2>
-          <p>Elvin Cruz: +504 8922-1317</p>
-          <p>Marina Sifontes: +504 3176-7371</p>
+          <p className="mb-3 fs-5 lead">¿Quieres saber más sobre nosotros o tienes alguna pregunta? </p>
+          {contactos.map((cont) => (
+            <p key={cont.id}>{cont.nombre} +504 {cont.telefono}</p>
+          ))}
         </section>
       </div>
 

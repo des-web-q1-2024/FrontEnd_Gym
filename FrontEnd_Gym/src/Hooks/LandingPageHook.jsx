@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import UserContext from '../components/pages/Usuarios/UserContext';
@@ -8,6 +8,8 @@ const LandingPageHook = () => {
     const { userLogin, setUserLogin } = useContext(UserContext);
     const [show, setShow] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [information, setInformation] = useState([]);
+  const [contactos, setContactos] = useState([]);
   const [dataForm, setDataForm] = useState({
     user: "",
     pass: "",
@@ -41,6 +43,33 @@ const LandingPageHook = () => {
       console.error("Error al obtener información del usuario:", error);
     }
   };
+
+  const getDatos = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/Landing/');
+      const data = response.data
+      setInformation(data)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+  const getContactos = async () => {
+    try {
+      
+    const response = await axios.get('http://localhost:3000/api/Landing/contactos');
+    const data = response.data;
+    setContactos(data);
+    console.log(data);
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+  useEffect(() => {
+    getDatos();
+    getContactos();
+   }, [])
 
 
   /*Funcion para validar si el usuario y contraseña son validos */
@@ -90,6 +119,8 @@ const LandingPageHook = () => {
    setDataForm,
    userLogin,
    setUserLogin,
+   information,
+   contactos,
 
 
     openModal,
@@ -98,7 +129,8 @@ const LandingPageHook = () => {
     closeRegisterModal,
     handleSubmit,
     userInfo,
-    handleChange
+    handleChange, 
+    getDatos
   }
 }
 
