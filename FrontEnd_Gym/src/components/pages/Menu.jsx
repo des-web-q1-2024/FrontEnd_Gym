@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import React from "react";
+import React, { useContext } from "react";
+import UserContext from "./Usuarios/UserContext";
 import {
   BsBoxArrowRight,
   BsCalendar2DateFill,
@@ -15,38 +16,67 @@ import {
   BsYinYang,
 } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
-import "../../styles/Menu.css"; // Asegúrate de importar el archivo CSS aquí
+import "../../styles/Menu.css";
 
 const Menu = () => {
   const location = useLocation();
-
+  const { userLogin } = useContext(UserContext);
   return (
     <>
       <div className="background-gif"></div>
       <nav className="navbar navbar-dark bg-dark fixed-top">
         <div className="container-fluid">
-          <div className="d-flex align-items-center">
-            <img
-              src="src/assets/logo.png"
-              alt="Logo"
-              width="50"
-              height="50"
-              className="me-2"
-            />
-            <a className="navbar-brand mb-0 h1" href="#">
-              KAHUNA
-            </a>
-          </div>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasDarkNavbar"
-            aria-controls="offcanvasDarkNavbar"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+        <div className="d-flex align-items-center justify-content-between w-100">
+  <div className="d-flex align-items-center">
+    <img
+      src="src/assets/logo.png"
+      alt="Logo"
+      width="50"
+      height="50"
+      className="me-2"
+    />
+    <a className="navbar-brand mb-0 h1" href="#">
+      KAHUNA
+    </a>
+  </div>
+
+  <div className="d-flex align-items-center ms-auto">
+    {userLogin && (
+      <>
+        {userLogin.foto ? (
+          <img
+            src={`data:image/jpeg;base64,${userLogin.foto}`}
+            alt="Foto de Perfil"
+            className="rounded-circle me-3"
+            style={{ width: "50px", height: "50px" }}
+          />
+        ) : (
+          <img
+            src="src/assets/nousuario.png"
+            alt="Imagen Predeterminada"
+            className="rounded-circle me-3"
+            style={{ width: "50px", height: "50px" }}
+          />
+        )}
+
+        <span className="navbar-text me-3">
+          {userLogin.nombre} ({userLogin.perfil})
+        </span>
+      </>
+    )}
+    <button
+      className="navbar-toggler"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasDarkNavbar"
+      aria-controls="offcanvasDarkNavbar"
+      aria-label="Toggle navigation"
+    >
+      <span className="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</div>
+
           <div
             className="offcanvas offcanvas-end text-bg-dark"
             tabIndex="-1"
@@ -67,34 +97,38 @@ const Menu = () => {
             <div className="offcanvas-body">
               <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li
-                  className={`nav-item ${location.pathname === "/menu" ? "active" : ""
-                    }`}
+                  className={`nav-item ${
+                    location.pathname === "/menu" ? "active" : ""
+                  }`}
                 >
                   <Link className="nav-link" to="/perfiles">
                     <BsHouseDoorFill className="me-2" /> Perfiles
                   </Link>
                 </li>
                 <li
-                  className={`nav-item ${location.pathname === "/usuarios" ? "active" : ""
-                    }`}
+                  className={`nav-item ${
+                    location.pathname === "/usuarios" ? "active" : ""
+                  }`}
                 >
                   <Link className="nav-link" to="/usuarios">
                     <BsPersonFill className="me-2" /> Usuarios
                   </Link>
                 </li>
                 <li
-                  className={`nav-item ${location.pathname === "/eventos" ? "active" : ""
-                    }`}
+                  className={`nav-item ${
+                    location.pathname === "/eventos" ? "active" : ""
+                  }`}
                 >
                   <Link className="nav-link" to="/eventos">
                     <BsCalendar2DateFill className="me-2" /> Eventos
                   </Link>
                 </li>
                 <li
-                  className={`nav-item ${location.pathname === "/ParticipacionesAlumnos"
-                    ? "active"
-                    : ""
-                    }`}
+                  className={`nav-item ${
+                    location.pathname === "/ParticipacionesAlumnos"
+                      ? "active"
+                      : ""
+                  }`}
                 >
                   <Link className="nav-link" to="/ParticipacionesAlumnos">
                     <BsPersonArmsUp className="me-2" /> Participaciones Alumnos
@@ -102,10 +136,11 @@ const Menu = () => {
                 </li>
 
                 <li
-                  className={`nav-item ${location.pathname === "/GestionArtesMarciales"
-                    ? "active"
-                    : ""
-                    }`}
+                  className={`nav-item ${
+                    location.pathname === "/GestionArtesMarciales"
+                      ? "active"
+                      : ""
+                  }`}
                 >
                   <Link className="nav-link" to="/GestionArtesMarciales">
                     <BsYinYang className="me-2" /> Gestión de Artes Marciales
@@ -113,10 +148,9 @@ const Menu = () => {
                 </li>
 
                 <li
-                  className={`nav-item ${location.pathname === "/GestionCintas"
-                    ? "active"
-                    : ""
-                    }`}
+                  className={`nav-item ${
+                    location.pathname === "/GestionCintas" ? "active" : ""
+                  }`}
                 >
                   <Link className="nav-link" to="/GestionCintas">
                     <BsAwardFill className="me-2" /> Gestión de Cintas
@@ -124,10 +158,9 @@ const Menu = () => {
                 </li>
 
                 <li
-                  className={`nav-item ${location.pathname === "/GestionMatriculas"
-                    ? "active"
-                    : ""
-                    }`}
+                  className={`nav-item ${
+                    location.pathname === "/GestionMatriculas" ? "active" : ""
+                  }`}
                 >
                   <Link className="nav-link" to="/GestionMatriculas">
                     <BsMastodon className="me-2" /> Gestión de Matriculas
@@ -135,19 +168,22 @@ const Menu = () => {
                 </li>
 
                 <li
-                  className={`nav-item ${location.pathname === "/GestionCintasAlumnos"
-                    ? "active"
-                    : ""
-                    }`}
+                  className={`nav-item ${
+                    location.pathname === "/GestionCintasAlumnos"
+                      ? "active"
+                      : ""
+                  }`}
                 >
                   <Link className="nav-link" to="/GestionCintasAlumnos">
-                    <BsFillBookmarkCheckFill className="me-2" /> Gestión de Cintas por Alumno
+                    <BsFillBookmarkCheckFill className="me-2" /> Gestión de
+                    Cintas por Alumno
                   </Link>
                 </li>
 
                 <li
-                  className={`nav-item ${location.pathname === "/muro" ? "active" : ""
-                    }`}
+                  className={`nav-item ${
+                    location.pathname === "/muro" ? "active" : ""
+                  }`}
                 >
                   <Link className="nav-link" to="/muro">
                     <BsGearFill className="me-2" /> Muro
