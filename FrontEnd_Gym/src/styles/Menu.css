@@ -15,5 +15,8 @@
   top: 10;
   left: 0;
   z-index: -1;
-  opacity: 0.8; /* Ajusta la transparencia */
+  /* opacity: 0.8;  */
+  background-color: black !important;
+  background: url('src/assets/videopromo.gif')  center center / cover no-repeat;
 }
+
