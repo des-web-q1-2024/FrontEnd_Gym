@@ -182,10 +182,10 @@ const Menu = () => {
 
                 <li
                   className={`nav-item ${
-                    location.pathname === "/muro" ? "active" : ""
+                    location.pathname === "/MuroPrincipal" ? "active" : ""
                   }`}
                 >
-                  <Link className="nav-link" to="/muro">
+                  <Link className="nav-link" to="/MuroPrincipal">
                     <BsGearFill className="me-2" /> Muro
                   </Link>
                 </li>

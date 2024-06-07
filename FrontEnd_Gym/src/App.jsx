@@ -9,14 +9,14 @@ import Perfiles from "./components/pages/Perfiles/Perfiles.jsx";
 import UsuariosPrincipal from "./components/pages/Usuarios/UsuariosPrincipal.jsx";
 import LandingPage from "./components/pages/LandingPage";
 import MuroPrincipal from "./components/pages/Muro/PrincipalMuro.jsx";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import { GestionArtesMarciales } from "./components/pages/cintas/GestionArtesMarciales.jsx";
 import { GestionCintas } from "./components/pages/cintas/GestionCintas.jsx";
 import { GestionMatriculas } from "./components/pages/cintas/GestionMatriculas.jsx";
 import { GestionCintasAlumnos } from "./components/pages/cintas/GestionCintasAlumnos.jsx";
 import RegistroUsuario from "./components/pages/RegistroUsuario.jsx";
-import { UserProvider } from "./components/pages/Usuarios/UserContext.jsx";
 
+import { UserProvider } from "./components/pages/Usuarios/UserContext.jsx";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 const App = () => {
   const [usuario, setUsuario] = useState("");
   const [userLogin, setUserLogin] = useState({
@@ -41,9 +41,9 @@ const App = () => {
             path="/landing"
             element={<LandingPage onLogin={handleLogin} />}
           />
-          <Route path="/muroPrincipal" element={<MuroPrincipal />} />
+          <Route path="/MuroPrincipal" element={<MuroPrincipal />} />
           <Route path="/registro" element={<RegistroUsuario />} />{" "}
-          {/* Agrega la ruta y el componente RegistroUsuario */}
+
           <Route
             path="/*"
             element={
@@ -71,6 +71,7 @@ const App = () => {
                       element={<GestionCintasAlumnos />}
                     />
                     <Route path="usuarios" element={<UsuariosPrincipal />} />
+                 
                   </Routes>
                 </div>
               </>
