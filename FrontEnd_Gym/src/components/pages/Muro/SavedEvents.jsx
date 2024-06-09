@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import UserContext from "../Usuarios/UserContext";
 import ThemeSwitcher from "./ThemeSwitcher.jsx";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const SavedEvents = ({ contador }) => {
   const [savedEvents, setSavedEvents] = useState([]);
@@ -10,7 +11,6 @@ const SavedEvents = ({ contador }) => {
 
   const getSavedEvents = async () => {
     try {
-     // userLogin.id = 19; // Temporal, asegúrate de usar el id real del usuario logueado.
       const response = await axios.get(
         `http://localhost:3000/api/Muro/saveEvent/${userLogin.id}`
       );
@@ -23,13 +23,11 @@ const SavedEvents = ({ contador }) => {
   };
 
   const truncateDescription = (description) => {
-    if (description.length > 20) {
+    if (description.length > 40) {
       return `${description.slice(0, 40)}...`;
     }
     return description;
   };
-
-  console.log(`contador del componenet savedEvents ${contador}`)
 
   useEffect(() => {
     getSavedEvents();
@@ -40,39 +38,44 @@ const SavedEvents = ({ contador }) => {
       <div className="interaction-control interactions">
         <ThemeSwitcher />
       </div>
-      <div className="col-12 px-0 right-content ">
-        <div className="analytics">
-          <h2 className="ms-2">Eventos Guardados</h2>
-          {isLoading ? (
-            <div className="d-flex justify-content-center">
-              <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden"></span>
-              </div>
+      <div className="container">
+        <div className="row">
+          <div className="col-12 px-0 right-content">
+            <div className="analytics">
+              <h2 className="ms-5">Eventos Guardados</h2>
+              {isLoading ? (
+                <div className="d-flex justify-content-center">
+                  <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden"></span>
+                  </div>
+                </div>
+              ) : (
+                savedEvents.map((evento) => (
+                  <div
+                    className="saved-event-card row ms-5 mb-4 p-3"
+                    key={evento.save_id || evento.id}
+                  >
+                    <div className="col-12 col-md-4 event-thumbnail">
+                      <img
+                        src={`data:${evento.mime_type};base64,${evento.imgevento}`}
+                        alt=""
+                        className="img-fluid"
+                      />
+                    </div>
+                    <div className="col-12 col-md-8 event-details mt-3 mt-md-0">
+                      <h2>{evento.nombre}</h2>
+                      <p>{truncateDescription(evento.descripcion)}</p>
+                      <p>
+                        Guardado el:{" "}
+                        {new Date(evento.date_save).toLocaleDateString()}
+                      </p>
+                      <p className="view-more">Ver más</p>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
-          ) : (
-            savedEvents.map((evento) => (
-              <div
-                className="saved-event-card ms-2 "
-                key={evento.save_id || evento.id}
-              >
-                <div className="event-thumbnail">
-                  <img
-                    src={`data:${evento.mime_type};base64,${evento.imgevento}`}
-                    alt=""
-                  />
-                </div>
-                <div className="event-details ms-4">
-                  <h2>{evento.nombre}</h2>
-                  <p>{truncateDescription(evento.descripcion)}</p>
-                  <p>
-                    Guardado el:{" "}
-                    {new Date(evento.date_save).toLocaleDateString()}
-                  </p>
-                  <p className="view-more">Ver más</p>
-                </div>
-              </div>
-            ))
-          )}
+          </div>
         </div>
       </div>
     </>
