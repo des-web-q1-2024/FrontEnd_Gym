@@ -7,6 +7,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import LandingPageHook from '../../Hooks/LandingPageHook';
 import RegistroUsuario from './RegistroUsuario';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const LandingPage = () => {
 
@@ -33,9 +34,17 @@ const navigate = useNavigate();
     handleChange 
   } = LandingPageHook();
 
+
+  /*Funcion para salir de sesion, en el hook de la landing page se verifica para que los usuarios 
+  que no tengan una sesion iniciada, puedan entrar igual. */
   const handleLogout = () => {
     localStorage.removeItem('userLogin');
     setUserLogin(null);
+    Swal.fire({
+      icon: 'success',
+      title: 'Sesión cerrada',
+      text: 'Hasta luego',
+    });
   };
 
   useEffect(() => {

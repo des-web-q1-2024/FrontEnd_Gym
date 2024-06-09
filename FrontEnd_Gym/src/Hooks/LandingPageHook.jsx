@@ -96,11 +96,6 @@ const LandingPageHook = () => {
           text: 'Usuario o contraseña incorrectos',
         });
       }
-      if(userLogin.idperfil == 3) {
-        navigate("/MuroPrincipal");
-      }else if(userLogin.idperfil == 2 || userLogin.idperfil == 1){
-          navigate("/menu");
-      }
     } catch (e) {
       console.error(e.message);
       Swal.fire({
@@ -112,15 +107,7 @@ const LandingPageHook = () => {
   };
 
 
-  const logOut = () => {
-    setUserLogin({});
-    Swal.fire({
-      icon: 'success',
-      title: 'Sesión cerrada',
-      text: 'Hasta luego',
-    });
-
-  };
+  
 
   /*Funciones para manejar los estados booleanos de los modales */
   const openModal = () => setShow(true);
@@ -149,7 +136,6 @@ const LandingPageHook = () => {
     userInfo,
     handleChange, 
     getDatos,
-    logOut
   }
 }
 

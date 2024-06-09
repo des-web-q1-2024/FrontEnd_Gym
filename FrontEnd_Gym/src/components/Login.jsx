@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -30,7 +30,6 @@ function Login({ onLogin }) {
 
       if (data.success) {
         handleGlobalUser();
-        navigate("/menu");
       } else {
         Swal.fire({
           icon: "error",
@@ -68,6 +67,17 @@ function Login({ onLogin }) {
       console.error("Error al iniciar sesión:", error);
     }
   }
+
+  /*Funcion para verificar el idperfil del usuario y dirigirlo a sitios distintos */
+  useEffect(() => {
+    if (userLogin) {
+      if (userLogin.idperfil === 3) {
+        navigate("/");
+      } else if (userLogin.idperfil === 1 || userLogin.idperfil === 2) {
+        navigate("/menu");
+      }
+    }
+  }, [userLogin, navigate]);
 
   return (
     <div className="container-fluit login-container">

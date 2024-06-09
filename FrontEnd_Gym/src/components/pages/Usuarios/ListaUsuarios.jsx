@@ -64,7 +64,7 @@ const ListaUsuarios = ({ onUsuarioSeleccionado, conteModal }) => {
                     style={{ width: "50px", height: "50px" }}
                   />
                 )}
-                <span className="text-dark"> {usuario.nombre}</span>
+                <span style={{cursor: 'pointer'}} className="text-dark"> {usuario.nombre}</span>
               </div>
              
             </div>
