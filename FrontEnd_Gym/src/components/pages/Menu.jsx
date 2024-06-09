@@ -10,7 +10,7 @@ import {
   BsMastodon,
   BsPersonArmsUp,
   BsPersonFill,
-  BsYinYang
+  BsYinYang,
 } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import "../../styles/Menu.css";
@@ -21,67 +21,66 @@ const Menu = () => {
   const { userLogin } = useContext(UserContext);
   return (
     <>
-      <div className="background-gif"></div>
-      <nav className="navbar navbar-dark bg-dark fixed-top">
-        <div className="container-fluid">
-        <div className="d-flex align-items-center justify-content-between w-100">
-  <div className="d-flex align-items-center">
-    <img
-      src="src/assets/logo.png"
-      alt="Logo"
-      width="50"
-      height="50"
-      className="me-2"
-    />
-    <a className="navbar-brand mb-0 h1" href="#">
-      KAHUNA
-    </a>
-  </div>
+      <nav className="navbar navbar-dark fixed-top" style={{ backgroundColor: "darkslategrey" }}>
+        <div className="container-fluid" >
+          <div className="d-flex align-items-center justify-content-between w-100">
+            <div className="d-flex align-items-center">
+              <img
+                src="src/assets/logo.png"
+                alt="Logo"
+                width="50"
+                height="50"
+                className="me-2"
+              />
+              <a className="navbar-brand mb-0 h1" href="#">
+                KAHUNA
+              </a>
+            </div>
 
-  <div className="d-flex align-items-center ms-auto">
-    {userLogin && (
-      <>
-        {userLogin.foto ? (
-          <img
-            src={`data:image/jpeg;base64,${userLogin.foto}`}
-            alt="Foto de Perfil"
-            className="rounded-circle me-3"
-            style={{ width: "50px", height: "50px" }}
-          />
-        ) : (
-          <img
-            src="src/assets/nousuario.png"
-            alt="Imagen Predeterminada"
-            className="rounded-circle me-3"
-            style={{ width: "50px", height: "50px" }}
-          />
-        )}
+            <div className="d-flex align-items-center ms-auto" >
+              {userLogin && (
+                <>
+                  {userLogin.foto ? (
+                    <img
+                      src={`data:image/jpeg;base64,${userLogin.foto}`}
+                      alt="Foto de Perfil"
+                      className="rounded-circle me-3"
+                      style={{ width: "50px", height: "50px" }}
+                    />
+                  ) : (
+                    <img
+                      src="src/assets/nousuario.png"
+                      alt="Imagen Predeterminada"
+                      className="rounded-circle me-3"
+                      style={{ width: "50px", height: "50px" }}
+                    />
+                  )}
 
-        <span className="navbar-text me-3">
-          {userLogin.nombre} ({userLogin.perfil})
-        </span>
-      </>
-    )}
-    <button
-      className="navbar-toggler"
-      type="button"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasDarkNavbar"
-      aria-controls="offcanvasDarkNavbar"
-      aria-label="Toggle navigation"
-    >
-      <span className="navbar-toggler-icon"></span>
-    </button>
-  </div>
-</div>
+                  <span className="navbar-text me-3">
+                    {userLogin.nombre} ({userLogin.perfil})
+                  </span>
+                </>
+              )}
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasDarkNavbar"
+                aria-controls="offcanvasDarkNavbar"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+            </div>
+          </div>
 
           <div
-            className="offcanvas offcanvas-end text-bg-dark"
+            className="offcanvas offcanvas-end text-bg-dark "
             tabIndex="-1"
             id="offcanvasDarkNavbar"
             aria-labelledby="offcanvasDarkNavbarLabel"
           >
-            <div className="offcanvas-header">
+            <div className="offcanvas-header" >
               <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">
                 Menu Principal
               </h5>
@@ -187,9 +186,8 @@ const Menu = () => {
                     <BsGearFill className="me-2" /> Muro
                   </Link>
                 </li>
-          
               </ul>
-              <form className="d-flex mt-3" role="search">
+              {/* <form className="d-flex mt-3" role="search">
                 <input
                   className="form-control me-2"
                   type="search"
@@ -199,7 +197,7 @@ const Menu = () => {
                 <button className="btn btn-success" type="submit">
                   Search
                 </button>
-              </form>
+              </form> */}
             </div>
           </div>
         </div>

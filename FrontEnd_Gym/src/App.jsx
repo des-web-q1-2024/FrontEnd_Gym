@@ -36,10 +36,10 @@ const App = () => {
       <UserProvider>
         {/* <UserContext.Provider value={{ userLogin, setUserLogin }}> */}
         <Routes>
-          <Route path="/" element={<Login onLogin={handleLogin} />} />
+          <Route path="/" element={<LandingPage onLogin={handleLogin} />} />
           <Route
-            path="/landing"
-            element={<LandingPage onLogin={handleLogin} />}
+            path="/IniciarSesion"
+            element={ <Login onLogin={handleLogin} /> }
           />
           <Route path="/MuroPrincipal" element={<MuroPrincipal />} />
           <Route path="/registro" element={<RegistroUsuario />} />{" "}
