@@ -1,10 +1,12 @@
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import { useEffect, useState, useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Swal from "sweetalert2";
-import UserContext from '../Usuarios/UserContext';
 import "../../../styles/EventosParticipaciones.css";
+import UserContext from '../Usuarios/UserContext';
+
 
 export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonVisible = false }) => {
 
@@ -36,11 +38,12 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
     await axios.put(url, dataForm);
     Swal.fire({
       icon: "success",
-      title: "Logro registrado con exito",
+      title: "Logro registrado con éxito",
       showConfirmButton: false,
       timer: 1700
     });
     limpiarCampos();
+   
   }
 
   const handlerSaveParticipacionAlumno = async (_id) => {
@@ -57,7 +60,7 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
       await axios.post(url, dataForm);
       Swal.fire({
         icon: "success",
-        title: "Participación de alumno creada con exito",
+        title: "Participación de alumno creada con éxito",
         showConfirmButton: false,
         timer: 1700
       });
@@ -65,7 +68,7 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
     } else {
       Swal.fire({
         icon: "success",
-        title: "Ya se encuentra inscripto en este evento.",
+        title: "Ya se encuentra inscrito en este evento.",
         showConfirmButton: false,
         timer: 2000
       });
@@ -246,15 +249,19 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
                           type="text" onChange={handlerChange} className="form-control events" value={dataForm.logro} id="logro" name="logro" />
                       </div>
 
-                      <div className="mb-3">
-                        <div className="row">
+                      <div className="mb-3 mt-2" >
+                        <div className="row" >
                           <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                             <button
-                              className="btn btn-primary w-100 ff-inter fw-medium" >
+                              className="btn btn-primary w-60 ff-inter fw-medium" >
                               Salvar
                             </button>
+                            <button
+                              className="btn btn-secondary w-60 ff-inter fw-medium">
+                            <Link to="../Menu.jsx">Salir</Link> 
+                          </button>
                           </div>
-                        </div>
+                        </div> 
                       </div>
 
                       {isloading ? (
