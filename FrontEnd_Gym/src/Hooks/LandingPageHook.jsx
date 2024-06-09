@@ -1,6 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react'
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import UserContext from '../components/pages/Usuarios/UserContext';
 
 const LandingPageHook = () => {
@@ -14,6 +15,8 @@ const LandingPageHook = () => {
     user: "",
     pass: "",
   });
+
+  const navigate = useNavigate();
 
 
   /*Funcion para poder manejar los estados de los inputs */
@@ -104,6 +107,17 @@ const LandingPageHook = () => {
     }
   };
 
+
+  const logOut = () => {
+    setUserLogin({});
+    Swal.fire({
+      icon: 'success',
+      title: 'Sesión cerrada',
+      text: 'Hasta luego',
+    });
+    navigate("/IniciarSesion");
+  };
+
   /*Funciones para manejar los estados booleanos de los modales */
   const openModal = () => setShow(true);
   const closeModal = () => setShow(false);
@@ -130,7 +144,8 @@ const LandingPageHook = () => {
     handleSubmit,
     userInfo,
     handleChange, 
-    getDatos
+    getDatos,
+    logOut
   }
 }
 
