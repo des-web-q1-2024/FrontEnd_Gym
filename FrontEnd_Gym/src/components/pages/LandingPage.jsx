@@ -6,11 +6,14 @@ import "../../styles/LandingPage.css";
 import { Modal, Button, Form } from 'react-bootstrap';
 import LandingPageHook from '../../Hooks/LandingPageHook';
 import RegistroUsuario from './RegistroUsuario';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
 
-  /*Llamamos a todos las funciones y variables necesarias para poder hacer funcionar la landing page */
-  const { show,
+const navigate = useNavigate();
+
+  const { 
+    show,
     setShow,
     showRegister,
     setShowRegister,
@@ -27,21 +30,31 @@ const LandingPage = () => {
     getDatos,
     information,
     contactos,
-    handleChange,
-    logOut } = LandingPageHook();
+    handleChange 
+  } = LandingPageHook();
+
+  const handleLogout = () => {
+    localStorage.removeItem('userLogin');
+    setUserLogin(null);
+  };
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('userLogin'));
+    if (storedUser) {
+      setUserLogin(storedUser);
+    }
+  }, [setUserLogin]);
 
 
-
-
+  const userName = userLogin && userLogin.nombre_usuario ? userLogin.nombre_usuario : null;
+  const userProfileId = userLogin && userLogin.idperfil ? userLogin.idperfil : null;
 
   return (
     <>
       <div className="background"></div>
       <div className="container">
-        {/*Aqui hacemos que si el usuario aun no se a logueado, que aparezca un boton de login para poder iniciar sesiom
-        al contrario si ya esta registrado, aparecera el nombre del usuario, reemplazando el login */}
-        {!userLogin.nombre_usuario ? (
-          <div className="container-login text-light" onClick={openModal} style={{ cursor: 'pointer' }}>
+        {!userName ? (
+          <div className="container-login text-light" onClick={() => navigate('/IniciarSesion')} style={{ cursor: 'pointer' }}>
             <p className='fs-4 text-end'>
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-person-circle mx-2" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -57,10 +70,8 @@ const LandingPage = () => {
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                 <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
               </svg>
-              {userLogin.nombre_usuario}
-              <Button variant="outline-light" className="ms-3" onClick={logOut}>
-                Cerrar Sesión
-              </Button>
+              {userName}
+              <Button onClick={handleLogout} variant="danger" className="ms-2">Cerrar Sesión</Button>
             </p>
           </div>
         )}
@@ -75,12 +86,12 @@ const LandingPage = () => {
         <section className="about-us text-center my-5 ">
           <h2 className="mb-3">Sobre Nosotros</h2>
           {information.map((reg) => (
-            <p key={reg.id} className="fs-5 lead ">{reg.nosotros}</p>
+            <p key={reg.id} className="fs-5 lead">{reg.nosotros}</p>
           ))}
         </section>
 
         <div className="">
-          <section className="vision-mission text-center my-5">
+          <section className="vision-mission text-center my-5 ">
             <h2 className="mb-3">Nuestra Misión y Visión</h2>
             <p><strong>Misión:</strong>{information.map((reg) => (
               <p key={reg.id} className="fs-5 lead">{reg.mision}</p>
@@ -93,22 +104,20 @@ const LandingPage = () => {
 
         <div className="">
           <section className="events my-5 card">
-            <h2 className="text-center text-uppercase mt-5 mb-3 ">Eventos Próximos</h2>
+            <h2 className="text-center text-uppercase mt-5 mb-3">Eventos Próximos</h2>
             <div className="row">
               <CardLanding />
             </div>
           </section>
         </div>
 
-          <section className="contact-us text-center my-5">
-            <p className="mb-3 fs-5 lead">¿Quieres saber más sobre nosotros o tienes alguna pregunta? </p>
-            {contactos.map((cont) => (
-              <p key={cont.id}>{cont.nombre} +504 {cont.telefono}</p>
-            ))}
-          </section>
-
-        </div>
-
+        <section className="contact-us text-center my-5">
+          <p className="mb-3 fs-5 lead">¿Quieres saber más sobre nosotros o tienes alguna pregunta? </p>
+          {contactos.map((cont) => (
+            <p key={cont.id}>{cont.nombre} +504 {cont.telefono}</p>
+          ))}
+        </section>
+      </div>
 
       <Modal className='text-light' style={{ backgroundColor: 'black' }} show={show} onHide={closeModal} backdrop="true" keyboard={false}>
         <Modal.Header closeButton>
@@ -145,12 +154,13 @@ const LandingPage = () => {
           <RegistroUsuario />
         </Modal.Body>
       </Modal>
-
     </>
   );
 };
 
 export default LandingPage;
+
+
 
 
 

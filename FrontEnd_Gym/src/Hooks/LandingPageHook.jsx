@@ -18,7 +18,6 @@ const LandingPageHook = () => {
 
   const navigate = useNavigate();
 
-
   /*Funcion para poder manejar los estados de los inputs */
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,6 +41,7 @@ const LandingPageHook = () => {
         foto: resulData[0].foto,
       };
       setUserLogin(tempRecord);
+      console.log(tempRecord)
     } catch (error) {
       console.error("Error al obtener información del usuario:", error);
     }
@@ -63,7 +63,6 @@ const LandingPageHook = () => {
     const response = await axios.get('http://localhost:3000/api/Landing/contactos');
     const data = response.data;
     setContactos(data);
-    console.log(data);
     } catch (error) {
       console.error(error.message)
     }
@@ -89,13 +88,18 @@ const LandingPageHook = () => {
             icon: 'success',
             title: `Bienvenido ${dataForm.user}`,
             text: 'Ingreso exitoso',
-        })
+        });
       } else {
         Swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'Usuario o contraseña incorrectos',
         });
+      }
+      if(userLogin.idperfil == 3) {
+        navigate("/MuroPrincipal");
+      }else if(userLogin.idperfil == 2 || userLogin.idperfil == 1){
+          navigate("/menu");
       }
     } catch (e) {
       console.error(e.message);
@@ -115,7 +119,7 @@ const LandingPageHook = () => {
       title: 'Sesión cerrada',
       text: 'Hasta luego',
     });
-    navigate("/IniciarSesion");
+
   };
 
   /*Funciones para manejar los estados booleanos de los modales */
