@@ -1,22 +1,20 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import React, { useContext } from "react";
-import UserContext from "./Usuarios/UserContext";
 import {
-  BsBoxArrowRight,
+  BsAwardFill,
   BsCalendar2DateFill,
+  BsFillBookmarkCheckFill,
   BsGearFill,
   BsHouseDoorFill,
+  BsMastodon,
   BsPersonArmsUp,
   BsPersonFill,
-  BsAwardFill,
-  BsFillBookmarkCheckFill,
-  BsMastodon,
-  BsBrilliance,
-  BsYinYang,
+  BsYinYang
 } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import "../../styles/Menu.css";
+import UserContext from "./Usuarios/UserContext";
 
 const Menu = () => {
   const location = useLocation();
@@ -189,37 +187,7 @@ const Menu = () => {
                     <BsGearFill className="me-2" /> Muro
                   </Link>
                 </li>
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <BsBoxArrowRight className="me-2" /> Dropdown
-                  </a>
-                  <ul className="dropdown-menu dropdown-menu-dark">
-                    <li>
-                      <Link className="dropdown-item" to="/action">
-                        Action
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="/another-action">
-                        Another action
-                      </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="/something-else">
-                        Something else here
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
+          
               </ul>
               <form className="d-flex mt-3" role="search">
                 <input
