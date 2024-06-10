@@ -361,19 +361,65 @@
 * Responsive
 ========================*/
 
-@media only screen and (min-width: 300px) and (max-width: 700px) {
+@media only screen and (min-width: 200px) and (max-width: 409px) {
    .comments-container {
-       width: 350px;
-       margin-left: 35px;
+      width: 260px;
+      margin-left: 25px;
+  }
+
+  .comments-list .comment-box {
+      width: 250px;
+  }
+
+  .reply-list .comment-box {
+      width: 180px;
+  }
+  .reply-list {
+     padding-left: 10px;
+     clear: both;
+     margin-top: 10px;
+  }
+  .reply-list li:before {
+     content: '';
+     width: 35px;
+     height: 2px;
+     background: #c7cacb;
+     position: absolute;
+     top: 25px;
+     left: -53px;
+ }
+  
+}
+
+
+@media only screen and (min-width: 410px) and (max-width: 700px) {
+   .comments-container {
+       width: 290px;
+       margin-left: 25px;
    }
 
    .comments-list .comment-box {
-       width: 290px;
+       width: 270px;
    }
 
    .reply-list .comment-box {
-       width: 430px;
+       width: 180px;
    }
+   .reply-list {
+      padding-left: 40px;
+      clear: both;
+      margin-top: 10px;
+   }
+   .reply-list li:before {
+      content: '';
+      width: 55px;
+      height: 2px;
+      background: #c7cacb;
+      position: absolute;
+      top: 25px;
+      left: -73px;
+  }
+   
 }
 
 

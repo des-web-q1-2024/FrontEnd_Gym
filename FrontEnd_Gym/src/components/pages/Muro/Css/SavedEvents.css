@@ -54,9 +54,43 @@
     text-decoration: underline;
 }
 
+@media only screen and (min-width: 200px) and (max-width: 409px) {
+    .card-bodySaveEvent{
 
+        background-color: #1d2124;
+        flex: 1;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        justify-content: center;  
+    }
+    
+   
+    .cardSaveEvent {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        max-width: 200px;
+        min-height: 200px;  
+        background-color: #fff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;  
+        margin-left: 55px;
+    }
 
-/* @media only screen and (min-width: 600px) and (max-width: 900px) {
+    .card-titleSaveEvent {
+        font-size: 1.2rem;
+    }
+
+    .card-textSaveEvent {
+        font-size: 0.875rem;
+    }
+
+ }
+
+@media only screen and (min-width: 410px) and (max-width: 900px) {
     .card-bodySaveEvent{
 
         background-color: #1d2124;
@@ -73,12 +107,13 @@
         display: flex;
         flex-direction: column;
         width: 300px;
-        max-width: 300px;
+        max-width: 280px;
         min-height: 300px;  
         background-color: #fff;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         overflow: hidden;  
+        margin-left: 55px;
     }
 
     .card-titleSaveEvent {
@@ -89,7 +124,44 @@
         font-size: 0.875rem;
     }
 
- } */
+ }
+
+ @media only screen and (min-width: 910px) and (max-width: 1499px) {
+    .card-bodySaveEvent{
+
+        background-color: #1d2124;
+        flex: 1;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        justify-content: center;  
+    }
+    
+   
+    .cardSaveEvent {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        max-width: 280px;
+        min-height: 300px;  
+        background-color: #fff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;  
+        margin-left: 55px;
+    }
+
+    .card-titleSaveEvent {
+        font-size: 1.2rem;
+    }
+
+    .card-textSaveEvent {
+        font-size: 0.875rem;
+    }
+
+ }
+
 
 @media only screen and (min-width: 1500px) and (max-width: 2560px) {
     .cardSaveEvent {

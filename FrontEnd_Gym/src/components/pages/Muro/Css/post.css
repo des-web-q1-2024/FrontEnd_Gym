@@ -35,15 +35,31 @@
   justify-content: flex-end;
 }
 
+@media only screen and (min-width: 200px) and (max-width: 409px) {
+  .cardComment {
+    width: 250px;
+    margin-left: 25px;
+  }
+}
+
+
+@media only screen and (min-width: 410px) and (max-width: 700px) {
+  .cardComment {
+    width: 290px;
+    margin-left: 25px;
+  }
+
+
+}
 
 
 @media only screen and (max-width: 1440px) {
   .headline {
-    
-      align-items: center;
-      align-content: center;
+
+    align-items: center;
+    align-content: center;
     margin-left: 40px;
-     
+
 
   }
 
