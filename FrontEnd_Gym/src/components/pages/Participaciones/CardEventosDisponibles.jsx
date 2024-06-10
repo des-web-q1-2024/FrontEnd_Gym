@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Table } from "react-bootstrap";
 import Swal from "sweetalert2";
 import "../../../styles/EventosParticipaciones.css";
 import UserContext from '../Usuarios/UserContext';
@@ -14,6 +15,8 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
   const [mensaje, setMensaje] = useState('');
   const [eventoID, setEventoID] = useState(0);
   const [data, setData] = useState([]);
+  const [optionsParticipantes, setOptionsParticipantes] = useState([]);
+  const [gridRegistros, setGridRegistros] = useState([]);
   const { userLogin, setUserLogin } = useContext(UserContext);
   const urlBase = 'http://localhost:3000/api/participaciones';
 
@@ -43,7 +46,7 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
       timer: 1700
     });
     limpiarCampos();
-   
+
   }
 
   const handlerSaveParticipacionAlumno = async (_id) => {
@@ -76,7 +79,6 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
   }
 
   // Alimentacion Select Usuarios
-  const [optionsParticipantes, setOptionsParticipantes] = useState([]);
 
   const fetchDataEventAl = async (eventoID) => {
     const endpoint = `${urlBase}/${eventoID}`;
@@ -84,6 +86,7 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
       const response = await fetch(endpoint);
       const data = await response.json();
       setOptionsParticipantes(data);
+      setGridRegistros(data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -174,9 +177,9 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
                       <button
                         type="button"
                         className="btn btn-info"
-                        onClick={() => setEventoID(evento.id)}
+                        onClick={() => handleCargaEvento(evento.id)}
                         data-bs-toggle="modal"
-                        data-bs-target="#exampleModal" >
+                        data-bs-target="#ModalLista" >
                         Lista
                       </button>
                     </div>
@@ -258,10 +261,10 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
                             </button>
                             <button
                               className="btn btn-secondary w-60 ff-inter fw-medium">
-                            <Link to="../Menu.jsx">Salir</Link> 
-                          </button>
+                              <Link to="../Menu.jsx">Salir</Link>
+                            </button>
                           </div>
-                        </div> 
+                        </div>
                       </div>
 
                       {isloading ? (
@@ -273,6 +276,47 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
                       ) : null}
                       <span className="text-white text-center ff-inter">{mensaje}</span>
                     </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="modal fade" id="ModalLista" aria-labelledby="ModalListaLabel" aria-hidden="true" >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-body">
+
+              <div className="card card-evento">
+                <div className="modal-header">
+                  <div className="card-body">
+                    <h5 className="card-header text-white ff-inter fw-medium">
+                      Lista de Participantes
+                    </h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+
+
+                    <Table striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th>Evento</th>
+                          <th>Nombre</th>
+                          <th>Logro</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {gridRegistros.map((registro) => (
+                          <tr key={registro.id}>
+                            <td>{registro.evento}</td>
+                            <td>{registro.nombre}</td>
+                            <td>{registro.logro}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
 
                   </div>
                 </div>
