@@ -39,7 +39,7 @@ const App = () => {
           <Route path="/" element={<LandingPage onLogin={handleLogin} />} />
           <Route
             path="/IniciarSesion"
-            element={ <Login onLogin={handleLogin} /> }
+            element={<Login onLogin={handleLogin} />}
           />
           <Route path="/MuroPrincipal" element={<MuroPrincipal />} />
           <Route path="/registro" element={<RegistroUsuario />} />{" "}
@@ -71,7 +71,7 @@ const App = () => {
                       element={<GestionCintasAlumnos />}
                     />
                     <Route path="usuarios" element={<UsuariosPrincipal />} />
-                 
+
                   </Routes>
                 </div>
               </>

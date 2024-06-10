@@ -23,7 +23,7 @@ export const GestionCintasAlumnos = () => {
   const [fecha, setFecha] = useState("");
   const [idMatricula, setIDMatricula] = useState(0);
   const [idCinta, setIDCinta] = useState(0);
-
+  const [foto, setFoto] = useState(null);
 
   const urlBase = "http://localhost:3000/api/graduaciones";
 
@@ -71,7 +71,13 @@ export const GestionCintasAlumnos = () => {
   const obtenerGrid = async () => {
     try {
       const response = await axios.get(`${urlBase}${idAlumno > 0 ? "/" + idMatricula + "/" + idAlumno : "/"}`);
-      setGridRegistros(response.data);
+
+      const registros = response.data.map((registro) => ({
+        ...registro,
+        imagenURL: registro.foto ? `data:${registro.mime_type};base64,${btoa(String.fromCharCode(...new Uint8Array(registro.foto.data)))}` : null
+      }));
+      setGridRegistros(registros);
+      // setGridRegistros(response.data);
     } catch (error) {
       console.error("Error al obtener registros:", error);
     }
@@ -148,6 +154,7 @@ export const GestionCintasAlumnos = () => {
           idMatricula: idMatricula,
           idCinta: idCinta,
           idUsuarios: userLogin.id,
+          foto: (foto ? foto : null),
         });
       } else {
         await axios.put(`${urlBase}/${editarRegistro.id}`, {
@@ -155,6 +162,7 @@ export const GestionCintasAlumnos = () => {
           idMatricula: idMatricula,
           idCinta: idCinta,
           idUsuarios: userLogin.id,
+          foto: (foto ? foto : null),
         });
       }
       handleCloseModal();
@@ -173,6 +181,10 @@ export const GestionCintasAlumnos = () => {
     } catch (error) {
       showAlert("error", "Error", `Error al eliminar registro: ${error.message}`);
     }
+  };
+
+  const handleFileChange = (e) => {
+    setFoto(e.target.files[0]);
   };
 
   return (
@@ -220,6 +232,7 @@ export const GestionCintasAlumnos = () => {
             <th>Cinta</th>
             <th>Nombre</th>
             <th>Maestro</th>
+            <th>Imagen</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -233,6 +246,13 @@ export const GestionCintasAlumnos = () => {
               <td>{registro.cinta}</td>
               <td>{registro.nombrealumno}</td>
               <td>{registro.nombremaestro}</td>
+              <td>
+                {registro.imagenURL ? (
+                  <img src={registro.imagenURL} alt={registro.nombre_archivo} style={{ width: "50px", height: "50px" }} />
+                ) : (
+                  "No image"
+                )}
+              </td>
               <td>
                 <Button onClick={() => handleRegistro(registro)} variant="success" title="Editar Registro" >
                   <BsPencilSquare className="me-2" />
@@ -262,6 +282,7 @@ export const GestionCintasAlumnos = () => {
               </option>
             ))}
           </select>
+          <input id="foto" name="foto" type="file" onChange={(e) => setFoto(e.target.files[0])} className="form-control" />
         </Modal.Body>
         <Modal.Footer className="custom-modal-footer">
           <Button variant="secondary" onClick={handleCloseModal}>
