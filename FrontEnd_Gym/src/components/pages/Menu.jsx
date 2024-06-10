@@ -11,6 +11,7 @@ import {
   BsPersonArmsUp,
   BsPersonFill,
   BsYinYang,
+  BsFillDoorOpenFill,
 } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import "../../styles/Menu.css";
@@ -178,6 +179,15 @@ const Menu = () => {
                 >
                   <Link className="nav-link" to="/MuroPrincipal">
                     <BsGearFill className="me-2" /> Muro
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item ${location.pathname === "/" ? "active" : ""
+                    }`}
+                >
+                  <Link className="nav-link" to="/">
+                    <BsFillDoorOpenFill className="me-2" /> Log out
                   </Link>
                 </li>
               </ul>
