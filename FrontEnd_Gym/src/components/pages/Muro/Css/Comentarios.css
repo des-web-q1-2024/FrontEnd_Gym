@@ -30,8 +30,8 @@
 * Lista de Comentarios
 =======================*/
 .comments-container {
-   margin: 10px auto 15px;
-   width: 768px;
+   margin: 10px auto 15px auto;
+   width: 568px;
 }
 
 .comments-container h1 {
@@ -361,7 +361,23 @@
 * Responsive
 ========================*/
 
-@media only screen and (max-width: 766px) {
+@media only screen and (min-width: 300px) and (max-width: 700px) {
+   .comments-container {
+       width: 350px;
+       margin-left: 35px;
+   }
+
+   .comments-list .comment-box {
+       width: 290px;
+   }
+
+   .reply-list .comment-box {
+       width: 430px;
+   }
+}
+
+
+@media only screen and (min-width: 710px) and (max-width: 800px) {
    .comments-container {
        width: 480px;
    }
@@ -375,9 +391,9 @@
    }
 }
 
-@media only screen and (max-width: 1440px) {
+@media only screen and (min-width: 800px)and (max-width: 1490px) {
    .comments-container {
-       width: 450px;
+       width: 620px;
    }
 
    .comments-list .comment-box {
@@ -385,6 +401,20 @@
    }
 
    .reply-list .comment-box {
-       width: 280px;
+       width: 480px;
+   }
+}
+
+@media only screen and (min-width: 1500px) and (max-width: 2560px) {
+   .comments-container {
+       width: 720px;
+   }
+
+   .comments-list .comment-box {
+       width: 370px;
+   }
+
+   .reply-list .comment-box {
+       width: 580px;
    }
 }

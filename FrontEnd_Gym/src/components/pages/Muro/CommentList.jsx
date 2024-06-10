@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Css/Comentarios.css";
 
-const CommentList = ({ userId ,contador}) => {
+const CommentList = ({ userId, contador }) => {
   const [comments, setComments] = useState([]);
   const [likedComments, setLikedComments] = useState([]);
   const [replyingTo, setReplyingTo] = useState(null);
@@ -24,7 +24,7 @@ const CommentList = ({ userId ,contador}) => {
     };
 
     fetchComments();
-  }, [userId,contador]);
+  }, [userId, contador]);
 
   const handleLike = async (commentId) => {
     try {
@@ -45,7 +45,6 @@ const CommentList = ({ userId ,contador}) => {
         setLikedComments([...likedComments, commentId]);
       }
 
-   
       setComments(
         comments.map((comment) =>
           comment.id === commentId
@@ -60,7 +59,7 @@ const CommentList = ({ userId ,contador}) => {
 
   const handleReply = (commentId, userName) => {
     setReplyingTo(commentId);
-    setReplyingToUser(userName); 
+    setReplyingToUser(userName);
   };
 
   const handleSubmitReply = async (e) => {
@@ -82,8 +81,8 @@ const CommentList = ({ userId ,contador}) => {
       setReplyText("");
       setReplyImage(null);
       setReplyingTo(null);
-      setReplyingToUser(null); 
-    
+      setReplyingToUser(null);
+
       const response = await axios.get(
         `http://localhost:3000/api/Muro/post/${userId}`
       );
@@ -92,7 +91,6 @@ const CommentList = ({ userId ,contador}) => {
       console.error("Error submitting reply:", error);
     }
   };
-
 
   const [threadComments, setThreadComments] = useState({});
 
@@ -125,7 +123,7 @@ const CommentList = ({ userId ,contador}) => {
 
   return (
     <div className="comments-container">
-      <h2>Que escriben los demas... </h2>
+      <h2 className="ms-3">Que escriben los demas... </h2>
       <ul id="comments-list ">
         {comments.map((comment) => (
           <li key={comment.id}>
@@ -208,20 +206,26 @@ const CommentList = ({ userId ,contador}) => {
                 >
                   <i
                     className={`fa ${
-                      visibleThreads[comment.id] ? "fa-eye-slash text-danger" : "fa-eye"
+                      visibleThreads[comment.id]
+                        ? "fa-eye-slash text-danger"
+                        : "fa-eye"
                     }`}
                     title={
-                      visibleThreads[comment.id]
-                        ? <span>Ocultar comentarios</span>
-                        : <span>Ver comentarios</span>
+                      visibleThreads[comment.id] ? (
+                        <span>Ocultar comentarios</span>
+                      ) : (
+                        <span>Ver comentarios</span>
+                      )
                     }
                   >
                     {" "}
-                  </i> 
+                  </i>
                   <label>
-                    {visibleThreads[comment.id]
-                               ? <span>Ocultar comentarios</span>
-                               : <span>Ver comentarios</span>}
+                    {visibleThreads[comment.id] ? (
+                      <span>Ocultar comentarios</span>
+                    ) : (
+                      <span>Ver comentarios</span>
+                    )}
                   </label>
                 </div>
               </div>

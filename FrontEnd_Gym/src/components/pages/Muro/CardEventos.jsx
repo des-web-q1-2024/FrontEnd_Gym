@@ -133,7 +133,7 @@ export const CardEventos = (props) => {
 
   return (
     <>
-      <div className="col-12 px-0">
+      <div className="col-12 px-0 ms-4">
         {isLoading ? (
           <div className="d-flex justify-content-center">
             <div className="spinner-border text-primary" role="status">

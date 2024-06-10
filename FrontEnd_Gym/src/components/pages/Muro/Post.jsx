@@ -34,12 +34,12 @@ const PostForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   // userLogin.id = 19;
+    // userLogin.id = 19;
 
     const formData = new FormData();
     formData.append("encabezado", encabezado);
     formData.append("descripcion", descripcion);
-    formData.append("idUsuarios",userLogin.id );
+    formData.append("idUsuarios", userLogin.id);
     if (foto) {
       formData.append("foto", foto);
     }
@@ -65,63 +65,62 @@ const PostForm = () => {
   };
 
   return (
-  
     <div className="cardComment">
-    <Form onSubmit={handleSubmit}>
-      <div className="cardComment v-card v-sheet theme--light elevation-2">
-        <span className="headline">¿Qué estás pensando hoy?</span>
-        <div className="sign-in-wrapper">
-          <p className="caption disclaimer">
-            <Form.Control
-              type="text"
-              name="encabezado"
-              placeholder="Título"
-              className="bg-light"
-              value={encabezado}
-              onChange={(e) => setEncabezado(e.target.value)}
-              style={{ resize: "none" }}
-              required
-            />
-          </p>
-          <p className="caption disclaimer">
-            <Form.Control
-              as="textarea"
-              rows="3"
-              name="descripcion"
-              className="bg-light"
-              placeholder="Descripción (máximo 300 caracteres)"
-              value={descripcion}
-              onChange={handleInputChange}
-              style={{ resize: "none" }}
-              required
-            />
-            <ProgressBar
-              now={charCount}
-              max={300}
-              label={`${charCount}/300`}
-              className="ms-2 justify-content-left"
-            />
-          </p>
-          <p className="caption disclaimer">
-            <Form.Control
-              type="file"
-              name="foto"
-              accept="image/*"
-              onChange={(e) => setFoto(e.target.files[0])}
-            />
-          </p>
-          <p className="actions">
-            <Button variant="outline-primary" type="submit">
-              Publicar
-            </Button>
-          </p>
-          <hr></hr>
-          
-          <CommentList userId={userLogin.id} contador={contador}  />
-          <p className="error-message"></p>
+      <Form onSubmit={handleSubmit}>
+        <div className="cardComment v-card v-sheet theme--light elevation-2 ms-3">
+          <span className="headline">¿Qué estás pensando hoy?</span>
+          <div className="sign-in-wrapper">
+            <p className="caption disclaimer">
+              <Form.Control
+                type="text"
+                name="encabezado"
+                placeholder="Título"
+                className="bg-light"
+                value={encabezado}
+                onChange={(e) => setEncabezado(e.target.value)}
+                style={{ resize: "none" }}
+                required
+              />
+            </p>
+            <p className="caption disclaimer">
+              <Form.Control
+                as="textarea"
+                rows="3"
+                name="descripcion"
+                className="bg-light"
+                placeholder="Descripción (máximo 300 caracteres)"
+                value={descripcion}
+                onChange={handleInputChange}
+                style={{ resize: "none" }}
+                required
+              />
+              <ProgressBar
+                now={charCount}
+                max={300}
+                label={`${charCount}/300`}
+                className="ms-2 justify-content-left"
+              />
+            </p>
+            <p className="caption disclaimer">
+              <Form.Control
+                type="file"
+                name="foto"
+                accept="image/*"
+                onChange={(e) => setFoto(e.target.files[0])}
+              />
+            </p>
+            <p className="actions">
+              <Button variant="outline-primary" type="submit">
+                Publicar
+              </Button>
+            </p>
+            <hr></hr>
+
+            <p className="error-message"></p>
+          </div>
         </div>
-      </div>
-    </Form>
+      </Form>
+      <CommentList userId={userLogin.id} contador={contador} />
     </div>
   );
 };

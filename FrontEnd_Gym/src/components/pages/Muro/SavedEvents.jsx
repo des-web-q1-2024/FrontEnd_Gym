@@ -3,6 +3,7 @@ import UserContext from "../Usuarios/UserContext";
 import ThemeSwitcher from "./ThemeSwitcher.jsx";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./Css/SavedEvents.css";  // Asegúrate de crear este archivo para los estilos adicionales
 
 const SavedEvents = ({ contador }) => {
   const [savedEvents, setSavedEvents] = useState([]);
@@ -33,6 +34,7 @@ const SavedEvents = ({ contador }) => {
     getSavedEvents();
   }, [contador]);
 
+
   return (
     <>
       <div className="interaction-control interactions">
@@ -51,25 +53,25 @@ const SavedEvents = ({ contador }) => {
                 </div>
               ) : (
                 savedEvents.map((evento) => (
-                  <div
-                    className="saved-event-card row ms-5 mb-4 p-3"
-                    key={evento.save_id || evento.id}
-                  >
-                    <div className="col-12 col-md-4 event-thumbnail">
-                      <img
-                        src={`data:${evento.mime_type};base64,${evento.imgevento}`}
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </div>
-                    <div className="col-12 col-md-8 event-details mt-3 mt-md-0">
-                      <h2>{evento.nombre}</h2>
-                      <p>{truncateDescription(evento.descripcion)}</p>
-                      <p>
-                        Guardado el:{" "}
-                        {new Date(evento.date_save).toLocaleDateString()}
-                      </p>
-                      <p className="view-more">Ver más</p>
+                  <div className="col-12 col-md-6 col-lg-4 mb-4" key={evento.save_id || evento.id}>
+                    <div className="cardSaveEvent h-100">
+                      <div className="card-headerSaveEvent bg-dark text-white">
+                        <h5 className="card-titleSaveEvent mb-0">{evento.nombre}</h5>
+                      </div>
+                      <div className="card-bodySaveEvent">
+                        <img
+                          src={`data:${evento.mime_type};base64,${evento.imgevento}`}
+                          alt=""
+                          className="img-fluid mb-3"
+                        />
+                        <p className="card-textSaveEvent">{truncateDescription(evento.descripcion)}</p>
+                      </div>
+                      <div className="card-footerSaveEvent bg-dark text-white">
+                        <small className="text-muted">
+                          Guardado el: {new Date(evento.date_save).toLocaleDateString()}
+                        </small>
+                        <p className="view-more mb-0 text-white">Ver más</p>
+                      </div>
                     </div>
                   </div>
                 ))

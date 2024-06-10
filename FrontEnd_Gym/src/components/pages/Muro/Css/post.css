@@ -34,3 +34,25 @@
   flex-direction: row;
   justify-content: flex-end;
 }
+
+
+
+@media only screen and (max-width: 1440px) {
+  .headline {
+    
+      align-items: center;
+      align-content: center;
+    margin-left: 40px;
+     
+
+  }
+
+  .sign-in-wrapper {
+    margin-top: 26px;
+    margin-left: 42px;
+    align-items: center;
+    align-content: center;
+  }
+
+
+}

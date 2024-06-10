@@ -13,14 +13,14 @@ const LeftPanel = ({ handleItemClick }) => {
               src={`data:image/jpeg;base64,${userLogin.foto}`}
               alt="Foto de Perfil"
               className="rounded-circle mr-3"
-              style={{ width: "200px", height: "200px" }}
+              style={{ width: "100px", height: "100px", objectFit:"fill"  }}
             />
           ) : (
             <img
               src="src\assets\nousuario.png"
               alt="Imagen Predeterminada"
               className="rounded-circle mr-3"
-              style={{ width: "200px", height: "200px" }}
+              style={{ width: "100px", height: "100px", objectFit:"fill"  }}
             />
           )}
             <p>{userLogin.nombre}</p>
