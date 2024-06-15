@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   BsAwardFill,
   BsCalendar2DateFill,
@@ -19,7 +19,20 @@ import UserContext from "./Usuarios/UserContext";
 
 const Menu = () => {
   const location = useLocation();
-  const { userLogin } = useContext(UserContext);
+  const { userLogin, setUserLogin } = useContext(UserContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem('userLogin');
+    setUserLogin(null);
+  };
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('userLogin'));
+    if (storedUser) {
+      setUserLogin(storedUser);
+    }
+  }, [setUserLogin]);
+
   return (
     <>
       <nav className="navbar navbar-dark fixed-top" style={{ backgroundColor: "darkslategrey" }}>
@@ -183,13 +196,23 @@ const Menu = () => {
                 </li>
 
                 <li
+                  className={`nav-item ${location.pathname === "/menu" ? "active" : ""
+                    }`}
+                >
+                  <Link className="nav-link" to="/LandingConfig">
+                    <BsHouseDoorFill className="me-2" /> Landing Options
+                  </Link>
+                </li>
+
+                <li
                   className={`nav-item ${location.pathname === "/" ? "active" : ""
                     }`}
                 >
                   <Link className="nav-link" to="/">
-                    <BsFillDoorOpenFill className="me-2" /> Log out
+                    <BsFillDoorOpenFill className="me-2" onClick={handleLogout} /> Log out
                   </Link>
                 </li>
+
               </ul>
               {/* <form className="d-flex mt-3" role="search">
                 <input

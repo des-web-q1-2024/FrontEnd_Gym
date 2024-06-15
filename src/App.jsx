@@ -14,6 +14,7 @@ import { GestionCintas } from "./components/pages/cintas/GestionCintas.jsx";
 import { GestionMatriculas } from "./components/pages/cintas/GestionMatriculas.jsx";
 import { GestionCintasAlumnos } from "./components/pages/cintas/GestionCintasAlumnos.jsx";
 import RegistroUsuario from "./components/pages/RegistroUsuario.jsx";
+import { LandingConfig } from "./components/pages/LandingConfig/LandingConfig.jsx";
 
 import { UserProvider } from "./components/pages/Usuarios/UserContext.jsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -53,25 +54,13 @@ const App = () => {
                   <Routes>
                     <Route path="eventos" element={<Eventos />} />
                     <Route path="perfiles" element={<Perfiles />} />
-                    <Route
-                      path="ParticipacionesAlumnos"
-                      element={<ParticipacionesAlumnos />}
-                    />
-                    <Route
-                      path="GestionArtesMarciales"
-                      element={<GestionArtesMarciales />}
-                    />
+                    <Route path="ParticipacionesAlumnos"element={<ParticipacionesAlumnos />}/>
+                    <Route path="GestionArtesMarciales" element={<GestionArtesMarciales />}/>
                     <Route path="GestionCintas" element={<GestionCintas />} />
-                    <Route
-                      path="GestionMatriculas"
-                      element={<GestionMatriculas />}
-                    />
-                    <Route
-                      path="GestionCintasAlumnos"
-                      element={<GestionCintasAlumnos />}
-                    />
+                    <Route path="GestionMatriculas" element={<GestionMatriculas />}/>
+                    <Route path="GestionCintasAlumnos" element={<GestionCintasAlumnos />}/>
                     <Route path="usuarios" element={<UsuariosPrincipal />} />
-
+                     <Route path="landingConfig" element={<LandingConfig />} />
                   </Routes>
                 </div>
               </>
