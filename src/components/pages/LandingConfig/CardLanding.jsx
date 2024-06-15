@@ -3,7 +3,7 @@ import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import Swal from "sweetalert2";
-import LandingPageHook from '../../Hooks/LandingPageHook';
+import LandingPageHook from '../../../Hooks/LandingPageHook';
 import { useNavigate } from 'react-router-dom';
 
 const CardLanding = ({ filtroFecha }) => {

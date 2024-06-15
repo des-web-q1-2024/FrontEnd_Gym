@@ -2,10 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import CardLanding from "./CardLanding";
-import "../../styles/LandingPage.css";
-import { Modal, Button, Form } from 'react-bootstrap';
-import LandingPageHook from '../../Hooks/LandingPageHook';
-import RegistroUsuario from './RegistroUsuario';
+import '../LandingConfig/LandingPage.css'
+import { Button, Form } from 'react-bootstrap';
+import LandingPageHook from '../../../Hooks/LandingPageHook';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
@@ -137,41 +136,7 @@ const LandingPage = () => {
         </section>
       </div>
 
-      <Modal className='text-light' style={{ backgroundColor: 'black' }} show={show} onHide={closeModal} backdrop="true" keyboard={false}>
-        <Modal.Header closeButton>
-          <Modal.Title className='text-center fs-3'>Iniciar Sesión</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3 fs-5" controlId="formBasicEmail">
-              <Form.Label>Usuario</Form.Label>
-              <Form.Control type="text" name='user' value={dataForm.user} onChange={handleChange} placeholder="Ingrese su usuario" />
-            </Form.Group>
 
-            <Form.Group className="mb-3 fs-5" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" name='pass' value={dataForm.pass} onChange={handleChange} placeholder="Ingrese su contraseña" />
-            </Form.Group>
-            <Button type='submit' variant="primary">
-              Login
-            </Button>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={openRegisterModal}>
-            Registrarse
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      <Modal className='text-light' style={{ backgroundColor: 'black' }} show={showRegister} onHide={closeRegisterModal} backdrop="true" keyboard={false}>
-        <Modal.Header closeButton>
-          <Modal.Title className='text-center fs-3'>Registro de Usuario</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <RegistroUsuario />
-        </Modal.Body>
-      </Modal>
     </>
   );
 };

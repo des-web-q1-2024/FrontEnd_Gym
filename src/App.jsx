@@ -7,13 +7,12 @@ import ParticipacionesAlumnos from "./components/pages/Participaciones/Participa
 import Menu from "./components/pages/Menu.jsx";
 import Perfiles from "./components/pages/Perfiles/Perfiles.jsx";
 import UsuariosPrincipal from "./components/pages/Usuarios/UsuariosPrincipal.jsx";
-import LandingPage from "./components/pages/LandingPage";
+import LandingPage from "./components/pages/LandingConfig/LandingPage.jsx";
 import MuroPrincipal from "./components/pages/Muro/PrincipalMuro.jsx";
 import { GestionArtesMarciales } from "./components/pages/cintas/GestionArtesMarciales.jsx";
 import { GestionCintas } from "./components/pages/cintas/GestionCintas.jsx";
 import { GestionMatriculas } from "./components/pages/cintas/GestionMatriculas.jsx";
 import { GestionCintasAlumnos } from "./components/pages/cintas/GestionCintasAlumnos.jsx";
-import RegistroUsuario from "./components/pages/RegistroUsuario.jsx";
 import { LandingConfig } from "./components/pages/LandingConfig/LandingConfig.jsx";
 
 import { UserProvider } from "./components/pages/Usuarios/UserContext.jsx";
@@ -43,7 +42,6 @@ const App = () => {
             element={<Login onLogin={handleLogin} />}
           />
           <Route path="/MuroPrincipal" element={<MuroPrincipal />} />
-          <Route path="/registro" element={<RegistroUsuario />} />{" "}
 
           <Route
             path="/*"
