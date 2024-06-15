@@ -75,11 +75,7 @@ const LandingPageHook = () => {
     }
   };
 
-  /*Funciones para manejar los estados booleanos de los modales */
-  const openModal = () => setShow(true);
-  const closeModal = () => setShow(false);
-  const openRegisterModal = () => setShowRegister(true);
-  const closeRegisterModal = () => setShowRegister(false);
+
 
   return {
    show,
