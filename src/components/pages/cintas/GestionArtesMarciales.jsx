@@ -13,7 +13,8 @@ export const GestionArtesMarciales = () => {
   const [gridRegistros, setGridRegistros] = useState([]);
   const [editarRegistro, setEditarRegistro] = useState(null);
   const [nombreArteMarcial, setNombreArteMarcial] = useState("");
-  const urlBase = "http://localhost:3000/api/arteMarcial";
+  // const urlBase = `http://localhost:3000/api/arteMarcial`;
+  const urlBase = `${import.meta.env.VITE_URL}/api/arteMarcial`;
 
   const showAlert = (icon, title, text) => {
     Swal.fire({ icon, title, text, });
