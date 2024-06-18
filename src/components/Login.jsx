@@ -9,6 +9,10 @@ import UserContext from './pages/Usuarios/UserContext';
 function Login({ onLogin }) {
   const { userLogin, setUserLogin } = useContext(UserContext);
 
+  const showAlert = (icon, title, text) => {
+    Swal.fire({ icon, title, text, });
+  };
+
   const [dataForm, setDataForm] = useState({
     nombre_usuario: "",
     pass: "",
@@ -22,35 +26,33 @@ function Login({ onLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!dataForm.nombre_usuario || !dataForm.pass) {
+      showAlert("error", "Error", "Por favor, complete todos los campos");
+      return;
+    }
+
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/validarUsuario/${dataForm.nombre_usuario}/${dataForm.pass}`
-      );
+      // const response = await axios.get(
+      //   `http://localhost:3000/api/validarUsuario/${dataForm.nombre_usuario}/${dataForm.pass}`
+      // );
+      const response = await axios.get(`${import.meta.env.VITE_URL}/api/validarUsuario/${dataForm.nombre_usuario}/${dataForm.pass}`);
       const data = response.data;
 
       if (data.success) {
         handleGlobalUser();
       } else {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Usuario o contraseña incorrectos",
-        });
+        showAlert("error", "Error", "Usuario o contraseña incorrectos");
       }
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
-
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Hubo un error al iniciar sesión",
-      });
+      const errorMessage = error.response?.data?.message || "Hubo un error al iniciar sesión";
+      showAlert("error", "Error", errorMessage);
     }
   };
 
   const handleGlobalUser = async () => {
     try {
-      const url = `http://localhost:3000/api/Usuarios/${dataForm.nombre_usuario}`;
+      const url = `${import.meta.env.VITE_URL}/api/Usuarios/${dataForm.nombre_usuario}`;
       const result = axios.get(url);
       const resulData = (await result).data;
       let tempRecord = {
@@ -60,7 +62,7 @@ function Login({ onLogin }) {
         correo: resulData[0].correo,
         idperfil: resulData[0].idperfil,
         perfil: resulData[0].perfil,
-        foto:resulData[0].foto
+        foto: resulData[0].foto
       }
       setUserLogin(tempRecord);
     } catch (error) {

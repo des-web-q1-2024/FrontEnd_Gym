@@ -52,13 +52,13 @@ const App = () => {
                   <Routes>
                     <Route path="eventos" element={<Eventos />} />
                     <Route path="perfiles" element={<Perfiles />} />
-                    <Route path="ParticipacionesAlumnos"element={<ParticipacionesAlumnos />}/>
-                    <Route path="GestionArtesMarciales" element={<GestionArtesMarciales />}/>
+                    <Route path="ParticipacionesAlumnos" element={<ParticipacionesAlumnos />} />
+                    <Route path="GestionArtesMarciales" element={<GestionArtesMarciales />} />
                     <Route path="GestionCintas" element={<GestionCintas />} />
-                    <Route path="GestionMatriculas" element={<GestionMatriculas />}/>
-                    <Route path="GestionCintasAlumnos" element={<GestionCintasAlumnos />}/>
+                    <Route path="GestionMatriculas" element={<GestionMatriculas />} />
+                    <Route path="GestionCintasAlumnos" element={<GestionCintasAlumnos />} />
                     <Route path="usuarios" element={<UsuariosPrincipal />} />
-                     <Route path="landingConfig" element={<LandingConfig />} />
+                    <Route path="landingConfig" element={<LandingConfig />} />
                   </Routes>
                 </div>
               </>

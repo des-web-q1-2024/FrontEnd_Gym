@@ -42,7 +42,8 @@ export const LandingConfig = () => {
     // Llamada a la api para poder actualizar
     e.preventDefault();
     try {
-      const url = 'http://localhost:3000/api/Landing/'
+      // const url = 'http://localhost:3000/api/Landing/'
+      const url = `${import.meta.env.VITE_URL}/api/Landing/`
       const response = await axios.put(url, dataForm);
       location.reload();
     } catch (error) {
@@ -53,7 +54,8 @@ export const LandingConfig = () => {
   const handleUpdContacts = async (e) => {
     e.preventDefault();
     try {
-      const url = `http://localhost:3000/api/Landing/${contactData.id}`
+      // const url = `http://localhost:3000/api/Landing/${contactData.id}`
+      const url = `${import.meta.env.VITE_URL}/api/Landing/${contactData.id}`
       const response = await axios.put(url, contactData);
       location.reload();
     } catch (error) {
@@ -85,7 +87,7 @@ export const LandingConfig = () => {
                       data-bs-target="#exampleModal"
                       onClick={() => {
                         setEditar('contact');
-                        setContactData({id: contact.id ,nombre: contact.nombre, telefono: contact.telefono });
+                        setContactData({ id: contact.id, nombre: contact.nombre, telefono: contact.telefono });
                       }}
                     >
                       Editar
@@ -98,7 +100,7 @@ export const LandingConfig = () => {
           <button className='btn btn-danger' onClick={() => setShowContacts(false)}>Cerrar Tabla</button>
         </div>
       );
-    } else ( 
+    } else (
       <></>
     )
   }
@@ -124,7 +126,7 @@ export const LandingConfig = () => {
             >
               Editar Informacion
             </button>
-            <button className='btn btn-outline-primary mx-4' onClick={() => {setShowContacts(true); setDataForm({nosotros: item.nosotros, mision: item.mision, vision: item.vision})}}>Mostrar Contactos</button>
+            <button className='btn btn-outline-primary mx-4' onClick={() => { setShowContacts(true); setDataForm({ nosotros: item.nosotros, mision: item.mision, vision: item.vision }) }}>Mostrar Contactos</button>
           </div>
 
         ))}
@@ -164,9 +166,9 @@ export const LandingConfig = () => {
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button 
-                type="button" 
-                className="btn btn-warning" 
+              <button
+                type="button"
+                className="btn btn-warning"
                 onClick={editar === 'landing' ? handleUpd : handleUpdContacts}
 
               >

@@ -10,7 +10,7 @@ const CardLanding = ({ filtroFecha }) => {
   const [data, setData] = useState([]);
   const [userExist, setUserExist] = useState(false)
 
-  const {userLogin} = LandingPageHook();
+  const { userLogin } = LandingPageHook();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,15 +23,16 @@ const CardLanding = ({ filtroFecha }) => {
 
 
   const getDatos = async () => {
-    const url = 'http://localhost:3000/api/evento/recientes';
+    // const url = 'http://localhost:3000/api/evento/recientes';
+    const url = `${import.meta.env.VITE_URL}/api/evento/recientes`;
     try {
-      const response = await axios.get(url); 
+      const response = await axios.get(url);
       setData(response.data);
     } catch (error) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: `Error al obtener los eventos: ${error.message}`,
+        text: `Error al obtener los eventos: ${error.message} `,
       });
     }
   };
@@ -50,7 +51,7 @@ const CardLanding = ({ filtroFecha }) => {
         <div key={evento.id} className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
           <div className="card bg-eventos mt-3">
             <img
-              src={`data:${evento.mime_type};base64,${evento.foto}`}
+              src={`data:${evento.mime_type}; base64, ${evento.foto} `}
               className="card-img-top"
               alt="evento"
             />
@@ -61,7 +62,7 @@ const CardLanding = ({ filtroFecha }) => {
               </h6>
               <p className='text-white text-center ff-inter fs-8'>{evento.descripcion}</p>
               {userExist && (
-                <button className="btn btn-primary" onClick={() => navigate(`/muroPrincipal`)}>Ver Detalles</button>
+                <button className="btn btn-primary" onClick={() => navigate(`/ muroPrincipal`)}>Ver Detalles</button>
               )}
             </div>
           </div>
