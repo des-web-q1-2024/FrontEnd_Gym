@@ -78,7 +78,7 @@ const LandingPageHook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:3000/api/validarUsuario/${dataForm.user}/${dataForm.pass}`);
+      const response = await axios.get(`${import.meta.env.VITE_URL}/api/validarUsuario/${dataForm.user}/${dataForm.pass}`);
       const data = response.data;
         console.log(response.data)
       if (data.success) {

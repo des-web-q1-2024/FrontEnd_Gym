@@ -64,7 +64,7 @@ const Eventos = () => {
   };
 
   const handlerActualizar = async () => {
-    const url = `http://localhost:3000/api/evento/${id}`;
+    const url = `${import.meta.env.VITE_URL}/api/evento/${id}`;
     const formData = new FormData();
     formData.append("nombre", form.nombre);
     formData.append("foto", form.foto);
@@ -134,7 +134,7 @@ const Eventos = () => {
   };
 
   const submitHandler = async () => {
-    const url = "http://localhost:3000/api/evento";
+    const url = `${import.meta.env.VITE_URL}/api/evento`;
     const formData = new FormData();
     formData.append("nombre", form.nombre);
     formData.append("foto", form.foto);

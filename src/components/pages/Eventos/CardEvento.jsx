@@ -9,7 +9,7 @@ export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
   const [data, setData] = useState([]);
 
   const getDatos = async () => {
-    const url = 'http://localhost:3000/api/evento';
+    const url = `${import.meta.env.VITE_URL}/api/evento`;
     try {
       const response = await axios.get(url);
       setData(response.data);
@@ -28,7 +28,7 @@ export const CardEvento = ({ contador, handleEditarEvento, filtroFecha }) => {
 
   const handleEliminarPerfil = async (id) => {
     try {
-      const url = `http://localhost:3000/api/evento/${id}`;
+      const url = `${import.meta.env.VITE_URL}/api/evento/${id}`;
       const result = await Swal.fire({
         title: "Seguro que quieres eliminar este evento?",
         text: "Una vez eliminado no se podrá restablecer!",
