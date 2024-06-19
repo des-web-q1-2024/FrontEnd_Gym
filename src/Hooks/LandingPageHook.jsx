@@ -28,7 +28,7 @@ const LandingPageHook = () => {
   /*Funcion para poder llamar al endPoint de getUsuarios mediante su userName y asi tener todos sus datos de la base de datos */
   const userInfo = async () => {
     try {
-      const url = `http://localhost:3000/api/Usuarios/${dataForm.user}`;
+      const url = `${import.meta.env.VITE_URL}/api/Usuarios/${dataForm.user}`;
       const result = await axios.get(url);
       const resulData = result.data;
       let tempRecord = {
@@ -49,7 +49,7 @@ const LandingPageHook = () => {
 
   const getDatos = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/Landing/');
+      const response = await axios.get(`${import.meta.env.VITE_URL}/api/Landing/`);
       const data = response.data
       setInformation(data)
     } catch (error) {
@@ -60,7 +60,7 @@ const LandingPageHook = () => {
   const getContactos = async () => {
     try {
       
-    const response = await axios.get('http://localhost:3000/api/Landing/contactos');
+    const response = await axios.get(`${import.meta.env.VITE_URL}/api/Landing/contactos`);
     const data = response.data;
     setContactos(data);
     } catch (error) {

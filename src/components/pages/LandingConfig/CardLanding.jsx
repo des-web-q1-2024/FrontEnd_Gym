@@ -62,7 +62,7 @@ const CardLanding = ({ filtroFecha }) => {
               </h6>
               <p className='text-white text-center ff-inter fs-8'>{evento.descripcion}</p>
               {userExist && (
-                <button className="btn btn-primary" onClick={() => navigate(`/ muroPrincipal`)}>Ver Detalles</button>
+                <button className="btn btn-primary" onClick={() => navigate(`/MuroPrincipal`)}>Ver Detalles</button>
               )}
             </div>
           </div>
