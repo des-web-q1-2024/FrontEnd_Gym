@@ -13,7 +13,7 @@ const SavedEvents = ({ contador }) => {
   const getSavedEvents = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/Muro/saveEvent/${userLogin.id}`
+       `${import.meta.env.VITE_URL}/api/Muro/saveEvent/${userLogin.id}`
       );
       setSavedEvents(response.data);
     } catch (err) {

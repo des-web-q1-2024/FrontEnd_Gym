@@ -46,7 +46,7 @@ const PostForm = () => {
     console.log(formData);
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/Muro/post",
+       `${import.meta.env.VITE_URL}/api/Muro/post`,
         formData,
         {
           headers: {

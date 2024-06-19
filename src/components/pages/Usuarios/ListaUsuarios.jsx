@@ -19,7 +19,7 @@ const ListaUsuarios = ({ onUsuarioSeleccionado, conteModal }) => {
   const cargarUsuarios = async () => {
     setLoading(true); // Mostrar loader antes de iniciar la carga
     try {
-      const response = await axios.get("http://localhost:3000/api/usuarios");
+      const response = await axios.get(`${import.meta.env.VITE_URL}/api/usuarios`);
       setUsuarios(response.data); // Guardar los usuarios en el estado
     } catch (error) {
       console.error("Error al cargar los usuarios:", error); // Manejo de errores
