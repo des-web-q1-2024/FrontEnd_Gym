@@ -13,7 +13,8 @@ export const GestionCintas = () => {
   const [cintas, setCintas] = useState([]);
   const [cintaEditar, setCintaEditar] = useState(null);
   const [nombreCinta, setNombreCinta] = useState("");
-  const urlBase = "http://localhost:3000/api/cintas";
+  // const urlBase = "http://localhost:3000/api/cintas";
+  const urlBase = `${import.meta.env.VITE_URL}/api/cintas`;
 
   const showAlert = (icon, title, text) => {
     Swal.fire({ icon, title, text, });

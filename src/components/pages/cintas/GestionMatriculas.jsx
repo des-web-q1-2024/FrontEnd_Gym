@@ -17,27 +17,32 @@ export const GestionMatriculas = () => {
   const [fecha, setFecha] = useState("");
   const [idArteMarcial, setIDArteMarcial] = useState(0);
   const [idUsuarios, setIDUsuarios] = useState(0);
-  const urlBase = "http://localhost:3000/api/matriculas";
+  // const urlBase = "http://localhost:3000/api/matriculas";
+  const urlBase = `${import.meta.env.VITE_URL}/api/matriculas`;
 
   const showAlert = (icon, title, text) => {
     Swal.fire({ icon, title, text, });
   };
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString, formatType) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+    if (formatType == "YYYYMMDD") {
+      return `${year}-${month}-${day}`;
+    } else {
+      return `${day}/${month}/${year}`;
+    }
   };
 
-  const formatDateYYYYMMDD = (dateString) => {
-    const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${year}-${month}-${day}`;
-  };
+  // const formatDateYYYYMMDD = (dateString) => {
+  //   const date = new Date(dateString);
+  //   const day = String(date.getDate()).padStart(2, '0');
+  //   const month = String(date.getMonth() + 1).padStart(2, '0');
+  //   const year = date.getFullYear();
+  //   return `${year}-${month}-${day}`;
+  // };
 
   useEffect(() => {
     obtenerArtesMarciales();
@@ -59,7 +64,8 @@ export const GestionMatriculas = () => {
 
   const obtenerArtesMarciales = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/arteMarcial");
+      // const response = await axios.get("http://localhost:3000/api/arteMarcial");
+      const response = await axios.get(`${import.meta.env.VITE_URL}/api/arteMarcial`);
       setOptionsArtesMarciales(response.data);
     } catch (error) {
       console.error("Error al obtener registros:", error);
@@ -68,7 +74,8 @@ export const GestionMatriculas = () => {
 
   const obtenerAlumnos = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/Usuarios");
+      // const response = await axios.get("http://localhost:3000/api/Usuarios");
+      const response = await axios.get(`${import.meta.env.VITE_URL}/api/Usuarios`);
       setOptionsAlumnos(response.data);
     } catch (error) {
       console.error("Error al obtener registros:", error);
@@ -78,7 +85,7 @@ export const GestionMatriculas = () => {
   const handleRegistro = (RegistroAEditar = null) => {
     setEditarRegistro(RegistroAEditar);
     setShowModal(true);
-    setFecha(RegistroAEditar ? formatDateYYYYMMDD(RegistroAEditar.fechainicio) : "");
+    setFecha(RegistroAEditar ? formatDate(RegistroAEditar.fechainicio, "YYYYMMDD") : "");
     setIDArteMarcial(RegistroAEditar ? RegistroAEditar.idartemarcial : idArteMarcial);
     setIDUsuarios(RegistroAEditar ? RegistroAEditar.idusuarios : 0);
   };
@@ -174,7 +181,7 @@ export const GestionMatriculas = () => {
             <tr key={registro.id}>
               <td>{registro.id}</td>
               <td>{registro.arteMarcial}</td>
-              <td>{formatDate(registro.fechainicio)}</td>
+              <td>{formatDate(registro.fechainicio, "DDMMYYYY")}</td>
               <td>{registro.nombre}</td>
               <td>{registro.activo ? "Activo" : "Inactivo"}</td>
               <td>

@@ -25,26 +25,23 @@ export const GestionCintasAlumnos = () => {
   const [idCinta, setIDCinta] = useState(0);
   const [foto, setFoto] = useState(null);
 
-  const urlBase = "http://localhost:3000/api/graduaciones";
+  // const urlBase = "http://localhost:3000/api/graduaciones";
+  const urlBase = `${import.meta.env.VITE_URL}/api/graduaciones`;
 
   const showAlert = (icon, title, text) => {
     Swal.fire({ icon, title, text, });
   };
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString, formatType) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
-  const formatDateYYYYMMDD = (dateString) => {
-    const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${year}-${month}-${day}`;
+    if (formatType == "YYYYMMDD") {
+      return `${year}-${month}-${day}`;
+    } else {
+      return `${day}/${month}/${year}`;
+    }
   };
 
   useEffect(() => {
@@ -85,7 +82,8 @@ export const GestionCintasAlumnos = () => {
 
   const obtenerArtesMarciales = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/arteMarcial");
+      // const response = await axios.get(`http://localhost:3000/api/arteMarcial`);
+      const response = await axios.get(`${import.meta.env.VITE_URL}/api/arteMarcial`);
       setOptionsArtesMarciales(response.data);
     } catch (error) {
       console.error("Error al obtener registros:", error);
@@ -94,7 +92,8 @@ export const GestionCintasAlumnos = () => {
 
   const obtenerCintas = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/cintas");
+      // const response = await axios.get(`http://localhost:3000/api/cintas`);
+      const response = await axios.get(`${import.meta.env.VITE_URL}/api/cintas`);
       setOptionsCintas(response.data);
     } catch (error) {
       console.error("Error al obtener registros:", error);
@@ -102,7 +101,8 @@ export const GestionCintasAlumnos = () => {
   };
 
   const obtenerAlumnos = async (idArteMarcial) => {
-    const endpoint = `http://localhost:3000/api/matriculas/${idArteMarcial}`;
+    // const endpoint = `http://localhost:3000/api/matriculas/${idArteMarcial}`;
+    const endpoint = `${import.meta.env.VITE_URL}/api/matriculas/${idArteMarcial}`;
     try {
       const response = await fetch(endpoint);
       const data = await response.json();
@@ -113,7 +113,8 @@ export const GestionCintasAlumnos = () => {
   };
 
   const obtenerIDMatricula = async (idAlumno) => {
-    const endpoint = `http://localhost:3000/api/matriculas/${idArteMarcial}/${idAlumno}`;
+    // const endpoint = `http://localhost:3000/api/matriculas/${idArteMarcial}/${idAlumno}`;
+    const endpoint = `${import.meta.env.VITE_URL}/api/matriculas/${idArteMarcial}/${idAlumno}`;
     try {
       const response = await fetch(endpoint);
       const data = await response.json();
@@ -127,7 +128,7 @@ export const GestionCintasAlumnos = () => {
   const handleRegistro = (RegistroAEditar = null) => {
     setEditarRegistro(RegistroAEditar);
     setShowModal(true);
-    setFecha(RegistroAEditar ? formatDateYYYYMMDD(RegistroAEditar.fecha) : "");
+    setFecha(RegistroAEditar ? formatDate(RegistroAEditar.fecha, "YYYYMMDD") : "");
     setIDMatricula(RegistroAEditar ? RegistroAEditar.idmatricula : idMatricula);
     setIDCinta(RegistroAEditar ? RegistroAEditar.idcinta : idCinta);
   };
@@ -183,9 +184,9 @@ export const GestionCintasAlumnos = () => {
     }
   };
 
-  const handleFileChange = (e) => {
-    setFoto(e.target.files[0]);
-  };
+  // const handleFileChange = (e) => {
+  //   setFoto(e.target.files[0]);
+  // };
 
   return (
     <>
@@ -240,8 +241,8 @@ export const GestionCintasAlumnos = () => {
           {gridRegistros.map((registro) => (
             <tr key={registro.id}>
               <td>{registro.id}</td>
-              <td>{formatDate(registro.fecha)}</td>
-              <td>{formatDate(registro.fechainicio)}</td>
+              <td>{formatDate(registro.fecha, "DD/MM/YYYY")}</td>
+              <td>{formatDate(registro.fechainicio, "DD/MM/YYYY")}</td>
               <td>{registro.arte_marcial}</td>
               <td>{registro.cinta}</td>
               <td>{registro.nombrealumno}</td>
