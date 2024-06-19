@@ -18,7 +18,8 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
   const [optionsParticipantes, setOptionsParticipantes] = useState([]);
   const [gridRegistros, setGridRegistros] = useState([]);
   const { userLogin, setUserLogin } = useContext(UserContext);
-  const urlBase = 'http://localhost:3000/api/participaciones';
+  // const urlBase = 'http://localhost:3000/api/participaciones';
+  const urlBase = `${import.meta.env.VITE_URL}/api/participaciones`;
 
   const [dataForm, setDataForm] = useState({
     logro: "",
@@ -108,7 +109,8 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
   const [optionsEventos, setOptionsEventos] = useState([]);
   useEffect(() => {
     // URL del endpoint
-    const endpoint = 'http://localhost:3000/api/evento/';
+    // const endpoint = 'http://localhost:3000/api/evento/';
+    const endpoint = `${import.meta.env.VITE_URL}/api/evento/`;
 
     // Función para obtener datos del endpoint
     const fetchData = async () => {
@@ -125,7 +127,8 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
   }, []);
 
   const getDatos = async () => {
-    const url = 'http://localhost:3000/api/evento'
+    // const url = 'http://localhost:3000/api/evento'
+    const url = `${import.meta.env.VITE_URL}/api/evento`
     const response = await axios.get(url)
     setData(response.data)
   }

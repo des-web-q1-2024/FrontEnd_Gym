@@ -10,7 +10,7 @@ const ParticipacionesAlumnos = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [mensaje, setMensaje] = useState("");
   const { userLogin, setUserLogin } = useContext(UserContext);
-  const [form, setForm] = useState({ 
+  const [form, setForm] = useState({
     nombre: "",
     foto: "",
     fecha: "",
@@ -46,7 +46,8 @@ const ParticipacionesAlumnos = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    const url = "http://localhost:3000/api/evento";
+    // const url = "http://localhost:3000/api/evento";
+    const url = `${import.meta.env.VITE_URL}/api/evento`;
     const datosFormulario = new FormData();
 
     datosFormulario.append("nombre", form.nombre);
@@ -61,9 +62,10 @@ const ParticipacionesAlumnos = () => {
 
   const handleRegistrarse = async (eventoId) => {
     try {
-      const url = "http://localhost:3000/api/participaciones";
+      // const url = "http://localhost:3000/api/participaciones";
+      const url = `${import.meta.env.VITE_URL}/api/participaciones`;
       const data = {
-        idusuario: req.params.id, 
+        idusuario: req.params.id,
         idevento: eventoId,
       };
       await axios.post(url, data);
