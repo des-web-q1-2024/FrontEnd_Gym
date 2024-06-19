@@ -19,7 +19,7 @@ const Perfiles = () => {
 
     const obtenerPerfiles = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/api/Perfiles");
+            const response = await axios.get(`${import.meta.env.VITE_URL}/api/Perfiles`);
             setPerfiles(response.data);
         } catch (error) {
             console.error("Error al obtener perfiles:", error);
@@ -58,7 +58,7 @@ const Perfiles = () => {
                 });
             } else {
 
-                await axios.post("http://localhost:3000/api/Perfiles", {
+                await axios.post(`${import.meta.env.VITE_URL}/api/Perfiles`, {
                     nombre: nombrePerfil,
                     activo: true,
                 });
@@ -91,7 +91,7 @@ const Perfiles = () => {
                 });
             } else {
 
-                await axios.put(`http://localhost:3000/api/Perfiles/${perfilEditar.id}`, {
+                await axios.put(`${import.meta.env.VITE_URL}/api/Perfiles/${perfilEditar.id}`, {
                     nombre: nombrePerfil,
                     activo: perfilEditar.activo,
                 });
@@ -116,7 +116,7 @@ const Perfiles = () => {
 
     const handleEliminarPerfil = async (id) => {
         try {
-            await axios.delete(`http://localhost:3000/api/Perfiles/${id}`);
+            await axios.delete(`${import.meta.env.VITE_URL}/api/Perfiles/${id}`);
             obtenerPerfiles();
             Swal.fire({
                 icon: "error",

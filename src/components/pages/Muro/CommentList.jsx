@@ -15,7 +15,7 @@ const CommentList = ({ userId, contador }) => {
     const fetchComments = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/Muro/post/${userId}`
+          `${import.meta.env.VITE_URL}/api/Muro/post/${userId}`
         );
         setComments(response.data);
       } catch (error) {
@@ -30,7 +30,7 @@ const CommentList = ({ userId, contador }) => {
     try {
       const isLiked = likedComments.includes(commentId);
       if (isLiked) {
-        await axios.delete("http://localhost:3000/api/Muro/post/comentario", {
+        await axios.delete(`${import.meta.env.VITE_URL}/api/Muro/post/comentario`, {
           data: {
             idPost: commentId,
             idUsuarios: userId,
@@ -38,7 +38,7 @@ const CommentList = ({ userId, contador }) => {
         });
         setLikedComments(likedComments.filter((id) => id !== commentId));
       } else {
-        await axios.post("http://localhost:3000/api/Muro/post/comentario", {
+        await axios.post(`${import.meta.env.VITE_URL}/api/Muro/post/comentario`, {
           idPost: commentId,
           idUsuarios: userId,
         });
@@ -73,7 +73,7 @@ const CommentList = ({ userId, contador }) => {
     }
 
     try {
-      await axios.post("http://localhost:3000/api/Muro/post/hilo", formData, {
+      await axios.post(`${import.meta.env.VITE_URL}/api/Muro/post/hilo`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -84,7 +84,7 @@ const CommentList = ({ userId, contador }) => {
       setReplyingToUser(null);
 
       const response = await axios.get(
-        `http://localhost:3000/api/Muro/post/${userId}`
+        `${import.meta.env.VITE_URL}/api/Muro/post/${userId}`
       );
       setComments(response.data);
     } catch (error) {
@@ -98,7 +98,7 @@ const CommentList = ({ userId, contador }) => {
     const fetchThreadComments = async (commentId) => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/Muro/post/Hilocomentario/${commentId}`
+         `${import.meta.env.VITE_URL}/api/Muro/post/Hilocomentario/${commentId}`
         );
         setThreadComments((prevThreadComments) => ({
           ...prevThreadComments,

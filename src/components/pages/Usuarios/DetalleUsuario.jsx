@@ -7,7 +7,7 @@ const DetalleUsuario = ({ usuario, onUsuarioEliminado }) => {
   const handleEliminarUsuario = async (event) => {
     event.preventDefault(); // Previene el comportamiento predeterminado del enlace
     try {
-      const response = await axios.delete(`http://localhost:3000/api/usuarios/${usuario.id}`);
+      const response = await axios.delete(`${import.meta.env.VITE_URL}/api/usuarios/${usuario.id}`);
       if (response.status === 200) {
         // Llama a la función pasada por props para actualizar la lista de usuarios en el componente padre
         onUsuarioEliminado(usuario.id);

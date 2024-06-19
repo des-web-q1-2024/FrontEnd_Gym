@@ -11,12 +11,12 @@ export const CardEventos = (props) => {
 
   const getDatos = async () => {
     try {
-      const urlEventos = "http://localhost:3000/api/evento";
+      const urlEventos = `${import.meta.env.VITE_URL}/api/evento`;
       const responseEventos = await axios.get(urlEventos);
       const eventos = responseEventos.data;
 
       const likesPromises = eventos.map(async (evento) => {
-        const urlLikes = `http://localhost:3000/api/Muro/${evento.id}`;
+        const urlLikes = `${import.meta.env.VITE_URL}/api/Muro/${evento.id}`;
         const responseLikes = await axios.get(urlLikes);
         return {
           ...evento,
@@ -44,7 +44,7 @@ export const CardEventos = (props) => {
       let newLikesCount;
 
       if (isLiked) {
-        await axios.delete("http://localhost:3000/api/Muro", {
+        await axios.delete(`${import.meta.env.VITE_URL}/api/Muro`, {
           data: {
             idEvento: id,
             idUsuarios: userLogin.id,
@@ -54,7 +54,7 @@ export const CardEventos = (props) => {
           parseInt(dataMuro.find((evento) => evento.id === id).likes, 10) - 1;
 
       } else {
-        await axios.post("http://localhost:3000/api/Muro", {
+        await axios.post(`${import.meta.env.VITE_URL}/api/Muro`, {
           idEvento: id,
           idUsuarios: userLogin.id,
         });
@@ -96,7 +96,7 @@ export const CardEventos = (props) => {
       console.log(savedEvents.includes(id))
       if (isSaved) {
         console.log('eliminar')
-        await axios.delete("http://localhost:3000/api/Muro/saveEvent", {
+        await axios.delete(`${import.meta.env.VITE_URL}/api/Muro/saveEvent`, {
           data: {
             idEvento: id,
             idUsuarios: userLogin.id,
@@ -109,7 +109,7 @@ export const CardEventos = (props) => {
 
       } else {
      
-        await axios.post("http://localhost:3000/api/Muro/saveEvent", {
+        await axios.post(`${import.meta.env.VITE_URL}/api/Muro/saveEvent`, {
           idEvento: id,
           idUsuarios: userLogin.id,
         });

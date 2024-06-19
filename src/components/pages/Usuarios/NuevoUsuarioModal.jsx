@@ -28,7 +28,7 @@ const NuevoUsuarioModal = ({ isOpen, onRequestClose, onUsuarioCreado, setConteoM
   // Función para cargar perfiles desde la API
   const cargarPerfiles = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/Perfiles');
+      const response = await axios.get(`${import.meta.env.VITE_URL}/api/Perfiles`);
       setPerfiles(response.data);
     } catch (error) {
       console.error('Error al cargar los perfiles:', error);
@@ -59,7 +59,7 @@ const NuevoUsuarioModal = ({ isOpen, onRequestClose, onUsuarioCreado, setConteoM
     formData.append('idPerfil', idPerfil);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/usuarios', formData, {
+      const response = await axios.post(`${import.meta.env.VITE_URL}/api/usuarios`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setConteoModal(conteModal + 1); // Actualiza el conteo de modales
