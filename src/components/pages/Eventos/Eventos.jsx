@@ -191,7 +191,7 @@ const Eventos = () => {
           <div className="card card-evento">
             <div className="row align-items-center">
               <div className="col">
-                <h5 className="card-header text-white ff-inter fw-medium">Mi Eventos</h5>
+                <h5 className="card-header text-white ff-inter fw-medium">Mis Eventos</h5>
               </div>
               <div className="col-lg-10 col-md-10 col-sm-12 col-xs-12 d-flex justify-content-end gap-2">
                 <div className="row">
