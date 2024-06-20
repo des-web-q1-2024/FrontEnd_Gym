@@ -118,15 +118,23 @@ export const LandingConfig = () => {
             <p>{item.mision}</p>
             <p className='fs-3 text-bold'>Vision Actual: </p>
             <p>{item.vision}</p>
-            <button
-              className='btn btn-outline btn-success'
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              onClick={() => setEditar('landing')}
-            >
-              Editar Informacion
-            </button>
-            <button className='btn btn-outline-primary mx-4' onClick={() => { setShowContacts(true); setDataForm({ nosotros: item.nosotros, mision: item.mision, vision: item.vision }) }}>Mostrar Contactos</button>
+            <div className='container text-center col-sm-6 col-md-6'>
+              <div className="row allign-items-start">
+                <div className="col">
+                  <button
+                    className='btn btn-outline-success mt-2'
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    onClick={() => setEditar('landing')}
+                  >
+                    Editar Informacion
+                  </button>
+                </div>
+                <div className="col">
+                  <button className='btn btn-outline-primary mx-4 mt-2' onClick={() => { setShowContacts(true); setDataForm({ nosotros: item.nosotros, mision: item.mision, vision: item.vision }) }}>Mostrar Contactos</button>
+                </div>
+              </div>
+            </div>
           </div>
 
         ))}
