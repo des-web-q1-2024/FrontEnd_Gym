@@ -40,7 +40,7 @@ const Menu = () => {
           <div className="d-flex align-items-center justify-content-between w-100">
             <div className="d-flex align-items-center">
               <img
-                src="src/assets/logo.png"
+                src="/logo.png"
                 alt="Logo"
                 width="50"
                 height="50"
