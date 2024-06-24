@@ -63,7 +63,6 @@ const CardLanding = ({ filtroFecha }) => {
     }
   }
 
-
   const getDatos = async () => {
     // const url = 'http://localhost:3000/api/evento/recientes';
     const url = `${import.meta.env.VITE_URL}/api/evento/recientes`;
