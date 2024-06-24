@@ -9,7 +9,7 @@ const MuroPrincipal = () => {
   const [savedEvent, setSavedEvent] = useState([]);
   const [contador, setContador] = useState(0);
 
-  const [mostrarComponente, setMostrarComponente] = useState("Publicaciones");
+  const [mostrarComponente, setMostrarComponente] = useState("Publicaciones"); 
 
   const handleItemClick = (componente) => {
     setMostrarComponente(componente);

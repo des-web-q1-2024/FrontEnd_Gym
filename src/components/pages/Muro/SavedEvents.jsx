@@ -13,7 +13,7 @@ const SavedEvents = ({ contador }) => {
   const getSavedEvents = async () => {
     try {
       const response = await axios.get(
-       `${import.meta.env.VITE_URL}/api/Muro/saveEvent/${userLogin.id}`
+        `${import.meta.env.VITE_URL}/api/Muro/saveEvent/${userLogin.id}`
       );
       setSavedEvents(response.data);
     } catch (err) {
@@ -44,7 +44,7 @@ const SavedEvents = ({ contador }) => {
         <div className="row">
           <div className="col-12 px-0 right-content">
             <div className="analytics">
-              <h2 className="ms-5">Eventos Guardados</h2>
+              <h2 className="ms-5 text-white-50">Eventos Guardados</h2>
               {isLoading ? (
                 <div className="d-flex justify-content-center">
                   <div className="spinner-border text-primary" role="status">

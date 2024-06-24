@@ -13,7 +13,7 @@ const LeftPanel = ({ handleItemClick }) => {
 
   return (
     <>
-      <nav className="main-menu">
+      <nav className="main-menu text-white-50">
         <div>
           <div className="user-info">
             {userLogin.foto ? (
@@ -62,9 +62,9 @@ const LeftPanel = ({ handleItemClick }) => {
         </div>
         <ul>
           <li className="nav-item">
-            <Link to="/landing">
+            <Link to="/">
               <i className="fa fa-right-from-bracket nav-icon"></i>
-              <span className="nav-text">Logout</span>
+              <span className="nav-text">Regresar</span>
             </Link>
           </li>
         </ul>

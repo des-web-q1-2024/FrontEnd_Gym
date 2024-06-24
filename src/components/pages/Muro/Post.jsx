@@ -46,7 +46,7 @@ const PostForm = () => {
     console.log(formData);
     try {
       const response = await axios.post(
-       `${import.meta.env.VITE_URL}/api/Muro/post`,
+        `${import.meta.env.VITE_URL}/api/Muro/post`,
         formData,
         {
           headers: {
@@ -68,7 +68,7 @@ const PostForm = () => {
     <div className="cardComment">
       <Form onSubmit={handleSubmit}>
         <div className="cardComment v-card v-sheet theme--light elevation-2 ms-3">
-          <span className="headline">¿Qué estás pensando hoy?</span>
+          <span className="headline text-white-50">¿Qué estás pensando hoy?</span>
           <div className="sign-in-wrapper">
             <p className="caption disclaimer">
               <Form.Control

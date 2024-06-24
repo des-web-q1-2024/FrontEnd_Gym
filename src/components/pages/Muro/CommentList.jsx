@@ -98,7 +98,7 @@ const CommentList = ({ userId, contador }) => {
     const fetchThreadComments = async (commentId) => {
       try {
         const response = await axios.get(
-         `${import.meta.env.VITE_URL}/api/Muro/post/Hilocomentario/${commentId}`
+          `${import.meta.env.VITE_URL}/api/Muro/post/Hilocomentario/${commentId}`
         );
         setThreadComments((prevThreadComments) => ({
           ...prevThreadComments,
@@ -123,7 +123,7 @@ const CommentList = ({ userId, contador }) => {
 
   return (
     <div className="comments-container">
-      <h2 className="ms-3">Que escriben los demas... </h2>
+      <h2 className="ms-3  text-white-50">Que escriben los demas... </h2>
       <ul id="comments-list ">
         {comments.map((comment) => (
           <li key={comment.id}>
@@ -182,9 +182,8 @@ const CommentList = ({ userId, contador }) => {
                   onClick={() => handleLike(comment.id)}
                 >
                   <i
-                    className={`fa fa-heart ${
-                      likedComments.includes(comment.id) ? "liked" : ""
-                    }`}
+                    className={`fa fa-heart ${likedComments.includes(comment.id) ? "liked" : ""
+                      }`}
                     title={
                       likedComments.includes(comment.id) ? "Dislike" : "Like"
                     }
@@ -205,11 +204,10 @@ const CommentList = ({ userId, contador }) => {
                   onClick={() => toggleThreadVisibility(comment.id)}
                 >
                   <i
-                    className={`fa ${
-                      visibleThreads[comment.id]
+                    className={`fa ${visibleThreads[comment.id]
                         ? "fa-eye-slash text-danger"
                         : "fa-eye"
-                    }`}
+                      }`}
                     title={
                       visibleThreads[comment.id] ? (
                         <span>Ocultar comentarios</span>
@@ -254,11 +252,10 @@ const CommentList = ({ userId, contador }) => {
                           onClick={() => handleLike(threadComment.id)}
                         >
                           <i
-                            className={`fa fa-heart ${
-                              likedComments.includes(threadComment.id)
+                            className={`fa fa-heart ${likedComments.includes(threadComment.id)
                                 ? "liked"
                                 : ""
-                            }`}
+                              }`}
                             title={
                               likedComments.includes(threadComment.id)
                                 ? "Dislike"

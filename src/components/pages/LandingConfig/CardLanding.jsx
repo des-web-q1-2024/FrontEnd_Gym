@@ -12,6 +12,13 @@ const CardLanding = ({ filtroFecha }) => {
 
   const { userLogin } = LandingPageHook();
   const navigate = useNavigate();
+  const urlBase = `${import.meta.env.VITE_URL}/api/participaciones`;
+
+  const [dataForm, setDataForm] = useState({
+    logro: "",
+    idusuarios: 0,
+    idevento: 0,
+  });
 
   useEffect(() => {
     if (userLogin && userLogin.nombre_usuario) {
@@ -20,6 +27,41 @@ const CardLanding = ({ filtroFecha }) => {
       setUserExist(false);
     }
   }, [userLogin]);
+
+  const handlerSaveParticipacionAlumno = async (_id) => {
+    setDataForm({
+      idusuarios: userLogin.id,
+      idevento: _id,
+      logro: "",
+    });
+
+    let url = `${urlBase}/existe/${dataForm.idevento}/${dataForm.idusuarios}`;
+
+    const result = await axios.get(url);
+    console.log(result)
+    if (result.data[0].existe == 0) {
+      url = urlBase;
+      await axios.post(url, dataForm);
+      Swal.fire({
+        icon: "success",
+        title: "Participación de alumno creada con éxito",
+        showConfirmButton: false,
+        timer: 1700
+      });
+      setDataForm({
+        idusuarios: 0,
+        idevento: 0,
+        logro: "",
+      });
+    } else {
+      Swal.fire({
+        icon: "success",
+        title: "Ya se encuentra inscrito en este evento.",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+  }
 
 
   const getDatos = async () => {
@@ -62,7 +104,15 @@ const CardLanding = ({ filtroFecha }) => {
               </h6>
               <p className='text-white text-center ff-inter fs-8'>{evento.descripcion}</p>
               {userExist && (
-                <button className="btn btn-primary" onClick={() => navigate(`/MuroPrincipal`)}>Ver Detalles</button>
+                <div>
+                  <button className="btn btn-primary" onClick={() => navigate(`/MuroPrincipal`)}>Ver Detalles</button>
+                  <button
+                    type="button"
+                    className="btn btn-success ms-2"
+                    onClick={() => handlerSaveParticipacionAlumno(evento.id)} >
+                    Registrarse
+                  </button>
+                </div>
               )}
             </div>
           </div>
