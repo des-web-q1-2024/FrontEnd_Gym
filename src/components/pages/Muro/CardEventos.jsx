@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import UserContext from "../Usuarios/UserContext";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export const CardEventos = (props) => {
   const [dataMuro, setDataMuro] = useState([]);
@@ -8,6 +9,48 @@ export const CardEventos = (props) => {
   const [likedEvents, setLikedEvents] = useState([]);
   const [savedEvents, setSavedEvents] = useState([]);
   const { userLogin } = useContext(UserContext);
+  const urlBase = `${import.meta.env.VITE_URL}/api/participaciones`;
+
+  const [dataForm, setDataForm] = useState({
+    logro: "",
+    idusuarios: 0,
+    idevento: 0,
+  });
+
+  const handlerSaveParticipacionAlumno = async (_id) => {
+    setDataForm({
+      idusuarios: userLogin.id,
+      idevento: _id,
+      logro: "",
+    });
+
+    let url = `${urlBase}/existe/${dataForm.idevento}/${dataForm.idusuarios}`;
+
+    const result = await axios.get(url);
+    console.log(result)
+    if (result.data[0].existe == 0) {
+      url = urlBase;
+      await axios.post(url, dataForm);
+      Swal.fire({
+        icon: "success",
+        title: "Participación de alumno creada con éxito",
+        showConfirmButton: false,
+        timer: 1700
+      });
+      setDataForm({
+        idusuarios: 0,
+        idevento: 0,
+        logro: "",
+      });
+    } else {
+      Swal.fire({
+        icon: "success",
+        title: "Ya se encuentra inscrito en este evento.",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+  }
 
   const getDatos = async () => {
     try {
@@ -38,7 +81,7 @@ export const CardEventos = (props) => {
   }, []);
 
   const handleLike = async (id) => {
-   // userLogin.id = 19; // Temporal, asegurase de usar el id real del usuario logueado.
+    // userLogin.id = 19; // Temporal, asegurase de usar el id real del usuario logueado.
     try {
       const isLiked = likedEvents.includes(id);
       let newLikesCount;
@@ -89,9 +132,9 @@ export const CardEventos = (props) => {
   };
 
   const handleSave = async (id) => {
-   // userLogin.id = 19; // Temporal, asegúrate de usar el id real del usuario logueado.
+    // userLogin.id = 19; // Temporal, asegúrate de usar el id real del usuario logueado.
     try {
-    
+
       const isSaved = savedEvents.includes(id);
       console.log(savedEvents.includes(id))
       if (isSaved) {
@@ -108,7 +151,7 @@ export const CardEventos = (props) => {
 
 
       } else {
-     
+
         await axios.post(`${import.meta.env.VITE_URL}/api/Muro/saveEvent`, {
           idEvento: id,
           idUsuarios: userLogin.id,
@@ -169,7 +212,7 @@ export const CardEventos = (props) => {
                       onClick={() => handleLike(evento.id)}
                     ></i>
                   </div>
-                  <div className="event-content">
+                  <div className="event-content text-white-50">
                     <h2>{evento.nombre}</h2>
                     <p
                       style={{
@@ -180,7 +223,7 @@ export const CardEventos = (props) => {
                       {evento.descripcion}
                     </p>
                   </div>
-                  <div className="event-footer">
+                  <div className="event-footer text-white-50">
                     <p>
                       <i className="fa-solid fa-comment"></i>{" "}
                     </p>
@@ -197,6 +240,13 @@ export const CardEventos = (props) => {
                     <p>
                       <i className="fa-solid fa-heart"></i> {evento.likes}
                     </p>
+                    <button
+                      type="button"
+                      className="btn btn-success ms-5"
+                      onClick={() => handlerSaveParticipacionAlumno(evento.id)} >
+                      Registrarse
+                    </button>
+
                   </div>
                 </div>
               </div>
