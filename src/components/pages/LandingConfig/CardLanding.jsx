@@ -105,7 +105,7 @@ const CardLanding = ({ filtroFecha }) => {
               {userExist && (
                 <div>
                   <button className="btn btn-primary" onClick={() => navigate(`/MuroPrincipal`)}>Ver Detalles</button>
-                  {userLogin.perfil == "alumno" && userExist ? (
+                  {(userLogin && userLogin.perfil == "alumno") && userExist ? (
                     <button
                       type="button"
                       className="btn btn-success ms-2"
