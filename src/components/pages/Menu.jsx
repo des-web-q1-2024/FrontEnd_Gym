@@ -209,7 +209,7 @@ const Menu = () => {
                     }`}
                 >
                   <Link className="nav-link" to="/">
-                    <BsFillDoorOpenFill className="me-2" onClick={handleLogout} /> Log out
+                    <BsFillDoorOpenFill className="me-2" onClick={handleLogout} /> Salir
                   </Link>
                 </li>
 
