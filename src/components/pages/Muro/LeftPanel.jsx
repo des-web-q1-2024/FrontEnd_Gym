@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import UserContext from "../Usuarios/UserContext";
 import { Link } from "react-router-dom";
 
@@ -33,6 +33,17 @@ const LeftPanel = ({ handleItemClick }) => {
             )}
             <p>{userLogin.nombre}</p>
           </div>
+
+          {userLogin.idperfil != 3 && (
+            <ul>
+              <li className="nav-item mb-5">
+                <Link to="/menu">
+                  <i className="fa fa-home fa-fw nav-icon"></i>
+                  <span className="nav-text ms-3">Menú Prinicpal</span>
+                </Link>
+              </li>
+            </ul>
+          )}
           <ul>
             <li className={`nav-item ${activeIndex === 0 ? "active" : ""}`}>
               <a href="#" onClick={() => handleNavItemClick(0, () => handleItemClick("Publicaciones"))}>
@@ -64,7 +75,7 @@ const LeftPanel = ({ handleItemClick }) => {
           <li className="nav-item">
             <Link to="/">
               <i className="fa fa-right-from-bracket nav-icon"></i>
-              <span className="nav-text">Regresar</span>
+              <span className="nav-text">Landing Page</span>
             </Link>
           </li>
         </ul>
