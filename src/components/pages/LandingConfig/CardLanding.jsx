@@ -105,12 +105,14 @@ const CardLanding = ({ filtroFecha }) => {
               {userExist && (
                 <div>
                   <button className="btn btn-primary" onClick={() => navigate(`/MuroPrincipal`)}>Ver Detalles</button>
-                  <button
-                    type="button"
-                    className="btn btn-success ms-2"
-                    onClick={() => handlerSaveParticipacionAlumno(evento.id)} >
-                    Registrarse
-                  </button>
+                  {userLogin.perfil == "alumno" && userExist ? (
+                    <button
+                      type="button"
+                      className="btn btn-success ms-2"
+                      onClick={() => handlerSaveParticipacionAlumno(evento.id)} >
+                      Registrarse
+                    </button>
+                  ): (<></>)}
                 </div>
               )}
             </div>
