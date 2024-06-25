@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import CardLanding from "./CardLanding";
@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
   const navigate = useNavigate();
+
+  const [isReady, setIsReady] = useState(false)
 
   const {
     show,
@@ -50,11 +52,15 @@ const LandingPage = () => {
     }
   }, [setUserLogin]);
 
-  const navegar = () => {
-    if (userLogin && (userLogin.id === 3 || userLogin.id === 2)){
-      navigate('/menu');
-    } 
-  }
+  useEffect(() => {
+    if(userLogin && userLogin.idperfil){
+      console.log(userLogin)
+      setIsReady(true)
+    }else{
+      setIsReady(false)
+    }
+  }, [])
+
 
   const userName = userLogin && userLogin.nombre_usuario ? userLogin.nombre_usuario : null;
   const userProfileId = userLogin && userLogin.idperfil ? userLogin.idperfil : null;
@@ -75,13 +81,13 @@ const LandingPage = () => {
           </div>
         ) : (
           <div className="container-login text-light" style={{ cursor: 'pointer' }}>
-            <p className='fs-4 text-end'>
+            <p className='fs-5 text-end mx-2'>
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-person-circle mx-2" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                 <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
               </svg>
-              <span onClick={() => navegar()} className='btn' style={{cursor: 'pointer'}}>{userName}</span> 
-              <Button onClick={handleLogout} variant="danger" className="ms-2">Cerrar Sesión</Button>
+             {userName}
+              <Button onClick={handleLogout} variant="danger" className="ms-2 ">Cerrar Sesión</Button>
             </p>
           </div>
         )}
@@ -116,7 +122,7 @@ const LandingPage = () => {
           <section className="events my-5">
             <h2 className="text-center text-uppercase mt-5 mb-3">Eventos Próximos</h2>
             <div className="row">
-                <CardLanding />         
+              <CardLanding />
             </div>
           </section>
         </div>
@@ -134,6 +140,12 @@ const LandingPage = () => {
             </Link>
           </div>
         </section>
+
+        {isReady && userLogin && (userLogin.perfil == "admin" || userLogin.perfil == "maestro") ? (
+           <section className='text-center'>
+            <p className='btn btn-warning' onClick={() => navigate('/Menu')}>ir al menu de administracion</p>
+           </section>
+        ): (<></>)}
       </div>
     </>
   );

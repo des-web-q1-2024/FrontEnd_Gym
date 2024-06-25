@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import UserContext from "../Usuarios/UserContext";
 import { Link } from "react-router-dom";
 
@@ -10,6 +10,10 @@ const LeftPanel = ({ handleItemClick }) => {
     setActiveIndex(index);
     if (action) action();
   };
+
+  useEffect(() => {
+    console.log(userLogin);
+  }, [])
 
   return (
     <>
@@ -34,7 +38,7 @@ const LeftPanel = ({ handleItemClick }) => {
             <p>{userLogin.nombre}</p>
           </div>
 
-          {userLogin.idperfil != 3 && (
+          { (userLogin.perfil == "admin" || userLogin.perfil == "maestro") ? (
             <ul>
               <li className="nav-item mb-5">
                 <Link to="/menu">
@@ -43,7 +47,7 @@ const LeftPanel = ({ handleItemClick }) => {
                 </Link>
               </li>
             </ul>
-          )}
+          ): (<></>)}
           <ul>
             <li className={`nav-item ${activeIndex === 0 ? "active" : ""}`}>
               <a href="#" onClick={() => handleNavItemClick(0, () => handleItemClick("Publicaciones"))}>

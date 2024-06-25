@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import LandingPageHook from '../../../Hooks/LandingPageHook'
 import '../LandingConfig/LandingPage.css'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export const LandingConfig = () => {
 
   const { information, contactos } = LandingPageHook();
+  const navigate = useNavigate();
 
   const [dataForm, setDataForm] = useState({
     nosotros: '',
@@ -133,6 +135,9 @@ export const LandingConfig = () => {
                 <div className="col">
                   <button className='btn btn-outline-primary mx-4 mt-2' onClick={() => { setShowContacts(true); setDataForm({ nosotros: item.nosotros, mision: item.mision, vision: item.vision }) }}>Mostrar Contactos</button>
                 </div>
+          <div className='col'>
+          <button className='btn btn-outline-warning mx-4 mt-2' onClick={() => navigate('/')}>Redirigir a la landing </button>
+          </div>
               </div>
             </div>
           </div>
