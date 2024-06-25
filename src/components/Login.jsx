@@ -74,7 +74,7 @@ function Login({ onLogin }) {
   useEffect(() => {
     if (userLogin) {
       if (userLogin.idperfil === 3) {
-        navigate("/");
+        navigate("/MuroPrincipal");
       } else if (userLogin.idperfil === 1 || userLogin.idperfil === 2) {
         navigate("/menu");
       }
