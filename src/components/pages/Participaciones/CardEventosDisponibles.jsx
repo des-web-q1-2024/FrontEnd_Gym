@@ -35,10 +35,6 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
 
     dataForm.idevento = eventoID;
 
-    // alert(dataForm.idevento);
-    // alert(dataForm.idusuarios);
-    // alert(dataForm.logro);
-
     let url = `${urlBase}/${eventoID}/${dataForm.idusuarios}`;
     const result = await axios.get(url);
     const resulData = (await result).data;
@@ -47,7 +43,7 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
     url = `${urlBase}/${resulData[0].id}`;
     await axios.put(url, {
       id: resulData[0].id,
-      logro: dataForm.logro.toUpperCase(),
+      logro: dataForm.logro,
     });
     Swal.fire({
       icon: "success",
@@ -55,6 +51,7 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
       showConfirmButton: false,
       timer: 1700
     });
+    fetchDataEventAl(eventoID);
     limpiarCampos();
 
   }
