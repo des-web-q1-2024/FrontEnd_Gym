@@ -33,13 +33,22 @@ export const CardEventosDisponibles = ({ contador, handleEditarEvento, isButtonV
   const handlerSubmit = async (e) => {
     e.preventDefault();
 
+    dataForm.idevento = eventoID;
+
+    // alert(dataForm.idevento);
+    // alert(dataForm.idusuarios);
+    // alert(dataForm.logro);
+
     let url = `${urlBase}/${eventoID}/${dataForm.idusuarios}`;
     const result = await axios.get(url);
     const resulData = (await result).data;
 
     dataForm.idevento = eventoID;
     url = `${urlBase}/${resulData[0].id}`;
-    await axios.put(url, dataForm);
+    await axios.put(url, {
+      id: resulData[0].id,
+      logro: dataForm.logro.toUpperCase(),
+    });
     Swal.fire({
       icon: "success",
       title: "Logro registrado con éxito",
